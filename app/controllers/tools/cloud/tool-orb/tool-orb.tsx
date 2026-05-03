@@ -79,7 +79,7 @@ export const ToolOrb = clientEntry<ToolOrbProps>(
             '--tool-size': `${size}px`,
             '--tool-tilt': `${tilt}deg`,
             '--tool-transform-active':
-              'translate(var(--tool-x), var(--tool-y)) rotate(0deg) scale(1.44)',
+              'translate(var(--tool-x), var(--tool-y)) rotate(0deg) scale(1.34)',
             '--tool-transform-rest':
               'translate(var(--tool-x), var(--tool-y)) rotate(var(--tool-tilt)) scale(1)',
             '--tool-x': `${x}px`,
@@ -192,12 +192,12 @@ export const ToolOrb = clientEntry<ToolOrbProps>(
                 margin: 0,
                 transform: 'none',
                 '&:focus-visible, &[data-active="true"]': {
-                  transform: 'scale(1.2)',
+                  transform: 'scale(1.14)',
                 },
               },
               '@media (max-width: 620px) and (hover: hover) and (pointer: fine)': {
                 '&:hover': {
-                  transform: 'scale(1.2)',
+                  transform: 'scale(1.14)',
                 },
               },
             }),
@@ -223,8 +223,8 @@ export const ToolOrb = clientEntry<ToolOrbProps>(
           <div
             class='tool-surface'
             mix={css({
-              width: 'calc(var(--tool-size) * 0.78)',
-              height: 'calc(var(--tool-size) * 0.78)',
+              width: 'calc(var(--tool-size) * 0.82)',
+              height: 'calc(var(--tool-size) * 0.82)',
               display: 'grid',
               placeItems: 'center',
               borderRadius: theme.radius.full,
@@ -233,8 +233,8 @@ export const ToolOrb = clientEntry<ToolOrbProps>(
               boxShadow: 'inset 0 1px 0 rgb(255 255 255 / 0.1), 0 18px 34px rgb(0 0 0 / 0.18)',
               transition: spring.transition(['background', 'border-color', 'box-shadow'], 'smooth'),
               '@media (max-width: 620px)': {
-                width: 'calc(var(--tool-mobile-size) * 0.78)',
-                height: 'calc(var(--tool-mobile-size) * 0.78)',
+                width: 'calc(var(--tool-mobile-size) * 0.82)',
+                height: 'calc(var(--tool-mobile-size) * 0.82)',
               },
             })}
           >
