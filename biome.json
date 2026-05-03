@@ -13,6 +13,7 @@
   "javascript": {
     "formatter": {
       "attributePosition": "multiline",
+      "expand": "auto",
       "quoteStyle": "single",
       "jsxQuoteStyle": "single",
       "semicolons": "asNeeded",

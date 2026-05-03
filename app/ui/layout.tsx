@@ -20,7 +20,7 @@ export const Layout = () => {
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',
-          overflow: 'hidden',
+          overflowX: 'hidden',
           '&::before': {
             content: '""',
             position: 'fixed',
