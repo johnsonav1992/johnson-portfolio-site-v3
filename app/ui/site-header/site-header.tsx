@@ -1,5 +1,6 @@
 import { css } from 'remix/ui'
 
+import { mediaPath } from '../../data/media.ts'
 import { navigation, site } from '../../data/site.ts'
 import { routes } from '../../routes.ts'
 import { appLink, focusRing, sectionWrap, theme } from '../../theme/styles.ts'
@@ -45,7 +46,7 @@ export function SiteHeader() {
           ]}
         >
           <img
-            src={routes.media.href({ path: site.logo.image })}
+            src={mediaPath(site.logo.image)}
             alt={site.logo.alt}
             mix={css({
               width: '42px',

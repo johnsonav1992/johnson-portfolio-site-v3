@@ -1,7 +1,7 @@
 import { css } from 'remix/ui'
 
+import { mediaPath } from '../../../../data/media.ts'
 import { site } from '../../../../data/site.ts'
-import { routes } from '../../../../routes.ts'
 
 export function Portrait() {
   return () => (
@@ -23,7 +23,7 @@ export function Portrait() {
       })}
     >
       <img
-        src={routes.media.href({ path: site.portrait.image })}
+        src={mediaPath(site.portrait.image)}
         alt={site.portrait.alt}
         mix={css({
           position: 'relative',

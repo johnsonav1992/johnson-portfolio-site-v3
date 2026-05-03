@@ -1,6 +1,6 @@
 import { css } from 'remix/ui'
 
-import { routes } from '../../../../routes.ts'
+import { mediaPath } from '../../../../data/media.ts'
 import { theme } from '../../../../theme/styles.ts'
 import type { WorkItem } from '../../../../types/types.ts'
 import { bodyCopyStyles } from '../../components/styles.ts'
@@ -25,7 +25,7 @@ export function ProjectCard() {
       })}
     >
       <img
-        src={routes.media.href({ path: project.image })}
+        src={mediaPath(project.image)}
         alt=''
         style={project.objectPosition ? { objectPosition: project.objectPosition } : undefined}
         mix={css({

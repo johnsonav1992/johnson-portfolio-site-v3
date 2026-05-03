@@ -32,7 +32,7 @@ export const homeContent = {
   hero: {
     eyebrow: 'Full-stack web developer',
     heading: 'Alex Johnson',
-    body: 'Fullstack developer building modern applications for the web with AI integration and a focus on performance, accessibility, and powerful user experiences.',
+    body: 'Fullstack developer building modern applications for the web with AI integration and a focus on performance and a powerful user experience.',
     primaryAction: { label: 'View Work', href: '#work' },
     secondaryAction: { label: 'Contact', href: '#contact' },
   },
