@@ -4,7 +4,8 @@ Portfolio site for Alex Johnson, built with Remix 3.
 
 ## App Shape
 
-- `app/controllers/home.tsx` owns the home page.
+- `app/controllers/home/controller.tsx` owns the home route.
+- `app/controllers/home/` holds route-owned home page sections and UI helpers.
 - `app/data/` owns CMS-style site copy, navigation, social links, and project metadata.
 - `app/routes.ts` defines the route contract.
 - `app/router.ts` wires routes to handlers.
@@ -14,7 +15,7 @@ Portfolio site for Alex Johnson, built with Remix 3.
 
 ## Growing The App
 
-- Start with flat route files and only introduce route folders when a route needs multiple actions or route-owned modules.
+- Start with flat route files and introduce route folders when a route needs route-owned modules.
 - Add directories like `app/data/`, `app/middleware/`, `public/`, or `test/` when the app actually needs them.
 - Move shared UI into `app/ui/` once more than one route needs it.
 

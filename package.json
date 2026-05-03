@@ -3,7 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "check": "biome check .",
     "dev": "tsx watch server.ts",
+    "format": "biome check --write .",
+    "lint": "biome lint .",
     "start": "tsx server.ts",
     "test": "tsx --test",
     "typecheck": "tsc --noEmit"
@@ -16,6 +19,7 @@
     "tsx": "latest"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.14",
     "@types/node": "latest",
     "typescript": "latest"
   }

@@ -1,3 +1,5 @@
+import type { SocialLink } from '../types/types.ts'
+
 export const site = {
   name: 'Alex Johnson',
   title: 'Alex Johnson - Web Developer',
@@ -21,16 +23,16 @@ export const navigation = [
   { label: 'Contact', href: '/#contact' },
 ]
 
-export const socials = [
-  { label: 'GitHub', href: 'https://github.com/johnsonav1992' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/johnsonav/' },
+export const socials: SocialLink[] = [
+  { label: 'GitHub', href: 'https://github.com/johnsonav1992', icon: 'github' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/johnsonav/', icon: 'linkedin' },
 ]
 
 export const homeContent = {
   hero: {
     eyebrow: 'Full-stack web developer',
     heading: 'Alex Johnson',
-    body: 'I build full-stack web apps with TypeScript, React, Remix, Node.js, and a focus on clean, usable interfaces.',
+    body: 'Fullstack developer building modern applications for the web with AI integration and a focus on performance, accessibility, and powerful user experiences.',
     primaryAction: { label: 'View Work', href: '#work' },
     secondaryAction: { label: 'Contact', href: '#contact' },
   },
@@ -41,6 +43,6 @@ export const homeContent = {
   },
   contact: {
     eyebrow: 'Contact',
-    heading: 'Have a project or role that fits?',
+    heading: 'Looking to bring your project to life?',
   },
 }

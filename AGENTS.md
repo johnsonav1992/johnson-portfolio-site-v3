@@ -18,7 +18,8 @@ Refer to ./agents/skills/remix/SKILL.md
 
 ## Current Layout
 
-- `app/controllers/home.tsx` owns the home page
+- `app/controllers/home/controller.tsx` owns the home route
+- `app/controllers/home/` holds route-owned home page sections and UI helpers
 - `app/data/` owns CMS-style site copy, navigation, social links, and project metadata
 - `app/routes.ts` defines the route contract
 - `app/router.ts` wires routes to route handlers
@@ -29,7 +30,7 @@ Refer to ./agents/skills/remix/SKILL.md
 ## Route Ownership
 
 - Start from `app/routes.ts` and map each route to the narrowest owner on disk.
-- Keep simple pages in flat files like `app/controllers/home.tsx`.
+- Keep simple pages in flat files until they need route-owned modules.
 - Promote a route into a controller folder with `controller.tsx` only when it gains nested routes, multiple actions, or route-owned modules.
 - Keep route-owned page modules next to the route that owns them.
 - Move shared UI to `app/ui/`, not `app/controllers/`.

@@ -1,6 +1,6 @@
 import { createTheme, RMX_01, theme } from 'remix/ui/theme'
 
-export const PortfolioTheme = createTheme({
+export const Theme = createTheme({
   ...RMX_01.values,
   radius: {
     ...RMX_01.values.radius,

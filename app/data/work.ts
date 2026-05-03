@@ -6,6 +6,7 @@ export const largeProjects: WorkItem[] = [
     name: 'Dupre Music Designs',
     route: 'dupre-music-designs',
     image: 'dupre-music-designs.png',
+    featured: true,
     prodLink: 'https://dupremusicdesigns.com',
     technologies: ['React', 'Next.js', 'Panda CSS', 'Base UI', 'Strapi CMS'],
     description: 'Official site for Scott Dupre, Arranger and Composer.',
@@ -15,6 +16,7 @@ export const largeProjects: WorkItem[] = [
     name: 'Yardvark',
     route: 'yardvark',
     image: 'yardvark.png',
+    featured: true,
     prodLink: 'https://yardvark.app',
     technologies: [
       'Angular',
@@ -32,6 +34,7 @@ export const largeProjects: WorkItem[] = [
     name: 'A1 Sprinkler Repair',
     route: 'a1-sprinkler-repair',
     image: 'a1-sprinkler-repair.png',
+    featured: true,
     repoLink: 'https://github.com/johnsonav1992/a1-sprinkler-repair',
     prodLink: 'https://www.a1sprinklerrepair.com',
     technologies: ['Astro', 'TypeScript'],
@@ -105,7 +108,8 @@ export const smallProjects: WorkItem[] = [
     prodLink: 'https://memoryfun.netlify.app',
     repoLink: 'https://github.com/johnsonav1992/memory-fun',
     technologies: ['React', 'TypeScript', 'MUI Joy', 'Jotai'],
-    description: 'A fun memory game for one or two players. Can choose between different card sets!',
+    description:
+      'A fun memory game for one or two players. Can choose between different card sets!',
   },
   {
     id: 'tungsten-carbide',
@@ -117,6 +121,7 @@ export const smallProjects: WorkItem[] = [
     technologies: ['JSON', 'VS Code Theming'],
     description: 'My first theme for VS Code - A sleek dark theme with a pop of neon',
     objectPosition: 'left top',
+    featured: true,
   },
   {
     id: 'calc',
@@ -168,4 +173,6 @@ export const smallProjects: WorkItem[] = [
   },
 ]
 
-export const featuredProjects = largeProjects.slice(0, 4)
+export const projects = [...largeProjects, ...smallProjects]
+
+export const featuredProjects = projects.filter((project) => project.featured)
