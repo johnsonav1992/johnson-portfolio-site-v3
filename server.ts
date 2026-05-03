@@ -23,7 +23,7 @@ console.log(`Server listening on http://localhost:${server.port}`)
 
 let shuttingDown = false
 
-function shutdown() {
+const shutdown = () => {
   if (shuttingDown) {
     return
   }

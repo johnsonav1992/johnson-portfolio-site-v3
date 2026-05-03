@@ -5,7 +5,7 @@ import { appLink, focusRing, theme } from '../../../theme/styles.ts'
 import type { SocialIconName } from '../../../types/types.ts'
 import { SocialIcon } from '../../social-icon/social-icon.tsx'
 
-export function FooterLink() {
+export const FooterLink = () => {
   return ({ href, label, icon }: { href: string; label: string; icon: SocialIconName }) => (
     <a
       href={href}

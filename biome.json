@@ -12,6 +12,7 @@
   },
   "javascript": {
     "formatter": {
+      "attributePosition": "multiline",
       "quoteStyle": "single",
       "jsxQuoteStyle": "single",
       "semicolons": "asNeeded",
@@ -21,7 +22,15 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "complexity": {
+        "useArrowFunction": "error"
+      },
+      "style": {
+        "noDefaultExport": "error",
+        "useImportType": "error",
+        "useSelfClosingElements": "error"
+      }
     }
   }
 }

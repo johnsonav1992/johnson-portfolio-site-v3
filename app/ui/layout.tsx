@@ -11,7 +11,7 @@ export interface LayoutProps {
   title?: string
 }
 
-export function Layout() {
+export const Layout = () => {
   return ({ title, children }: LayoutProps) => (
     <Document title={title}>
       <div

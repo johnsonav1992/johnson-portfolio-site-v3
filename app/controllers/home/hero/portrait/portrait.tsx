@@ -3,7 +3,7 @@ import { css } from 'remix/ui'
 import { mediaPath } from '../../../../data/media.ts'
 import { site } from '../../../../data/site.ts'
 
-export function Portrait() {
+export const Portrait = () => {
   return () => (
     <div
       mix={css({

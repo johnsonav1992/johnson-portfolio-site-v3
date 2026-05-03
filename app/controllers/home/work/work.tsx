@@ -8,7 +8,7 @@ import { SectionLabel } from '../components/section-label/section-label.tsx'
 import { sectionHeading } from '../components/styles.ts'
 import { ProjectCard } from './project-card/project-card.tsx'
 
-export function Work() {
+export const Work = () => {
   return () => (
     <section
       id='work'
@@ -34,7 +34,10 @@ export function Work() {
           <SectionLabel>{homeContent.work.eyebrow}</SectionLabel>
           <h2 mix={sectionHeading}>{homeContent.work.heading}</h2>
         </div>
-        <SecondaryLink href={homeContent.work.action.href} label={homeContent.work.action.label} />
+        <SecondaryLink
+          href={homeContent.work.action.href}
+          label={homeContent.work.action.label}
+        />
       </div>
       <div
         mix={css({
@@ -45,7 +48,10 @@ export function Work() {
         })}
       >
         {featuredProjects.map((project) => (
-          <ProjectCard key={project.name} project={project} />
+          <ProjectCard
+            key={project.name}
+            project={project}
+          />
         ))}
       </div>
     </section>

@@ -6,7 +6,7 @@ import { routes } from '../../routes.ts'
 import { appLink, focusRing, sectionWrap, theme } from '../../theme/styles.ts'
 import { NavItem } from './nav-item/nav-item.tsx'
 
-export function SiteHeader() {
+export const SiteHeader = () => {
   return () => (
     <header
       mix={css({
@@ -71,7 +71,11 @@ export function SiteHeader() {
           })}
         >
           {navigation.map((item) => (
-            <NavItem key={item.href} href={item.href} label={item.label} />
+            <NavItem
+              key={item.href}
+              href={item.href}
+              label={item.label}
+            />
           ))}
         </div>
       </nav>

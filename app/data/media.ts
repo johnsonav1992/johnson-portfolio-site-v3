@@ -1,3 +1,3 @@
-export function mediaPath(fileName: string) {
+export const mediaPath = (fileName: string) => {
   return `/media/${fileName}`
 }

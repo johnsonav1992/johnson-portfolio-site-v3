@@ -3,7 +3,7 @@ import { Contact } from './contact/contact.tsx'
 import { Hero } from './hero/hero.tsx'
 import { Work } from './work/work.tsx'
 
-export function HomePage() {
+export const HomePage = () => {
   return () => (
     <Layout>
       <Hero />

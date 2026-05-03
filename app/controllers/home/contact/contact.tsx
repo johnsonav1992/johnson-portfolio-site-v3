@@ -6,7 +6,7 @@ import { SecondaryLink } from '../components/secondary-link/secondary-link.tsx'
 import { SectionLabel } from '../components/section-label/section-label.tsx'
 import { sectionHeading } from '../components/styles.ts'
 
-export function Contact() {
+export const Contact = () => {
   return () => (
     <section
       id='contact'
@@ -30,7 +30,10 @@ export function Contact() {
         <SectionLabel>{homeContent.contact.eyebrow}</SectionLabel>
         <h2 mix={sectionHeading}>{homeContent.contact.heading}</h2>
       </div>
-      <SecondaryLink href={`mailto:${site.email}`} label={site.email} />
+      <SecondaryLink
+        href={`mailto:${site.email}`}
+        label={site.email}
+      />
     </section>
   )
 }

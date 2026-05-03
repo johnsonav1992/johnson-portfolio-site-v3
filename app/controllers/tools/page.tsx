@@ -1,15 +1,13 @@
 import { toolsContent } from '../../data/tools.ts'
 import { Layout } from '../../ui/layout.tsx'
-import { ToolCloud } from './cloud/tool-cloud.tsx'
 import { ToolsHero } from './hero/tools-hero.tsx'
-import { ToolsLegend } from './legend/tools-legend.tsx'
+import { ToolsExperience } from './tools-experience.client.tsx'
 
-export function ToolsPage() {
+export const ToolsPage = () => {
   return () => (
     <Layout title={toolsContent.title}>
       <ToolsHero />
-      <ToolCloud />
-      <ToolsLegend />
+      <ToolsExperience />
     </Layout>
   )
 }

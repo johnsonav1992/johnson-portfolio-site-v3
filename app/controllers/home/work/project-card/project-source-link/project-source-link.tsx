@@ -2,7 +2,7 @@ import { appLink } from '../../../../../theme/styles.ts'
 import { GithubIcon } from '../../../../../ui/social-icon/github-icon/github-icon.tsx'
 import { projectActionLinkStyle } from '../action-link-styles.ts'
 
-export function ProjectSourceLink() {
+export const ProjectSourceLink = () => {
   return ({ href, projectName }: { href: string; projectName: string }) => (
     <a
       href={href}

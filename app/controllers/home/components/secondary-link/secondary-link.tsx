@@ -2,7 +2,7 @@ import { css } from 'remix/ui'
 
 import { appLink, focusRing, theme } from '../../../../theme/styles.ts'
 
-export function SecondaryLink() {
+export const SecondaryLink = () => {
   return ({ href, label }: { href: string; label: string }) => (
     <a
       href={href}

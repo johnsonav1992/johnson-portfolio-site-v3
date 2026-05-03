@@ -2,7 +2,7 @@ import { css, type RemixNode } from 'remix/ui'
 
 import { portfolio, theme } from '../../../../theme/styles.ts'
 
-export function SectionLabel() {
+export const SectionLabel = () => {
   return ({ children }: { children: RemixNode }) => (
     <p
       mix={css({

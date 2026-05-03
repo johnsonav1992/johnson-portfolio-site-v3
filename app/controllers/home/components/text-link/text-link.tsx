@@ -3,7 +3,7 @@ import { Glyph } from 'remix/ui/glyph'
 
 import { appLink, focusRing, theme } from '../../../../theme/styles.ts'
 
-export function TextLink() {
+export const TextLink = () => {
   return ({ href, label }: { href: string; label: string }) => (
     <a
       href={href}

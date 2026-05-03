@@ -9,7 +9,7 @@ import { TextLink } from '../../components/text-link/text-link.tsx'
 import { ProjectLiveLink } from './project-live-link/project-live-link.tsx'
 import { ProjectSourceLink } from './project-source-link/project-source-link.tsx'
 
-export function ProjectCard() {
+export const ProjectCard = () => {
   return ({ project }: { project: WorkItem }) => (
     <article
       mix={css({
@@ -61,12 +61,23 @@ export function ProjectCard() {
           })}
         >
           {project.prodLink ? (
-            <ProjectLiveLink href={project.prodLink} projectName={project.name} />
+            <ProjectLiveLink
+              href={project.prodLink}
+              projectName={project.name}
+            />
           ) : null}
           {project.repoLink ? (
-            <ProjectSourceLink href={project.repoLink} projectName={project.name} />
+            <ProjectSourceLink
+              href={project.repoLink}
+              projectName={project.name}
+            />
           ) : null}
-          {project.videoLink ? <TextLink href={project.videoLink} label='Video' /> : null}
+          {project.videoLink ? (
+            <TextLink
+              href={project.videoLink}
+              label='Video'
+            />
+          ) : null}
         </div>
       </div>
     </article>

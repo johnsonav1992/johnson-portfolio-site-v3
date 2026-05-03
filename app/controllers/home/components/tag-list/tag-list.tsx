@@ -2,7 +2,7 @@ import { css } from 'remix/ui'
 
 import { theme } from '../../../../theme/styles.ts'
 
-export function TagList() {
+export const TagList = () => {
   return ({ values }: { values: string[] }) => (
     <ul
       mix={css({

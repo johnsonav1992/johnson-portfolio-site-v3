@@ -4,7 +4,7 @@ import { site, socials } from '../../data/site.ts'
 import { sectionWrap, theme } from '../../theme/styles.ts'
 import { FooterLink } from './footer-link/footer-link.tsx'
 
-export function SiteFooter() {
+export const SiteFooter = () => {
   return () => (
     <footer
       mix={[
@@ -42,7 +42,12 @@ export function SiteFooter() {
       </div>
       <div mix={css({ display: 'flex', alignItems: 'center', gap: '16px' })}>
         {socials.map((item) => (
-          <FooterLink key={item.href} href={item.href} label={item.label} icon={item.icon} />
+          <FooterLink
+            key={item.href}
+            href={item.href}
+            label={item.label}
+            icon={item.icon}
+          />
         ))}
       </div>
     </footer>

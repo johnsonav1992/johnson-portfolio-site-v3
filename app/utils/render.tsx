@@ -1,11 +1,34 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import type { RemixNode } from 'remix/ui'
 import { renderToStream } from 'remix/ui/server'
 
+import { assets } from '../assets.ts'
 import { router } from '../router.ts'
 
-export function render(node: RemixNode, request: Request, init?: ResponseInit) {
+export const render = (node: RemixNode, request: Request, init?: ResponseInit) => {
   const stream = renderToStream(node, {
     frameSrc: request.url,
+    async resolveClientEntry(entryId, component) {
+      const [href, exportName = component.name] = entryId.split('#')
+
+      if (!href || !exportName) {
+        throw new Error(`Unable to resolve client entry "${entryId}"`)
+      }
+
+      if (href.startsWith('file://')) {
+        const filePath = fileURLToPath(href)
+        const relativePath = path.relative(process.cwd(), filePath).split(path.sep).join('/')
+
+        return {
+          href: await assets.getHref(relativePath),
+          exportName,
+        }
+      }
+
+      return { href, exportName }
+    },
     async resolveFrame(src, target) {
       const headers = new Headers({ accept: 'text/html' })
       const cookie = request.headers.get('cookie')

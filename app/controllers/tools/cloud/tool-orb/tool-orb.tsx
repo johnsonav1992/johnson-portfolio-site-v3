@@ -1,17 +1,37 @@
-import { css } from 'remix/ui'
+import { css, on } from 'remix/ui'
 import { animateEntrance, spring } from 'remix/ui/animation'
 
 import { mediaPath } from '../../../../data/media.ts'
 import { focusRing, theme } from '../../../../theme/styles.ts'
-import type { ToolItem } from '../../../../types/types.ts'
+import type { ToolCategory, ToolItem } from '../../../../types/types.ts'
 
-export function ToolOrb() {
-  return ({ tool, x, y, size }: { tool: ToolItem; x: number; y: number; size: number }) => (
+export interface ToolOrbProps {
+  onSelectCategory?: (category: ToolCategory) => void
+  persistentLabel?: boolean
+  size: number
+  subdued?: boolean
+  tool: ToolItem
+  x: number
+  y: number
+}
+
+export const ToolOrb = () => {
+  return ({
+    onSelectCategory,
+    persistentLabel = false,
+    size,
+    subdued = false,
+    tool,
+    x,
+    y,
+  }: ToolOrbProps) => (
     <button
       type='button'
       aria-label={tool.name}
       style={
         {
+          '--tool-opacity': subdued ? '0.22' : '1',
+          '--tool-scale': subdued ? '0.9' : '1',
           '--tool-size': `${size}px`,
           '--tool-x': `${x}px`,
           '--tool-y': `${y}px`,
@@ -32,12 +52,14 @@ export function ToolOrb() {
           marginLeft: 'calc(var(--tool-size) / -2)',
           marginTop: 'calc((var(--tool-size) + 36px) / -2)',
           isolation: 'isolate',
-          transform: 'translate(var(--tool-x), var(--tool-y)) rotate(var(--tool-tilt))',
-          transition: spring.transition(['transform', 'filter'], 'bouncy'),
+          opacity: 'var(--tool-opacity)',
+          transform:
+            'translate(var(--tool-x), var(--tool-y)) rotate(var(--tool-tilt)) scale(var(--tool-scale))',
+          transition: spring.transition(['transform', 'filter', 'opacity'], 'bouncy'),
           outline: 'none',
           border: 0,
           color: 'inherit',
-          cursor: 'default',
+          cursor: 'pointer',
           background: 'transparent',
           '&::before': {
             content: '""',
@@ -55,6 +77,7 @@ export function ToolOrb() {
             zIndex: 4,
             transform: 'translate(var(--tool-x), var(--tool-y)) rotate(0deg) scale(1.38)',
             filter: 'drop-shadow(0 18px 28px rgb(0 0 0 / 0.34))',
+            opacity: 1,
           },
           '&:hover::before, &:focus-visible::before': {
             opacity: 0.72,
@@ -76,11 +99,13 @@ export function ToolOrb() {
             left: 'auto',
             margin: 0,
             transform: 'none',
+            opacity: 'var(--tool-opacity)',
             '&:hover, &:focus-visible': {
               transform: 'scale(1.2)',
             },
           },
         }),
+        on('click', () => onSelectCategory?.(tool.category)),
         animateEntrance({
           opacity: 0,
           transform: 'translateY(20px) scale(0.92)',
@@ -133,6 +158,14 @@ export function ToolOrb() {
       </div>
       <span
         class='tool-label'
+        style={
+          persistentLabel
+            ? {
+                opacity: 1,
+                transform: 'translateX(-50%)',
+              }
+            : undefined
+        }
         mix={css({
           minHeight: '22px',
           position: 'absolute',

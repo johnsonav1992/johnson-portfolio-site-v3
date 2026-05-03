@@ -4,7 +4,7 @@ import { animateEntrance, spring } from 'remix/ui/animation'
 import { toolsContent } from '../../../data/tools.ts'
 import { portfolio, sectionWrap, theme } from '../../../theme/styles.ts'
 
-export function ToolsHero() {
+export const ToolsHero = () => {
   return () => (
     <section
       mix={[

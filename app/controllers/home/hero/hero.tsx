@@ -7,7 +7,7 @@ import { SecondaryLink } from '../components/secondary-link/secondary-link.tsx'
 import { SectionLabel } from '../components/section-label/section-label.tsx'
 import { Portrait } from './portrait/portrait.tsx'
 
-export function Hero() {
+export const Hero = () => {
   return () => (
     <section
       mix={[

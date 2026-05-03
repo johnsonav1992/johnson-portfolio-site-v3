@@ -4,7 +4,7 @@ import { Glyph } from 'remix/ui/glyph'
 import { appLink } from '../../../../../theme/styles.ts'
 import { projectActionLinkStyle } from '../action-link-styles.ts'
 
-export function ProjectLiveLink() {
+export const ProjectLiveLink = () => {
   return ({ href, projectName }: { href: string; projectName: string }) => (
     <a
       href={href}
