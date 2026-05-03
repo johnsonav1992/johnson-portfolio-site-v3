@@ -2,6 +2,7 @@ import { createRouter } from 'remix/fetch-router'
 import { staticFiles } from 'remix/static-middleware'
 
 import { assets } from './assets.ts'
+import { contact } from './controllers/contact/controller.tsx'
 import { home } from './controllers/home/controller.tsx'
 import { tools } from './controllers/tools/controller.tsx'
 import { work } from './controllers/work/controller.tsx'
@@ -24,5 +25,6 @@ router.get(routes.assets, async ({ request }) => {
 })
 
 router.map(routes.home, home)
+router.map(routes.contact, contact)
 router.map(routes.tools, tools)
 router.map(routes.work, work)

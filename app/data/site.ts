@@ -29,7 +29,7 @@ export const navigation = [
   },
   {
     label: 'Contact',
-    href: '/#contact',
+    href: '/contact',
   },
 ]
 
@@ -50,14 +50,14 @@ export const homeContent = {
   hero: {
     eyebrow: 'Full-stack web developer',
     heading: 'Alex Johnson',
-    body: 'Fullstack developer building modern applications for the web with AI integration and a focus on performance and a powerful user experience.',
+    body: 'Fullstack developer building modern applications for the web with AI integration and a focus on performance and powerful user experiences.',
     primaryAction: {
       label: 'View Work',
       href: '#work',
     },
     secondaryAction: {
       label: 'Contact',
-      href: '#contact',
+      href: '/contact',
     },
   },
   work: {
@@ -72,4 +72,23 @@ export const homeContent = {
     eyebrow: 'Contact',
     heading: 'Looking to bring your project to life?',
   },
+}
+
+export const contactPageContent = {
+  title: 'Contact - Alex Johnson',
+  eyebrow: 'Contact',
+  heading: 'Let’s build something useful together.',
+  body:
+    'If you need a product site, a web app, or help improving an existing experience, send a quick note and I will get back to you as soon as I can. I am always happy to talk through the project, the goals, and the best path forward.',
+  directEmailLabel: 'Prefer email?',
+  directEmailBody: 'You can always reach me directly at',
+  formHeading: 'Start the conversation',
+  formBody:
+    'Share a few details about what you are building, what kind of help you need, and anything else that would be useful context.',
+  nameLabel: 'Name',
+  emailLabel: 'Email address',
+  messageLabel: 'Message',
+  submitLabel: 'Send message',
+  socialHeading: 'Elsewhere online',
+  socialBody: 'If you want to connect another way first, you can also find me here.',
 }
