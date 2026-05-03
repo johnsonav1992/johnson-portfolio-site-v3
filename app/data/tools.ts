@@ -1,4 +1,4 @@
-import type { ToolCategorySummary, ToolItem } from '../types/types.ts'
+import type { ToolItem } from '../types/types.ts'
 
 import { buildToolCloudLayout } from './tool-cloud-layout.ts'
 
@@ -8,29 +8,6 @@ export const toolsContent = {
   heading: 'My tooling experience',
   body: 'All of the technologies I keep in my toolbox in order to build amazing, resilient web applications. I’m always learning and adding to this list, so check back often.',
 }
-
-export const toolCategories: ToolCategorySummary[] = [
-  {
-    id: 'frontend',
-    label: 'Interface',
-    description: 'Frameworks and browser-facing UI work.',
-  },
-  {
-    id: 'backend',
-    label: 'Server',
-    description: 'APIs, runtimes, and application backends.',
-  },
-  {
-    id: 'data',
-    label: 'Data',
-    description: 'Persistence, realtime data, and query layers.',
-  },
-  {
-    id: 'tooling',
-    label: 'Workflow',
-    description: 'Testing, source control, and delivery tools.',
-  },
-]
 
 export const tools: ToolItem[] = [
   {

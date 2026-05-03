@@ -13,14 +13,15 @@ test('tool cloud layout includes every tool exactly once', () => {
 
   assert.equal(layout.positions.length, tools.length)
   assert.equal(new Set(ids).size, tools.length)
+  assert.ok(react)
 
   assert.deepEqual(react, { id: 'react', x: 0, y: 84, size: 170 })
   assert.equal(typescript?.size, 130)
   assert.equal(node?.size, 116)
   assert.ok((typescript?.x ?? 0) < 0)
   assert.ok((node?.x ?? 0) > 0)
-  assert.ok((typescript?.y ?? 0) < react!.y)
-  assert.ok((node?.y ?? 0) < react!.y)
+  assert.ok((typescript?.y ?? 0) < react.y)
+  assert.ok((node?.y ?? 0) < react.y)
 })
 
 test('tool cloud layout keeps orbs from overlapping at rest', () => {

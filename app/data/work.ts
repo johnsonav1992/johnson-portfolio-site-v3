@@ -22,7 +22,7 @@ export const workContent = {
   },
 }
 
-export const largeProjects: WorkItem[] = [
+const largeProjects: WorkItem[] = [
   {
     id: 'dupre-music-designs',
     name: 'Dupre Music Designs',
@@ -110,7 +110,7 @@ export const largeProjects: WorkItem[] = [
   },
 ]
 
-export const smallProjects: WorkItem[] = [
+const smallProjects: WorkItem[] = [
   {
     id: 'battleship',
     name: 'Battleship',

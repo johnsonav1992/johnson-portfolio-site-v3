@@ -36,9 +36,3 @@ export interface ToolItem {
   tilt: number
   glow: string
 }
-
-export interface ToolCategorySummary {
-  id: ToolCategory
-  label: string
-  description: string
-}
