@@ -1,7 +1,7 @@
 import { css } from 'remix/ui'
 import { animateEntrance, spring } from 'remix/ui/animation'
 
-import { toolCloudPositions, tools } from '../../../data/tools.ts'
+import { toolCloudBounds, toolCloudPositions, tools } from '../../../data/tools.ts'
 import { sectionWrap, theme } from '../../../theme/styles.ts'
 import { ToolOrb } from './tool-orb/tool-orb.tsx'
 
@@ -22,12 +22,12 @@ export const ToolCloud = () => {
       <div
         mix={[
           css({
-            minHeight: '1220px',
+            minHeight: `${toolCloudBounds.height}px`,
             display: 'block',
             position: 'relative',
             overflow: 'visible',
             margin: '0 auto',
-            maxWidth: '1100px',
+            maxWidth: `${toolCloudBounds.width}px`,
             borderRadius: theme.radius.full,
             background:
               'radial-gradient(circle at 50% 50%, rgb(131 247 176 / 0.08), transparent 58%)',

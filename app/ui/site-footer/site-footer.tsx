@@ -37,7 +37,7 @@ export const SiteFooter = () => {
           gap: '8px',
         })}
       >
-        <span>Made with love with</span>
+        <span>Made with ❤️ with</span>
         <img
           src={mediaPath('tools/remix.svg')}
           alt=''
