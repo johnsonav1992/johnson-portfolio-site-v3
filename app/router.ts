@@ -4,6 +4,7 @@ import { staticFiles } from 'remix/static-middleware'
 import { assets } from './assets.ts'
 import { home } from './controllers/home/controller.tsx'
 import { tools } from './controllers/tools/controller.tsx'
+import { work } from './controllers/work/controller.tsx'
 import { routes } from './routes.ts'
 
 export const router = createRouter({
@@ -24,3 +25,4 @@ router.get(routes.assets, async ({ request }) => {
 
 router.map(routes.home, home)
 router.map(routes.tools, tools)
+router.map(routes.work, work)

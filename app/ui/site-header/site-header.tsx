@@ -6,8 +6,17 @@ import { routes } from '../../routes.ts'
 import { appLink, focusRing, sectionWrap, theme } from '../../theme/styles.ts'
 import { NavItem } from './nav-item/nav-item.tsx'
 
+interface SiteHeaderProps {
+  currentPath?: string
+}
+
+const normalizePath = (href: string) => {
+  const [path] = href.split('#')
+  return path || '/'
+}
+
 export const SiteHeader = () => {
-  return () => (
+  return ({ currentPath }: SiteHeaderProps) => (
     <header
       mix={css({
         position: 'sticky',
@@ -72,6 +81,11 @@ export const SiteHeader = () => {
         >
           {navigation.map((item) => (
             <NavItem
+              ariaCurrent={
+                !item.href.includes('#') && normalizePath(item.href) === currentPath
+                  ? 'page'
+                  : undefined
+              }
               key={item.href}
               href={item.href}
               label={item.label}

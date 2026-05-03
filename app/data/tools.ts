@@ -5,7 +5,7 @@ import { buildToolCloudLayout } from './tool-cloud-layout.ts'
 export const toolsContent = {
   title: 'Tools - Alex Johnson',
   eyebrow: 'Tools',
-  heading: 'The tools I build with.',
+  heading: 'My tooling experience',
   body: 'All of the technologies I keep in my toolbox in order to build amazing, resilient web applications. I’m always learning and adding to this list, so check back often.',
 }
 

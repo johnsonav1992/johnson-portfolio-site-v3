@@ -1,5 +1,27 @@
 import type { WorkItem } from '../types/types.ts'
 
+export const workContent = {
+  title: 'Work - Alex Johnson',
+  eyebrow: 'Work',
+  heading: 'Practical web apps, product sites, and tools.',
+  body: 'A fuller look at recent client work, SaaS products, libraries, games, and smaller applications I have built across the stack.',
+  sections: {
+    featured: 'Featured Projects',
+    more: 'More Projects',
+  },
+  detail: {
+    backLabel: 'Back to Work',
+    eyebrow: 'Project',
+    technologiesHeading: 'Technologies',
+    liveActionLabel: 'View Live Project',
+    repositoryActionLabel: 'View Repository',
+    videoActionLabel: 'Watch Video',
+    detailsActionLabel: 'Details',
+    titleSuffix: 'Alex Johnson',
+    screenshotAltSuffix: 'screenshot',
+  },
+}
+
 export const largeProjects: WorkItem[] = [
   {
     id: 'dupre-music-designs',

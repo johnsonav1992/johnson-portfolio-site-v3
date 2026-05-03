@@ -25,7 +25,7 @@ export const navigation = [
   },
   {
     label: 'Work',
-    href: '/#work',
+    href: '/work',
   },
   {
     label: 'Contact',
@@ -64,8 +64,8 @@ export const homeContent = {
     eyebrow: 'Selected work',
     heading: 'A few projects worth highlighting.',
     action: {
-      label: 'More on GitHub',
-      href: 'https://github.com/johnsonav1992',
+      label: 'View all work',
+      href: '/work',
     },
   },
   contact: {

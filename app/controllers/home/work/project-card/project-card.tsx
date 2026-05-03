@@ -1,7 +1,10 @@
 import { css } from 'remix/ui'
+import { Glyph } from 'remix/ui/glyph'
 
 import { mediaPath } from '../../../../data/media.ts'
-import { theme } from '../../../../theme/styles.ts'
+import { workContent } from '../../../../data/work.ts'
+import { routes } from '../../../../routes.ts'
+import { appLink, focusRing, theme } from '../../../../theme/styles.ts'
 import type { WorkItem } from '../../../../types/types.ts'
 import { bodyCopyStyles } from '../../components/styles.ts'
 import { TagList } from '../../components/tag-list/tag-list.tsx'
@@ -111,6 +114,42 @@ export const ProjectCard = () => {
               gap: theme.space.sm,
             })}
           >
+            <a
+              href={routes.work.show.href({ projectRoute: project.route })}
+              mix={[
+                appLink,
+                css({
+                  minHeight: '34px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  padding: `0 ${theme.space.md}`,
+                  borderRadius: theme.radius.md,
+                  border: `1px solid ${theme.colors.border.subtle}`,
+                  color: theme.colors.text.link,
+                  background: 'rgb(255 255 255 / 0.035)',
+                  fontSize: theme.fontSize.sm,
+                  fontWeight: theme.fontWeight.semibold,
+                  '&:hover': {
+                    color: theme.colors.action.primary.backgroundHover,
+                    borderColor: theme.colors.text.link,
+                    background: 'rgb(255 255 255 / 0.06)',
+                  },
+                  '&:focus-visible': focusRing,
+                }),
+              ]}
+            >
+              <span>{workContent.detail.detailsActionLabel}</span>
+              <Glyph
+                name='chevronRight'
+                aria-hidden='true'
+                mix={css({
+                  width: '14px',
+                  height: '14px',
+                  flex: '0 0 auto',
+                })}
+              />
+            </a>
             {liveLink}
             {sourceLink}
             {videoLink}

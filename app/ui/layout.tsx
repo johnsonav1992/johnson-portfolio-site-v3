@@ -8,11 +8,12 @@ import { SiteHeader } from './site-header/site-header.tsx'
 
 export interface LayoutProps {
   children?: RemixNode
+  currentPath?: string
   title?: string
 }
 
 export const Layout = () => {
-  return ({ title, children }: LayoutProps) => (
+  return ({ title, currentPath, children }: LayoutProps) => (
     <Document title={title}>
       <div
         mix={css({
@@ -31,7 +32,7 @@ export const Layout = () => {
           },
         })}
       >
-        <SiteHeader />
+        <SiteHeader currentPath={currentPath} />
         <main
           mix={css({
             position: 'relative',

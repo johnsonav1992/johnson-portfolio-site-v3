@@ -5,7 +5,10 @@ import { ToolsHero } from './hero/tools-hero.tsx'
 
 export const ToolsPage = () => {
   return () => (
-    <Layout title={toolsContent.title}>
+    <Layout
+      currentPath='/tools'
+      title={toolsContent.title}
+    >
       <ToolsHero />
       <ToolCloud />
     </Layout>

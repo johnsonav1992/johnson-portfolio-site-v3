@@ -5,7 +5,7 @@ import { Work } from './work/work.tsx'
 
 export const HomePage = () => {
   return () => (
-    <Layout>
+    <Layout currentPath='/'>
       <Hero />
       <Work />
       <Contact />

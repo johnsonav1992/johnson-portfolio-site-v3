@@ -2,9 +2,16 @@ import { css } from 'remix/ui'
 
 import { appLink, focusRing, theme } from '../../../theme/styles.ts'
 
+interface NavItemProps {
+  ariaCurrent?: 'page'
+  href: string
+  label: string
+}
+
 export const NavItem = () => {
-  return ({ href, label }: { href: string; label: string }) => (
+  return ({ ariaCurrent, href, label }: NavItemProps) => (
     <a
+      aria-current={ariaCurrent}
       href={href}
       mix={[
         appLink,
@@ -18,6 +25,12 @@ export const NavItem = () => {
           '&:hover': {
             color: theme.colors.text.primary,
             background: 'rgba(255, 255, 255, 0.06)',
+          },
+          '&[aria-current="page"]': {
+            color: theme.colors.text.primary,
+            background: 'rgba(255, 255, 255, 0.08)',
+            cursor: 'default',
+            pointerEvents: 'none',
           },
           '&:focus-visible': focusRing,
           '@media (max-width: 560px)': { padding: '0 8px' },
