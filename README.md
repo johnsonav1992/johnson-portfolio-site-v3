@@ -1,13 +1,14 @@
 # Johnson Portfolio Site V3
 
-A minimal Remix application starter with a home page and an auth page.
+Portfolio site for Alex Johnson, built with Remix 3.
 
-## Starter Shape
+## App Shape
 
 - `app/controllers/home.tsx` owns the home page.
-- `app/controllers/auth.tsx` owns the auth page.
+- `app/data/` owns CMS-style site copy, navigation, social links, and project metadata.
 - `app/routes.ts` defines the route contract.
 - `app/router.ts` wires routes to handlers.
+- `app/theme/` owns the Remix UI theme and shared theme helpers.
 - `app/ui/` holds the shared document and layout wrappers.
 - `app/utils/render.tsx` centralizes HTML response rendering.
 
