@@ -22,3 +22,23 @@ export interface SocialLink {
   href: string
   icon: SocialIconName
 }
+
+export type ToolCategory = 'frontend' | 'backend' | 'data' | 'tooling'
+
+export interface ToolItem {
+  id: string
+  name: string
+  category: ToolCategory
+  image?: string
+  monogram?: string
+  size: number
+  lift: number
+  tilt: number
+  glow: string
+}
+
+export interface ToolCategorySummary {
+  id: ToolCategory
+  label: string
+  description: string
+}

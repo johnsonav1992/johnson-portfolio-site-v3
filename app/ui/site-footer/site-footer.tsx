@@ -1,5 +1,5 @@
 import { css } from 'remix/ui'
-
+import { mediaPath } from '../../data/media.ts'
 import { site, socials } from '../../data/site.ts'
 import { sectionWrap, theme } from '../../theme/styles.ts'
 import { FooterLink } from './footer-link/footer-link.tsx'
@@ -30,6 +30,16 @@ export function SiteFooter() {
       ]}
     >
       <span>{`© ${new Date().getFullYear()} ${site.businessName}`}</span>
+      <div mix={css({ display: 'flex', alignItems: 'center', gap: '8px' })}>
+        <span>Made with love with</span>
+        <img
+          src={mediaPath('tools/remix.svg')}
+          alt=''
+          mix={css({
+            width: '30px',
+          })}
+        />
+      </div>
       <div mix={css({ display: 'flex', alignItems: 'center', gap: '16px' })}>
         {socials.map((item) => (
           <FooterLink key={item.href} href={item.href} label={item.label} icon={item.icon} />
