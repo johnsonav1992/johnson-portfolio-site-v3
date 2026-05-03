@@ -30,7 +30,13 @@ export const SiteFooter = () => {
       ]}
     >
       <span>{`© ${new Date().getFullYear()} ${site.businessName}`}</span>
-      <div mix={css({ display: 'flex', alignItems: 'center', gap: '8px' })}>
+      <div
+        mix={css({
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        })}
+      >
         <span>Made with love with</span>
         <img
           src={mediaPath('tools/remix.svg')}
@@ -40,7 +46,13 @@ export const SiteFooter = () => {
           })}
         />
       </div>
-      <div mix={css({ display: 'flex', alignItems: 'center', gap: '16px' })}>
+      <div
+        mix={css({
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
+        })}
+      >
         {socials.map((item) => (
           <FooterLink
             key={item.href}

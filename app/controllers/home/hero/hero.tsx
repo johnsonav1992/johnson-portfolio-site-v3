@@ -31,7 +31,10 @@ export const Hero = () => {
           flexDirection: 'column',
           alignItems: 'flex-start',
           gap: '24px',
-          '@media (max-width: 880px)': { alignItems: 'center', textAlign: 'center' },
+          '@media (max-width: 880px)': {
+            alignItems: 'center',
+            textAlign: 'center',
+          },
         })}
       >
         <SectionLabel>{homeContent.hero.eyebrow}</SectionLabel>

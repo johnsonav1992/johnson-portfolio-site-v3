@@ -32,7 +32,15 @@ export const Layout = () => {
         })}
       >
         <SiteHeader />
-        <main mix={css({ position: 'relative', zIndex: 1, flex: '1 0 auto' })}>{children}</main>
+        <main
+          mix={css({
+            position: 'relative',
+            zIndex: 1,
+            flex: '1 0 auto',
+          })}
+        >
+          {children}
+        </main>
         <SiteFooter />
       </div>
     </Document>

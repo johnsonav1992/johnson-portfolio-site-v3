@@ -44,9 +44,21 @@ export const ProjectCard = () => {
         })}
       >
         <div>
-          <h3 mix={css({ margin: 0, fontSize: '22px', lineHeight: 1.15 })}>{project.name}</h3>
+          <h3
+            mix={css({
+              margin: 0,
+              fontSize: '22px',
+              lineHeight: 1.15,
+            })}
+          >
+            {project.name}
+          </h3>
           <p
-            mix={css({ ...bodyCopyStyles, marginTop: theme.space.sm, fontSize: theme.fontSize.md })}
+            mix={css({
+              ...bodyCopyStyles,
+              marginTop: theme.space.sm,
+              fontSize: theme.fontSize.md,
+            })}
           >
             {project.description}
           </p>

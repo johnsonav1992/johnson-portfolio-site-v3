@@ -27,7 +27,10 @@ export const render = (node: RemixNode, request: Request, init?: ResponseInit) =
         }
       }
 
-      return { href, exportName }
+      return {
+        href,
+        exportName,
+      }
     },
     async resolveFrame(src, target) {
       const headers = new Headers({ accept: 'text/html' })
@@ -48,5 +51,8 @@ export const render = (node: RemixNode, request: Request, init?: ResponseInit) =
     headers.set('Content-Type', 'text/html; charset=utf-8')
   }
 
-  return new Response(stream, { ...init, headers })
+  return new Response(stream, {
+    ...init,
+    headers,
+  })
 }

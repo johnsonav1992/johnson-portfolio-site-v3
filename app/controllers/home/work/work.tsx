@@ -27,7 +27,10 @@ export const Work = () => {
           justifyContent: 'space-between',
           gap: theme.space.xl,
           marginBottom: theme.space.xxl,
-          '@media (max-width: 720px)': { alignItems: 'start', flexDirection: 'column' },
+          '@media (max-width: 720px)': {
+            alignItems: 'start',
+            flexDirection: 'column',
+          },
         })}
       >
         <div>

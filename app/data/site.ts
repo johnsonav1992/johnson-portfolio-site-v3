@@ -19,14 +19,31 @@ export const site = {
 }
 
 export const navigation = [
-  { label: 'Tools', href: '/tools' },
-  { label: 'Work', href: '/#work' },
-  { label: 'Contact', href: '/#contact' },
+  {
+    label: 'Tools',
+    href: '/tools',
+  },
+  {
+    label: 'Work',
+    href: '/#work',
+  },
+  {
+    label: 'Contact',
+    href: '/#contact',
+  },
 ]
 
 export const socials: SocialLink[] = [
-  { label: 'GitHub', href: 'https://github.com/johnsonav1992', icon: 'github' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/johnsonav/', icon: 'linkedin' },
+  {
+    label: 'GitHub',
+    href: 'https://github.com/johnsonav1992',
+    icon: 'github',
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/johnsonav/',
+    icon: 'linkedin',
+  },
 ]
 
 export const homeContent = {
@@ -34,13 +51,22 @@ export const homeContent = {
     eyebrow: 'Full-stack web developer',
     heading: 'Alex Johnson',
     body: 'Fullstack developer building modern applications for the web with AI integration and a focus on performance and a powerful user experience.',
-    primaryAction: { label: 'View Work', href: '#work' },
-    secondaryAction: { label: 'Contact', href: '#contact' },
+    primaryAction: {
+      label: 'View Work',
+      href: '#work',
+    },
+    secondaryAction: {
+      label: 'Contact',
+      href: '#contact',
+    },
   },
   work: {
     eyebrow: 'Selected work',
     heading: 'A few projects worth highlighting.',
-    action: { label: 'More on GitHub', href: 'https://github.com/johnsonav1992' },
+    action: {
+      label: 'More on GitHub',
+      href: 'https://github.com/johnsonav1992',
+    },
   },
   contact: {
     eyebrow: 'Contact',
