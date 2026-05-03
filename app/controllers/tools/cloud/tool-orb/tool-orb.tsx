@@ -26,12 +26,54 @@ export const ToolOrb = clientEntry<ToolOrbProps>(
 
     return () => {
       const { glow, image, monogram, name, size, tilt, x, y } = handle.props
+      let dataActive: 'true' | undefined
+      let icon = null
+
+      if (isActive) {
+        dataActive = 'true'
+      }
+
+      if (image) {
+        icon = (
+          <img
+            class='tool-icon'
+            src={mediaPath(image)}
+            alt=''
+            mix={css({
+              width: '62%',
+              height: '62%',
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 8px 16px rgb(0 0 0 / 0.34))',
+              transform: 'scale(1)',
+              transition: spring.transition(['transform', 'filter'], 'smooth'),
+            })}
+          />
+        )
+      } else {
+        icon = (
+          <span
+            class='tool-icon'
+            aria-hidden='true'
+            mix={css({
+              color: 'var(--tool-glow)',
+              fontSize: 'calc(var(--tool-size) * 0.28)',
+              fontWeight: theme.fontWeight.bold,
+              fontFamily: theme.fontFamily.mono,
+              filter: 'drop-shadow(0 8px 16px rgb(0 0 0 / 0.34))',
+              transform: 'scale(1)',
+              transition: spring.transition(['transform', 'filter'], 'smooth'),
+            })}
+          >
+            {monogram}
+          </span>
+        )
+      }
 
       return (
         <button
           type='button'
           aria-label={name}
-          data-active={isActive ? 'true' : undefined}
+          data-active={dataActive}
           style={{
             '--tool-mobile-size': '96px',
             '--tool-size': `${size}px`,
@@ -196,37 +238,7 @@ export const ToolOrb = clientEntry<ToolOrbProps>(
               },
             })}
           >
-            {image ? (
-              <img
-                class='tool-icon'
-                src={mediaPath(image)}
-                alt=''
-                mix={css({
-                  width: '62%',
-                  height: '62%',
-                  objectFit: 'contain',
-                  filter: 'drop-shadow(0 8px 16px rgb(0 0 0 / 0.34))',
-                  transform: 'scale(1)',
-                  transition: spring.transition(['transform', 'filter'], 'smooth'),
-                })}
-              />
-            ) : (
-              <span
-                class='tool-icon'
-                aria-hidden='true'
-                mix={css({
-                  color: 'var(--tool-glow)',
-                  fontSize: 'calc(var(--tool-size) * 0.28)',
-                  fontWeight: theme.fontWeight.bold,
-                  fontFamily: theme.fontFamily.mono,
-                  filter: 'drop-shadow(0 8px 16px rgb(0 0 0 / 0.34))',
-                  transform: 'scale(1)',
-                  transition: spring.transition(['transform', 'filter'], 'smooth'),
-                })}
-              >
-                {monogram}
-              </span>
-            )}
+            {icon}
           </div>
           <span
             class='tool-label'

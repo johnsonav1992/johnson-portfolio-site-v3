@@ -54,7 +54,11 @@ export const ToolCloud = () => {
         {toolCloudPositions.map(({ id, x, y, size }) => {
           const tool = toolsById.get(id)
 
-          return tool ? (
+          if (!tool) {
+            return null
+          }
+
+          return (
             <ToolOrb
               glow={tool.glow}
               image={tool.image}
@@ -66,7 +70,7 @@ export const ToolCloud = () => {
               x={x}
               y={y}
             />
-          ) : null
+          )
         })}
       </div>
     </section>
