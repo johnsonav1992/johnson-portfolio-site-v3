@@ -1,9 +1,13 @@
-import assert from 'node:assert/strict'
-import test from 'node:test'
+import * as assert from 'remix/assert'
+import { it } from 'remix/test'
 
-import { extractContactData, MIN_SUBMIT_TIME_MS, validateContactData } from './contact.ts'
+import {
+  extractContactData,
+  MIN_SUBMIT_TIME_MS,
+  validateContactData,
+} from '../../../app/controllers/contact/form.ts'
 
-test('extractContactData trims fields and strips newlines from name and email', () => {
+it('extractContactData trims fields and strips newlines from name and email', () => {
   const formData = new FormData()
   formData.set('name', ' Alex\nJohnson ')
   formData.set('email', '\n alex@example.com \r')
@@ -19,7 +23,7 @@ test('extractContactData trims fields and strips newlines from name and email', 
   })
 })
 
-test('validateContactData accepts a well-formed submission', () => {
+it('validateContactData accepts a well-formed submission', () => {
   assert.equal(
     validateContactData({
       name: 'Alex Johnson',
@@ -32,7 +36,7 @@ test('validateContactData accepts a well-formed submission', () => {
   )
 })
 
-test('validateContactData rejects rapid submissions and spam patterns', () => {
+it('validateContactData rejects rapid submissions and spam patterns', () => {
   assert.equal(
     validateContactData({
       name: 'Alex Johnson',

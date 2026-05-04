@@ -1,10 +1,10 @@
-import assert from 'node:assert/strict'
-import test from 'node:test'
+import * as assert from 'remix/assert'
+import { it } from 'remix/test'
 
-import { buildToolCloudLayout } from './tool-cloud-layout.ts'
-import { tools } from './tools.ts'
+import { buildToolCloudLayout } from '../../app/data/tool-cloud-layout.ts'
+import { tools } from '../../app/data/tools.ts'
 
-test('tool cloud layout includes every tool exactly once', () => {
+it('tool cloud layout includes every tool exactly once', () => {
   const layout = buildToolCloudLayout(tools)
   const ids = layout.positions.map((position) => position.id)
   const react = layout.positions.find((position) => position.id === 'react')
@@ -24,7 +24,7 @@ test('tool cloud layout includes every tool exactly once', () => {
   assert.ok((node?.y ?? 0) < react.y)
 })
 
-test('tool cloud layout keeps orbs from overlapping at rest', () => {
+it('tool cloud layout keeps orbs from overlapping at rest', () => {
   const layout = buildToolCloudLayout(tools)
   const minimumGap = 10
 
@@ -40,7 +40,7 @@ test('tool cloud layout keeps orbs from overlapping at rest', () => {
   }
 })
 
-test('tool cloud bounds cover the generated positions', () => {
+it('tool cloud bounds cover the generated positions', () => {
   const layout = buildToolCloudLayout(tools)
 
   assert.ok(layout.bounds.width >= 1100)

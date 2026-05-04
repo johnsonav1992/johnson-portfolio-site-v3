@@ -1,6 +1,7 @@
 import { css } from 'remix/ui'
 
-import { homeContent, site } from '../../../data/site.ts'
+import { homeContent } from '../../../data/site.ts'
+import { routes } from '../../../routes.ts'
 import { sectionWrap, theme } from '../../../theme/styles.ts'
 import { SecondaryLink } from '../components/secondary-link/secondary-link.tsx'
 import { SectionLabel } from '../components/section-label/section-label.tsx'
@@ -31,8 +32,8 @@ export const Contact = () => {
         <h2 mix={sectionHeading}>{homeContent.contact.heading}</h2>
       </div>
       <SecondaryLink
-        href={`mailto:${site.email}`}
-        label={site.email}
+        href={routes.contact.index.href()}
+        label='Contact'
       />
     </section>
   )

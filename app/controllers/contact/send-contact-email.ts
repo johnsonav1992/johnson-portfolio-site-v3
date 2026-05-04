@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer'
 
-import { escapeHtml, type ContactData } from './contact.ts'
+import { escapeHtml, type ContactData } from './form.ts'
 
 const getMailCredentials = () => {
   const user = process.env.GMAIL_EMAIL

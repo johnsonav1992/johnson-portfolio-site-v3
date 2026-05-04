@@ -1,4 +1,5 @@
 import type { Controller } from 'remix/fetch-router'
+import { redirect } from 'remix/response/redirect'
 
 import type { routes } from '../../routes.ts'
 import { render } from '../../utils/render.tsx'
@@ -8,8 +9,8 @@ import {
   toContactFormValues,
   type ContactResult,
   validateContactData,
-} from '../../utils/contact.ts'
-import { sendContactEmail } from '../../utils/send-contact-email.ts'
+} from './form.ts'
+import { sendContactEmail } from './send-contact-email.ts'
 import { ContactPage } from './page.tsx'
 
 const RATE_LIMIT_WINDOW_MS = 60 * 1000
@@ -96,7 +97,7 @@ export const contact = {
 
         const successUrl = new URL(request.url)
         successUrl.searchParams.set('sent', '1')
-        return Response.redirect(successUrl, 303)
+        return redirect(successUrl.toString(), 303)
       } catch (error) {
         console.error('Contact form error:', error)
 

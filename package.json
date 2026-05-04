@@ -8,7 +8,7 @@
     "format": "biome check --write .",
     "lint": "biome lint .",
     "start": "tsx server.ts",
-    "test": "tsx --test",
+    "test": "remix test",
     "typecheck": "tsc --noEmit"
   },
   "engines": {
@@ -23,6 +23,7 @@
     "@biomejs/biome": "^2.4.14",
     "@types/node": "latest",
     "@types/nodemailer": "^8.0.0",
+    "playwright": "^1.59.1",
     "typescript": "latest"
   }
 }

@@ -77,12 +77,10 @@ export const homeContent = {
 export const contactPageContent = {
   title: 'Contact - Alex Johnson',
   eyebrow: 'Contact',
-  heading: 'Let’s build something useful together.',
+  heading: 'Start the conversation',
   body:
     'If you need a product site, a web app, or help improving an existing experience, send a quick note and I will get back to you as soon as I can. I am always happy to talk through the project, the goals, and the best path forward.',
-  directEmailLabel: 'Prefer email?',
-  directEmailBody: 'You can always reach me directly at',
-  formHeading: 'Start the conversation',
+  formHeading: 'Project details',
   formBody:
     'Share a few details about what you are building, what kind of help you need, and anything else that would be useful context.',
   nameLabel: 'Name',
