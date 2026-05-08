@@ -29,6 +29,7 @@ export interface ToolItem {
   id: string
   name: string
   category: ToolCategory
+  href: string
   image?: string
   monogram?: string
   size: number

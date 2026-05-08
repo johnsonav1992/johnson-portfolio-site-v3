@@ -71,7 +71,7 @@ const largeProjects: WorkItem[] = [
     repoLink: 'https://github.com/johnsonav1992/formularity',
     technologies: ['React', 'TypeScript'],
     description:
-      'A React library for building forms with ease! Currently in dev with alpha pre-releases happening frequently!',
+      'A React library for building forms with ease! Development on this project is no longer active.',
   },
   {
     id: 'babybright',

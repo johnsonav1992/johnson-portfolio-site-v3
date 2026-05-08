@@ -1,4 +1,4 @@
-import { clientEntry, css, type Handle, on } from 'remix/ui'
+import { clientEntry, css, type Handle } from 'remix/ui'
 import { animateEntrance, spring } from 'remix/ui/animation'
 
 import { mediaPath } from '../../../../data/media.ts'
@@ -7,6 +7,7 @@ import { focusRing, theme } from '../../../../theme/styles.ts'
 interface ToolOrbProps {
   [key: string]: number | string | undefined
   glow: string
+  href: string
   image?: string
   monogram?: string
   name: string
@@ -19,19 +20,9 @@ interface ToolOrbProps {
 export const ToolOrb = clientEntry<ToolOrbProps>(
   `${import.meta.url}#ToolOrb`,
   (handle: Handle<ToolOrbProps>) => {
-    let isActive = false
-
-    const canHover = () =>
-      globalThis.matchMedia?.('(hover: hover) and (pointer: fine)').matches ?? false
-
     return () => {
-      const { glow, image, monogram, name, size, tilt, x, y } = handle.props
-      let dataActive: 'true' | undefined
+      const { glow, href, image, monogram, name, size, tilt, x, y } = handle.props
       let icon = null
-
-      if (isActive) {
-        dataActive = 'true'
-      }
 
       if (image) {
         icon = (
@@ -70,10 +61,11 @@ export const ToolOrb = clientEntry<ToolOrbProps>(
       }
 
       return (
-        <button
-          type='button'
-          aria-label={name}
-          data-active={dataActive}
+        <a
+          href={href}
+          aria-label={`${name} website`}
+          rel='noreferrer'
+          target='_blank'
           style={{
             '--tool-mobile-size': '96px',
             '--tool-size': `${size}px`,
@@ -109,6 +101,7 @@ export const ToolOrb = clientEntry<ToolOrbProps>(
               cursor: 'pointer',
               background: 'transparent',
               filter: 'none',
+              textDecoration: 'none',
               '&::before': {
                 content: '""',
                 position: 'absolute',
@@ -128,30 +121,28 @@ export const ToolOrb = clientEntry<ToolOrbProps>(
                 transform: 'translateX(-50%) translateY(-6px)',
               },
               '&:focus-visible': {
-                outline: focusRing.outline,
-                outlineOffset: focusRing.outlineOffset,
-              },
-              '&:focus-visible, &[data-active="true"]': {
                 zIndex: 6,
                 transform: 'var(--tool-transform-active)',
                 filter: 'drop-shadow(0 22px 32px rgb(0 0 0 / 0.4))',
+                outline: focusRing.outline,
+                outlineOffset: focusRing.outlineOffset,
               },
-              '&:focus-visible::before, &[data-active="true"]::before': {
+              '&:focus-visible::before': {
                 opacity: 0.9,
                 transform: 'scale(1.08)',
               },
-              '&:focus-visible .tool-surface, &[data-active="true"] .tool-surface': {
+              '&:focus-visible .tool-surface': {
                 background: 'color-mix(in srgb, var(--tool-glow) 10%, rgb(255 255 255 / 0.08))',
                 borderColor: 'color-mix(in srgb, var(--tool-glow), white 20%)',
                 boxShadow:
                   'inset 0 1px 0 rgb(255 255 255 / 0.16), 0 22px 42px color-mix(in srgb, var(--tool-glow), rgb(0 0 0 / 0.65) 70%)',
               },
-              '&:focus-visible .tool-icon, &[data-active="true"] .tool-icon': {
+              '&:focus-visible .tool-icon': {
                 filter:
                   'drop-shadow(0 10px 20px color-mix(in srgb, var(--tool-glow), rgb(0 0 0 / 0.6) 60%))',
                 transform: 'scale(1.08)',
               },
-              '&:focus-visible .tool-label, &[data-active="true"] .tool-label': {
+              '&:focus-visible .tool-label': {
                 opacity: 1,
                 visibility: 'visible',
                 transform: 'translateX(-50%) translateY(0)',
@@ -191,7 +182,7 @@ export const ToolOrb = clientEntry<ToolOrbProps>(
                 left: 'auto',
                 margin: 0,
                 transform: 'none',
-                '&:focus-visible, &[data-active="true"]': {
+                '&:focus-visible': {
                   transform: 'scale(1.14)',
                 },
               },
@@ -200,18 +191,6 @@ export const ToolOrb = clientEntry<ToolOrbProps>(
                   transform: 'scale(1.14)',
                 },
               },
-            }),
-            on('click', () => {
-              if (canHover()) return
-
-              isActive = !isActive
-              handle.update()
-            }),
-            on('blur', () => {
-              if (!isActive) return
-
-              isActive = false
-              handle.update()
             }),
             animateEntrance({
               opacity: 0,
@@ -264,7 +243,7 @@ export const ToolOrb = clientEntry<ToolOrbProps>(
           >
             {name}
           </span>
-        </button>
+        </a>
       )
     }
   },

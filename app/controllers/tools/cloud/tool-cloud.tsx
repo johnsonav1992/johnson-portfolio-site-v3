@@ -61,6 +61,7 @@ export const ToolCloud = () => {
           return (
             <ToolOrb
               glow={tool.glow}
+              href={tool.href}
               image={tool.image}
               key={tool.id}
               monogram={tool.monogram}
