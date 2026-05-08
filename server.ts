@@ -10,8 +10,11 @@ if (process.env.NODE_ENV !== 'production' && existsSync('.env')) {
 
 const contactEnvKeys = ['GMAIL_EMAIL', 'GMAIL_PASS'] as const
 const missingContactEnvKeys = contactEnvKeys.filter((key) => !process.env[key])
+const contactEmailProvider = process.env.RESEND_API_KEY ? 'resend' : 'gmail-smtp'
 
-if (missingContactEnvKeys.length > 0) {
+if (contactEmailProvider === 'resend') {
+  console.log('Contact email provider configured: Resend')
+} else if (missingContactEnvKeys.length > 0) {
   console.warn(`Contact email env missing: ${missingContactEnvKeys.join(', ')}`)
 } else {
   console.log('Contact email env configured: GMAIL_EMAIL, GMAIL_PASS')
