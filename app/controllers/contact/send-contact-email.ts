@@ -3,7 +3,6 @@ import nodemailer from 'nodemailer'
 import { type ContactData, escapeHtml } from './form.ts'
 
 const DEFAULT_EMAIL_TIMEOUT_MS = 8000
-const DEFAULT_RESEND_FROM_EMAIL = 'AJ Web Development <onboarding@resend.dev>'
 
 const getMailCredentials = () => {
   const user = process.env.GMAIL_EMAIL
@@ -15,8 +14,6 @@ const getMailCredentials = () => {
 
   return { user, pass }
 }
-
-const getContactRecipient = () => process.env.CONTACT_TO_EMAIL ?? process.env.GMAIL_EMAIL
 
 const getEmailTimeoutMs = () => {
   const timeout = Number(process.env.CONTACT_EMAIL_TIMEOUT_MS)
@@ -61,46 +58,12 @@ const getEmailHtml = ({
   <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
 `
 
-const sendContactEmailWithResend = async ({
-  name,
-  email,
-  message,
-}: Pick<ContactData, 'name' | 'email' | 'message'>): Promise<void> => {
-  const apiKey = process.env.RESEND_API_KEY
-  const to = getContactRecipient()
-
-  if (!apiKey || !to) {
-    throw new Error('Missing RESEND_API_KEY or contact recipient environment variable.')
-  }
-
-  const response = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      from: process.env.CONTACT_FROM_EMAIL ?? DEFAULT_RESEND_FROM_EMAIL,
-      to,
-      reply_to: email,
-      subject: getEmailSubject(name, email),
-      html: getEmailHtml({ name, email, message }),
-    }),
-  })
-
-  if (!response.ok) {
-    const errorText = await response.text()
-    throw new Error(`Resend email failed with ${response.status}: ${errorText}`)
-  }
-}
-
 export const sendContactEmail = async ({
   name,
   email,
   message,
 }: Pick<ContactData, 'name' | 'email' | 'message'>): Promise<void> => {
-  if (process.env.RESEND_API_KEY) {
-    await sendContactEmailWithResend({ name, email, message })
+  if (process.env.CONTACT_DEMO_MODE === 'true') {
     return
   }
 
