@@ -1,10 +1,10 @@
 import { css } from 'remix/ui'
 import { Glyph } from 'remix/ui/glyph'
 
-import { mediaPath } from '../../../../data/media.ts'
-import { routes } from '../../../../routes.ts'
-import { appLink, focusRing, portfolio, theme } from '../../../../theme/styles.ts'
-import type { WorkItem } from '../../../../types/types.ts'
+import { mediaPath } from '../../data/media.ts'
+import { routes } from '../../routes.ts'
+import { appLink, focusRing, portfolio, theme } from '../../theme/styles.ts'
+import type { WorkItem } from '../../types/types.ts'
 
 interface WorkCardProps {
   project: WorkItem
