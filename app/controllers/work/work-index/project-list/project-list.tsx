@@ -2,7 +2,7 @@ import { css } from 'remix/ui'
 
 import { portfolio, theme } from '../../../../theme/styles.ts'
 import type { WorkItem } from '../../../../types/types.ts'
-import { WorkCard } from '../work-card/work-card.tsx'
+import { WorkCard } from '../../../../ui/work-card/work-card.tsx'
 
 interface ProjectListProps {
   heading: string
