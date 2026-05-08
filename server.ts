@@ -1,8 +1,23 @@
+import { existsSync } from 'node:fs'
 import * as http from 'node:http'
+import { loadEnvFile } from 'node:process'
 
 import { createRequestListener } from 'remix/node-fetch-server'
 
-import { router } from './app/router.ts'
+if (process.env.NODE_ENV !== 'production' && existsSync('.env')) {
+  loadEnvFile('.env')
+}
+
+const contactEnvKeys = ['GMAIL_EMAIL', 'GMAIL_PASS'] as const
+const missingContactEnvKeys = contactEnvKeys.filter((key) => !process.env[key])
+
+if (missingContactEnvKeys.length > 0) {
+  console.warn(`Contact email env missing: ${missingContactEnvKeys.join(', ')}`)
+} else {
+  console.log('Contact email env configured: GMAIL_EMAIL, GMAIL_PASS')
+}
+
+const { router } = await import('./app/router.ts')
 
 const port = process.env.PORT ? Number.parseInt(process.env.PORT, 10) : 44100
 
