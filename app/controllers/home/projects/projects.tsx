@@ -1,17 +1,16 @@
 import { css } from 'remix/ui'
-
+import { featuredProjects } from '../../../data/projects.ts'
 import { homeContent } from '../../../data/site.ts'
-import { featuredProjects } from '../../../data/work.ts'
 import { sectionWrap, theme } from '../../../theme/styles.ts'
+import { ProjectCard } from '../../../ui/project-card/project-card.tsx'
 import { SectionLabel } from '../../../ui/section-label/section-label.tsx'
-import { WorkCard } from '../../../ui/work-card/work-card.tsx'
 import { SecondaryLink } from '../components/secondary-link/secondary-link.tsx'
 import { sectionHeading } from '../components/styles.ts'
 
-export const Work = () => {
+export const Projects = () => {
   return () => (
     <section
-      id='work'
+      id='projects'
       mix={[
         sectionWrap,
         css({
@@ -34,12 +33,12 @@ export const Work = () => {
         })}
       >
         <div>
-          <SectionLabel>{homeContent.work.eyebrow}</SectionLabel>
-          <h2 mix={sectionHeading}>{homeContent.work.heading}</h2>
+          <SectionLabel>{homeContent.projects.eyebrow}</SectionLabel>
+          <h2 mix={sectionHeading}>{homeContent.projects.heading}</h2>
         </div>
         <SecondaryLink
-          href={homeContent.work.action.href}
-          label={homeContent.work.action.label}
+          href={homeContent.projects.action.href}
+          label={homeContent.projects.action.label}
         />
       </div>
       <div
@@ -51,7 +50,7 @@ export const Work = () => {
         })}
       >
         {featuredProjects.map((project) => (
-          <WorkCard
+          <ProjectCard
             key={project.name}
             project={project}
           />

@@ -101,6 +101,10 @@ export const requestLogger = (): Middleware => {
     try {
       return await accessLogger(context, next)
     } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        throw error
+      }
+
       const duration = Date.now() - start
       const message = error instanceof Error ? error.message : String(error)
       const line = [

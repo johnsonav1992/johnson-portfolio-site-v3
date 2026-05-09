@@ -5,8 +5,8 @@ export const routes = route({
   home: '/',
   contact: form('/contact'),
   tools: get('/tools'),
-  work: {
-    index: get('/work'),
-    show: get('/work/:projectRoute'),
+  projects: {
+    index: get('/projects'),
+    show: get('/projects/:projectRoute'),
   },
 })

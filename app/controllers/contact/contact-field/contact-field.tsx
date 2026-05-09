@@ -25,7 +25,7 @@ export const ContactField = () => {
         list={undefined}
         name={name}
         placeholder={placeholder}
-        defaultValue={defaultValue}
+        value={defaultValue}
         required
       />
     </div>

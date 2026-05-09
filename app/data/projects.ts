@@ -1,16 +1,16 @@
-import type { WorkItem } from '../types/types.ts'
+import type { ProjectItem } from '../types/types.ts'
 
-export const workContent = {
-  title: 'Work - Alex Johnson',
-  eyebrow: 'Work',
+export const projectsContent = {
+  title: 'Projects - Alex Johnson',
+  eyebrow: 'Projects',
   heading: 'Practical web apps, product sites, and tools.',
-  body: 'A fuller look at recent client work, SaaS products, libraries, games, and smaller applications I have built across the stack.',
+  body: 'A fuller look at recent client projects, SaaS products, libraries, games, and smaller applications I have built across the stack.',
   sections: {
     featured: 'Featured Projects',
     more: 'More Projects',
   },
   detail: {
-    backLabel: 'Back to Work',
+    backLabel: 'Back to Projects',
     eyebrow: 'Project',
     technologiesHeading: 'Technologies',
     liveActionLabel: 'View Live Project',
@@ -22,7 +22,7 @@ export const workContent = {
   },
 }
 
-const largeProjects: WorkItem[] = [
+const largeProjects: ProjectItem[] = [
   {
     id: 'dupre-music-designs',
     name: 'Dupre Music Designs',
@@ -110,7 +110,7 @@ const largeProjects: WorkItem[] = [
   },
 ]
 
-const smallProjects: WorkItem[] = [
+const smallProjects: ProjectItem[] = [
   {
     id: 'battleship',
     name: 'Battleship',
@@ -163,7 +163,7 @@ const smallProjects: WorkItem[] = [
     image: 'metronome.png',
     prodLink: 'https://johnson-react-metronome.netlify.app/',
     technologies: ['React', 'HTML', 'CSS'],
-    description: 'Working metronome built with React',
+    description: 'Functional metronome built with React',
   },
   {
     id: 'giffinder',

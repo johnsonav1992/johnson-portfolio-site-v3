@@ -25,8 +25,8 @@ export const navigation = [
     href: routes.tools.href(),
   },
   {
-    label: 'Work',
-    href: routes.work.index.href(),
+    label: 'Projects',
+    href: routes.projects.index.href(),
   },
   {
     label: 'Contact',
@@ -53,20 +53,20 @@ export const homeContent = {
     heading: 'Alex Johnson',
     body: 'Fullstack developer building modern applications for the web with AI integration and a focus on performance and powerful user experiences.',
     primaryAction: {
-      label: 'View Work',
-      href: '#work',
+      label: 'View Projects',
+      href: '#projects',
     },
     secondaryAction: {
       label: 'Contact',
       href: routes.contact.index.href(),
     },
   },
-  work: {
-    eyebrow: 'Selected work',
+  projects: {
+    eyebrow: 'Selected projects',
     heading: 'A few projects worth highlighting.',
     action: {
-      label: 'View all work',
-      href: routes.work.index.href(),
+      label: 'View all projects',
+      href: routes.projects.index.href(),
     },
   },
   contact: {

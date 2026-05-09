@@ -42,7 +42,7 @@ const SPAM_PATTERNS = [
   /\b(join|sit in on|attend|represent me in)\s+(meetings?|calls?|interviews?)\b/i,
   /\bwin\s+(the\s+)?(contract|project|client)\b/i,
   /\bcompensate you\s+for\s+your\s+time\b/i,
-  /\bsecure\s+(the\s+)?(project|contract|work|client)\b/i,
+  /\bsecure\s+(the\s+)?(project|contract|projects|client)\b/i,
   /\bhandle\s+(all\s+)?(the\s+)?(post.meeting|technical\s+execution|delivery)\b/i,
 ]
 

@@ -1,17 +1,17 @@
 import { css } from 'remix/ui'
 
-import { featuredProjects, projects, workContent } from '../../../data/work.ts'
+import { featuredProjects, projects, projectsContent } from '../../../data/projects.ts'
 import { sectionWrap, theme } from '../../../theme/styles.ts'
 import { Layout } from '../../../ui/layout.tsx'
 import { ProjectList } from './project-list/project-list.tsx'
 
 const moreProjects = projects.filter((project) => !project.featured)
 
-export const WorkIndexPage = () => {
+export const ProjectsIndexPage = () => {
   return () => (
     <Layout
-      currentPath='/work'
-      title={workContent.title}
+      currentPath='/projects'
+      title={projectsContent.title}
     >
       <section
         mix={[
@@ -35,7 +35,7 @@ export const WorkIndexPage = () => {
               fontWeight: theme.fontWeight.bold,
             })}
           >
-            {workContent.eyebrow}
+            {projectsContent.eyebrow}
           </p>
           <h1
             mix={css({
@@ -48,7 +48,7 @@ export const WorkIndexPage = () => {
               },
             })}
           >
-            {workContent.heading}
+            {projectsContent.heading}
           </h1>
           <p
             mix={css({
@@ -59,7 +59,7 @@ export const WorkIndexPage = () => {
               lineHeight: theme.lineHeight.relaxed,
             })}
           >
-            {workContent.body}
+            {projectsContent.body}
           </p>
         </div>
       </section>
@@ -75,11 +75,11 @@ export const WorkIndexPage = () => {
         ]}
       >
         <ProjectList
-          heading={workContent.sections.featured}
+          heading={projectsContent.sections.featured}
           projects={featuredProjects}
         />
         <ProjectList
-          heading={workContent.sections.more}
+          heading={projectsContent.sections.more}
           projects={moreProjects}
         />
       </div>

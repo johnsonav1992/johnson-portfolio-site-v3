@@ -1,4 +1,4 @@
-export interface WorkItem {
+export interface ProjectItem {
   id: string
   name: string
   route: string

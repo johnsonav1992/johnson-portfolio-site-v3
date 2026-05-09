@@ -4,14 +4,14 @@ import { Glyph } from 'remix/ui/glyph'
 import { mediaPath } from '../../data/media.ts'
 import { routes } from '../../routes.ts'
 import { appLink, focusRing, portfolio, theme } from '../../theme/styles.ts'
-import type { WorkItem } from '../../types/types.ts'
+import type { ProjectItem } from '../../types/types.ts'
 
-interface WorkCardProps {
-  project: WorkItem
+interface ProjectCardProps {
+  project: ProjectItem
 }
 
-export const WorkCard = () => {
-  return ({ project }: WorkCardProps) => {
+export const ProjectCard = () => {
+  return ({ project }: ProjectCardProps) => {
     let imageStyle: { objectPosition: string } | undefined
 
     if (project.objectPosition) {
@@ -22,7 +22,7 @@ export const WorkCard = () => {
 
     return (
       <a
-        href={routes.work.show.href({ projectRoute: project.route })}
+        href={routes.projects.show.href({ projectRoute: project.route })}
         aria-label={`View ${project.name} project details`}
         mix={[
           appLink,

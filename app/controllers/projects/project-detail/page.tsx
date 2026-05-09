@@ -2,15 +2,15 @@ import { css } from 'remix/ui'
 import { Glyph } from 'remix/ui/glyph'
 
 import { mediaPath } from '../../../data/media.ts'
-import { workContent } from '../../../data/work.ts'
+import { projectsContent } from '../../../data/projects.ts'
 import { routes } from '../../../routes.ts'
 import { appLink, focusRing, sectionWrap, theme } from '../../../theme/styles.ts'
-import type { WorkItem } from '../../../types/types.ts'
+import type { ProjectItem } from '../../../types/types.ts'
 import { Layout } from '../../../ui/layout.tsx'
-import { WorkActions } from '../components/work-actions/work-actions.tsx'
+import { ProjectActions } from '../components/project-actions/project-actions.tsx'
 
 interface ProjectDetailPageProps {
-  project: WorkItem
+  project: ProjectItem
 }
 
 export const ProjectDetailPage = () => {
@@ -25,8 +25,8 @@ export const ProjectDetailPage = () => {
 
     return (
       <Layout
-        currentPath='/work'
-        title={`${project.name} - ${workContent.detail.titleSuffix}`}
+        currentPath='/projects'
+        title={`${project.name} - ${projectsContent.detail.titleSuffix}`}
       >
         <article
           mix={[
@@ -39,7 +39,7 @@ export const ProjectDetailPage = () => {
           ]}
         >
           <a
-            href={routes.work.index.href()}
+            href={routes.projects.index.href()}
             mix={[
               appLink,
               css({
@@ -65,7 +65,7 @@ export const ProjectDetailPage = () => {
                 transform: 'rotate(180deg)',
               })}
             />
-            <span>{workContent.detail.backLabel}</span>
+            <span>{projectsContent.detail.backLabel}</span>
           </a>
           <div
             mix={css({
@@ -99,7 +99,7 @@ export const ProjectDetailPage = () => {
                     fontWeight: theme.fontWeight.bold,
                   })}
                 >
-                  {workContent.detail.eyebrow}
+                  {projectsContent.detail.eyebrow}
                 </p>
                 <h1
                   mix={css({
@@ -138,7 +138,7 @@ export const ProjectDetailPage = () => {
                     lineHeight: 1.2,
                   })}
                 >
-                  {workContent.detail.technologiesHeading}
+                  {projectsContent.detail.technologiesHeading}
                 </h2>
                 <ul
                   mix={css({
@@ -171,7 +171,7 @@ export const ProjectDetailPage = () => {
                   ))}
                 </ul>
               </section>
-              <WorkActions project={project} />
+              <ProjectActions project={project} />
             </div>
             <div
               mix={css({
@@ -184,7 +184,7 @@ export const ProjectDetailPage = () => {
             >
               <img
                 src={mediaPath(project.image)}
-                alt={`${project.name} ${workContent.detail.screenshotAltSuffix}`}
+                alt={`${project.name} ${projectsContent.detail.screenshotAltSuffix}`}
                 style={imageStyle}
                 mix={css({
                   width: '100%',

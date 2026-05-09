@@ -104,9 +104,10 @@ export const ContactFormSection = () => {
             name='message'
             rows={9}
             placeholder='Tell me a bit about the project, timeline, or what you need help with.'
-            defaultValue={values.message}
             required
-          />
+          >
+            {values.message}
+          </textarea>
         </div>
         <input
           type='hidden'

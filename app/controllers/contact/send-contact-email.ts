@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer'
 
-import { type ContactData, escapeHtml } from './form.ts'
+import { getContactEmailSubject, renderContactEmailHtml } from './contact-email-template.ts'
+import type { ContactData } from './form.ts'
 
 const DEFAULT_EMAIL_TIMEOUT_MS = 8000
 
@@ -45,19 +46,6 @@ const withTimeout = async <T>(promise: Promise<T>, timeoutMs: number): Promise<T
   }
 }
 
-const getEmailSubject = (name: string, email: string) => `Message received from ${name} - ${email}`
-
-const getEmailHtml = ({
-  name,
-  email,
-  message,
-}: Pick<ContactData, 'name' | 'email' | 'message'>) => `
-  <h1>New AJ Web Development Contact Form Submission</h1>
-  <h2>From ${escapeHtml(name)} - ${escapeHtml(email)}</h2>
-  <h3>Message:</h3>
-  <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
-`
-
 export const sendContactEmail = async ({
   name,
   email,
@@ -88,8 +76,8 @@ export const sendContactEmail = async ({
         sender: user,
         to: user,
         replyTo: email,
-        subject: getEmailSubject(name, email),
-        html: getEmailHtml({ name, email, message }),
+        subject: getContactEmailSubject({ email, message, name }),
+        html: renderContactEmailHtml({ email, message, name }),
       }),
       timeoutMs,
     )

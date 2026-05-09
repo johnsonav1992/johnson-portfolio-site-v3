@@ -1,13 +1,13 @@
 import { css } from 'remix/ui'
 import { Glyph } from 'remix/ui/glyph'
 
-import { workContent } from '../../../../data/work.ts'
+import { projectsContent } from '../../../../data/projects.ts'
 import { appLink, focusRing, theme } from '../../../../theme/styles.ts'
-import type { WorkItem } from '../../../../types/types.ts'
+import type { ProjectItem } from '../../../../types/types.ts'
 import { GithubIcon } from '../../../../ui/social-icon/github-icon/github-icon.tsx'
 
-interface WorkActionsProps {
-  project: WorkItem
+interface ProjectActionsProps {
+  project: ProjectItem
 }
 
 const actionLink = css({
@@ -52,8 +52,8 @@ const actionIcon = css({
   flex: '0 0 auto',
 })
 
-export const WorkActions = () => {
-  return ({ project }: WorkActionsProps) => (
+export const ProjectActions = () => {
+  return ({ project }: ProjectActionsProps) => (
     <div
       mix={css({
         display: 'flex',
@@ -69,7 +69,7 @@ export const WorkActions = () => {
           rel='noreferrer'
           mix={[appLink, actionLink, primaryAction]}
         >
-          <span>{workContent.detail.liveActionLabel}</span>
+          <span>{projectsContent.detail.liveActionLabel}</span>
           <Glyph
             name='open'
             aria-hidden='true'
@@ -85,7 +85,7 @@ export const WorkActions = () => {
           mix={[appLink, actionLink, secondaryAction]}
         >
           <GithubIcon />
-          <span>{workContent.detail.repositoryActionLabel}</span>
+          <span>{projectsContent.detail.repositoryActionLabel}</span>
           <Glyph
             name='open'
             aria-hidden='true'
@@ -100,7 +100,7 @@ export const WorkActions = () => {
           rel='noreferrer'
           mix={[appLink, actionLink, secondaryAction]}
         >
-          <span>{workContent.detail.videoActionLabel}</span>
+          <span>{projectsContent.detail.videoActionLabel}</span>
           <Glyph
             name='open'
             aria-hidden='true'

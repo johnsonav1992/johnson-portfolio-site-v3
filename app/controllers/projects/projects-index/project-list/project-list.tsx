@@ -1,12 +1,12 @@
 import { css } from 'remix/ui'
 
 import { portfolio, theme } from '../../../../theme/styles.ts'
-import type { WorkItem } from '../../../../types/types.ts'
-import { WorkCard } from '../../../../ui/work-card/work-card.tsx'
+import type { ProjectItem } from '../../../../types/types.ts'
+import { ProjectCard } from '../../../../ui/project-card/project-card.tsx'
 
 interface ProjectListProps {
   heading: string
-  projects: WorkItem[]
+  projects: ProjectItem[]
 }
 
 export const ProjectList = () => {
@@ -53,7 +53,7 @@ export const ProjectList = () => {
         })}
       >
         {projects.map((project) => (
-          <WorkCard
+          <ProjectCard
             key={project.id}
             project={project}
           />
