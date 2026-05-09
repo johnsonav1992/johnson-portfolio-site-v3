@@ -4,14 +4,14 @@ import { redirect } from 'remix/response/redirect'
 import type { routes } from '../../routes.ts'
 import { render } from '../../utils/render.tsx'
 import {
+  type ContactResult,
   contactMessages,
   extractContactData,
+  parseContactFormData,
   toContactFormValues,
-  type ContactResult,
-  validateContactData,
 } from './form.ts'
-import { sendContactEmail } from './send-contact-email.ts'
 import { ContactPage } from './page.tsx'
+import { sendContactEmail } from './send-contact-email.ts'
 
 const RATE_LIMIT_WINDOW_MS = 60 * 1000
 const rateLimitMap = new Map<string, number>()
@@ -61,7 +61,7 @@ export const contact = {
         submission: getSuccessSubmission(request),
       })
     },
-    async action({ request }) {
+    async action({ get, request }) {
       const ip = getContactIp(request)
       const lastSubmit = rateLimitMap.get(ip)
 
@@ -75,21 +75,24 @@ export const contact = {
         })
       }
 
-      const formData = await request.formData()
-      const contactData = extractContactData(formData)
-      const values = toContactFormValues(contactData)
-      const validationError = validateContactData(contactData)
+      const formData = get(FormData)
+      const parsed = parseContactFormData(formData)
 
-      if (validationError) {
+      if (!parsed.success) {
+        const values = toContactFormValues(extractContactData(formData))
+
         return renderContactPage(request, {
           status: 400,
           submission: {
             type: 'error',
-            message: validationError,
+            message: parsed.issues[0]?.message ?? contactMessages.genericError,
           },
           values,
         })
       }
+
+      const contactData = parsed.value
+      const values = toContactFormValues(contactData)
 
       try {
         await sendContactEmail(contactData)

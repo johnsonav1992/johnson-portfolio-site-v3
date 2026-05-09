@@ -14,7 +14,7 @@ export const ContactOverviewCard = () => {
           gap: theme.space.md,
           padding: '34px',
           background:
-          'linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
+            'linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))',
           boxShadow: theme.shadow.lg,
           '@media (max-width: 620px)': {
             padding: '26px',

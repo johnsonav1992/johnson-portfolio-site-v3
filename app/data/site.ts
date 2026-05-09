@@ -1,3 +1,4 @@
+import { routes } from '../routes.ts'
 import type { SocialLink } from '../types/types.ts'
 
 export const site = {
@@ -21,15 +22,15 @@ export const site = {
 export const navigation = [
   {
     label: 'Tools',
-    href: '/tools',
+    href: routes.tools.href(),
   },
   {
     label: 'Work',
-    href: '/work',
+    href: routes.work.index.href(),
   },
   {
     label: 'Contact',
-    href: '/contact',
+    href: routes.contact.index.href(),
   },
 ]
 
@@ -57,7 +58,7 @@ export const homeContent = {
     },
     secondaryAction: {
       label: 'Contact',
-      href: '/contact',
+      href: routes.contact.index.href(),
     },
   },
   work: {
@@ -65,7 +66,7 @@ export const homeContent = {
     heading: 'A few projects worth highlighting.',
     action: {
       label: 'View all work',
-      href: '/work',
+      href: routes.work.index.href(),
     },
   },
   contact: {
@@ -78,8 +79,7 @@ export const contactPageContent = {
   title: 'Contact - Alex Johnson',
   eyebrow: 'Contact',
   heading: 'Start the conversation',
-  body:
-    'If you need a product site, a web app, or help improving an existing experience, send a quick note and I will get back to you as soon as I can. I am always happy to talk through the project, the goals, and the best path forward.',
+  body: 'If you need a product site, a web app, or help improving an existing experience, send a quick note and I will get back to you as soon as I can. I am always happy to talk through the project, the goals, and the best path forward.',
   formHeading: 'Project details',
   formBody:
     'Share a few details about what you are building, what kind of help you need, and anything else that would be useful context.',

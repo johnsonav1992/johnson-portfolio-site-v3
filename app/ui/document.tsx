@@ -1,9 +1,9 @@
 import type { RemixNode } from 'remix/ui'
 import { RMX_01_GLYPHS } from 'remix/ui/theme'
 
+import { assets } from '../assets.ts'
 import { mediaPath } from '../data/media.ts'
 import { site } from '../data/site.ts'
-import { routes } from '../routes.ts'
 import { pageShell } from '../theme/styles.ts'
 import { Theme } from '../theme/theme.ts'
 
@@ -13,6 +13,7 @@ export interface DocumentProps {
 }
 
 const DEFAULT_TITLE = site.title
+const clientEntrySrc = await assets.getHref('app/assets/entry.ts')
 
 export const Document = () => {
   return ({ title = DEFAULT_TITLE, children }: DocumentProps) => (
@@ -44,7 +45,7 @@ export const Document = () => {
         {children}
         <script
           type='module'
-          src={routes.assets.href({ path: 'app/assets/entry.ts' })}
+          src={clientEntrySrc}
         />
       </body>
     </html>

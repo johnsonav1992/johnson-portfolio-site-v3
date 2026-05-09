@@ -1,4 +1,4 @@
-import { inputGroupStyles, formFieldStyles, labelStyles } from '../styles.ts'
+import { formFieldStyles, inputGroupStyles, labelStyles } from '../styles.ts'
 
 interface ContactFieldProps {
   defaultValue: string

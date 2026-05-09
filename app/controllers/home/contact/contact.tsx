@@ -3,8 +3,8 @@ import { css } from 'remix/ui'
 import { homeContent } from '../../../data/site.ts'
 import { routes } from '../../../routes.ts'
 import { sectionWrap, theme } from '../../../theme/styles.ts'
+import { SectionLabel } from '../../../ui/section-label/section-label.tsx'
 import { SecondaryLink } from '../components/secondary-link/secondary-link.tsx'
-import { SectionLabel } from '../components/section-label/section-label.tsx'
 import { sectionHeading } from '../components/styles.ts'
 
 export const Contact = () => {

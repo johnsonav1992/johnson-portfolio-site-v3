@@ -1,14 +1,13 @@
 import { css } from 'remix/ui'
-
-import { routes } from '../../routes.ts'
 import { contactPageContent } from '../../data/site.ts'
+import { routes } from '../../routes.ts'
 import { sectionWrap } from '../../theme/styles.ts'
 import { Layout } from '../../ui/layout.tsx'
-import type { ContactFormValues, ContactResult } from './form.ts'
+import { SectionLabel } from '../../ui/section-label/section-label.tsx'
 import { ContactFormSection } from './contact-form-section/contact-form-section.tsx'
 import { ContactOverviewCard } from './contact-overview-card/contact-overview-card.tsx'
+import type { ContactFormValues, ContactResult } from './form.ts'
 import { SocialLinksCard } from './social-links-card/social-links-card.tsx'
-import { SectionLabel } from '../home/components/section-label/section-label.tsx'
 
 const formAction = routes.contact.action.href()
 

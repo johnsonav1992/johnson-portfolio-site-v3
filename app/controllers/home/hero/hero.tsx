@@ -2,9 +2,9 @@ import { css } from 'remix/ui'
 
 import { homeContent } from '../../../data/site.ts'
 import { sectionWrap, theme } from '../../../theme/styles.ts'
+import { SectionLabel } from '../../../ui/section-label/section-label.tsx'
 import { PrimaryLink } from '../components/primary-link/primary-link.tsx'
 import { SecondaryLink } from '../components/secondary-link/secondary-link.tsx'
-import { SectionLabel } from '../components/section-label/section-label.tsx'
 import { Portrait } from './portrait/portrait.tsx'
 
 export const Hero = () => {

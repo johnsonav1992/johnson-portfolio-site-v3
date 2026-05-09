@@ -2,9 +2,9 @@ import { css } from 'remix/ui'
 
 import { contactPageContent } from '../../../data/site.ts'
 import { theme } from '../../../theme/styles.ts'
+import { ContactField } from '../contact-field/contact-field.tsx'
 import type { ContactFormValues, ContactResult } from '../form.ts'
 import { cardStyles, formFieldStyles, inputGroupStyles, labelStyles } from '../styles.ts'
-import { ContactField } from '../contact-field/contact-field.tsx'
 import { SubmissionNotice } from '../submission-notice/submission-notice.tsx'
 
 interface ContactFormSectionProps {

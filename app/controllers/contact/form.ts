@@ -1,3 +1,7 @@
+import * as s from 'remix/data-schema'
+import * as c from 'remix/data-schema/coerce'
+import * as f from 'remix/data-schema/form-data'
+
 export interface ContactData {
   name: string
   email: string
@@ -44,23 +48,19 @@ const SPAM_PATTERNS = [
 
 const stripNewlines = (value: string | null) => value?.replace(/[\r\n]+/g, ' ').trim() ?? ''
 
-export const escapeHtml = (value: string) =>
-  value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;')
-
-export const extractContactData = (formData: FormData): ContactData => ({
-  name: stripNewlines(formData.get('name')?.toString() ?? null),
-  email: stripNewlines(formData.get('email')?.toString() ?? null),
-  message: formData.get('message')?.toString().trim() ?? '',
-  honeypot: formData.get('honeypot')?.toString() ?? '',
-  loadedAt: Number(formData.get('loadedAt')) || undefined,
+const contactFieldsSchema = f.object({
+  name: f.field(s.defaulted(s.string(), '').transform(stripNewlines)),
+  email: f.field(s.defaulted(s.string(), '').transform(stripNewlines)),
+  message: f.field(s.defaulted(s.string(), '').transform((value) => value.trim())),
+  honeypot: f.field(s.defaulted(s.string(), '')),
+  loadedAt: f.field(s.optional(c.number())),
 })
 
-export const toContactFormValues = ({ name, email, message }: Partial<ContactData>): ContactFormValues => ({
+export const toContactFormValues = ({
+  name,
+  email,
+  message,
+}: Partial<ContactData>): ContactFormValues => ({
   name: name ?? '',
   email: email ?? '',
   message: message ?? '',
@@ -108,3 +108,38 @@ export const validateContactData = ({
 
   return null
 }
+
+const contactFormSchema = s.createSchema<FormData, ContactData>((value, context) => {
+  const parsed = contactFieldsSchema['~run'](value, context)
+
+  if (parsed.issues) {
+    return parsed
+  }
+
+  const validationError = validateContactData(parsed.value)
+
+  if (validationError) {
+    return { issues: [s.createIssue(validationError, context.path)] }
+  }
+
+  return parsed
+})
+
+export const escapeHtml = (value: string) =>
+  value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;')
+
+export const extractContactData = (formData: FormData): ContactData => ({
+  name: stripNewlines(formData.get('name')?.toString() ?? null),
+  email: stripNewlines(formData.get('email')?.toString() ?? null),
+  message: formData.get('message')?.toString().trim() ?? '',
+  honeypot: formData.get('honeypot')?.toString() ?? '',
+  loadedAt: Number(formData.get('loadedAt')) || undefined,
+})
+
+export const parseContactFormData = (formData: FormData) =>
+  s.parseSafe(contactFormSchema, formData, { abortEarly: true })

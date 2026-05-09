@@ -1,4 +1,5 @@
 import { createRouter } from 'remix/fetch-router'
+import { formData } from 'remix/form-data-middleware'
 import { staticFiles } from 'remix/static-middleware'
 
 import { assets } from './assets.ts'
@@ -6,6 +7,7 @@ import { contact } from './controllers/contact/controller.tsx'
 import { home } from './controllers/home/controller.tsx'
 import { tools } from './controllers/tools/controller.tsx'
 import { work } from './controllers/work/controller.tsx'
+import { requestLogger } from './middleware/request-logger.ts'
 import { routes } from './routes.ts'
 
 export const router = createRouter({
@@ -16,6 +18,8 @@ export const router = createRouter({
         return !filePath.split('/').some((segment) => segment.startsWith('.'))
       },
     }),
+    requestLogger(),
+    formData(),
   ],
 })
 

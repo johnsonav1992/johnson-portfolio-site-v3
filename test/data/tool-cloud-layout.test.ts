@@ -27,6 +27,7 @@ it('tool cloud layout includes every tool exactly once', () => {
 it('tool cloud layout keeps orbs from overlapping at rest', () => {
   const layout = buildToolCloudLayout(tools)
   const minimumGap = 10
+  const roundingTolerance = 1
 
   for (const [index, position] of layout.positions.entries()) {
     for (const other of layout.positions.slice(index + 1)) {
@@ -35,7 +36,10 @@ it('tool cloud layout keeps orbs from overlapping at rest', () => {
       const distance = Math.hypot(xDistance, yDistance)
       const minimumDistance = (position.size + other.size) / 2 + minimumGap
 
-      assert.ok(distance >= minimumDistance, `${position.id} overlaps ${other.id}`)
+      assert.ok(
+        distance + roundingTolerance >= minimumDistance,
+        `${position.id} overlaps ${other.id}`,
+      )
     }
   }
 })

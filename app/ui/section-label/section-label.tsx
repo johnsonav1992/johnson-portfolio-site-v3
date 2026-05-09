@@ -1,6 +1,6 @@
 import { css, type RemixNode } from 'remix/ui'
 
-import { portfolio, theme } from '../../../../theme/styles.ts'
+import { portfolio, theme } from '../../theme/styles.ts'
 
 export const SectionLabel = () => {
   return ({ children }: { children: RemixNode }) => (
