@@ -5,12 +5,16 @@ import { staticFiles } from 'remix/static-middleware'
 import { assets } from './assets.ts'
 import { contact } from './controllers/contact/controller.tsx'
 import { home } from './controllers/home/controller.tsx'
+import { renderNotFound } from './controllers/not-found/controller.tsx'
 import { projects } from './controllers/projects/controller.tsx'
 import { tools } from './controllers/tools/controller.tsx'
 import { requestLogger } from './middleware/request-logger.ts'
 import { routes } from './routes.ts'
 
 export const router = createRouter({
+  defaultHandler({ request }) {
+    return renderNotFound(request)
+  },
   middleware: [
     staticFiles('./public', {
       cacheControl: 'public, max-age=3600',

@@ -90,3 +90,18 @@ export const contactPageContent = {
   socialHeading: 'Elsewhere online',
   socialBody: 'If you want to connect another way first, you can also find me here.',
 }
+
+export const notFoundContent = {
+  title: 'Page not found - Alex Johnson',
+  eyebrow: '404',
+  heading: 'Looks like this page slipped away.',
+  body: 'That link does not lead anywhere right now. You can head back home or jump into the projects that are still very much online.',
+  primaryAction: {
+    label: 'Go home',
+    href: routes.home.href(),
+  },
+  secondaryAction: {
+    label: 'View projects',
+    href: routes.projects.index.href(),
+  },
+}

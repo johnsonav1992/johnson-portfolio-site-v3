@@ -45,9 +45,15 @@ describe('project routes', () => {
       routes.projects.show.href({ projectRoute: 'missing-project' }),
     )
     const retiredWorkResponse = await fetchPath('/work')
+    const missingProjectHtml = await missingProjectResponse.text()
+    const retiredWorkHtml = await retiredWorkResponse.text()
 
     assert.equal(missingProjectResponse.status, 404)
+    assert.match(missingProjectHtml, /Looks like this page slipped away/)
+    assert.doesNotMatch(missingProjectHtml, /Requested path/)
     assert.equal(retiredWorkResponse.status, 404)
+    assert.match(retiredWorkHtml, /Looks like this page slipped away/)
+    assert.doesNotMatch(retiredWorkHtml, /Requested path/)
   })
 })
 
