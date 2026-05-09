@@ -1,3 +1,5 @@
+import type { Handle } from 'remix/ui'
+
 import { formFieldStyles, inputGroupStyles, labelStyles } from '../styles.ts'
 
 interface ContactFieldProps {
@@ -9,25 +11,29 @@ interface ContactFieldProps {
   type?: 'email' | 'text'
 }
 
-export const ContactField = () => {
-  return ({ defaultValue, id, label, name, placeholder, type = 'text' }: ContactFieldProps) => (
-    <div mix={inputGroupStyles}>
-      <label
-        htmlFor={id}
-        mix={labelStyles}
-      >
-        {label}
-      </label>
-      <input
-        id={id}
-        mix={formFieldStyles}
-        type={type}
-        list={undefined}
-        name={name}
-        placeholder={placeholder}
-        value={defaultValue}
-        required
-      />
-    </div>
-  )
+export const ContactField = (handle: Handle<ContactFieldProps>) => {
+  return () => {
+    const { defaultValue, id, label, name, placeholder, type = 'text' } = handle.props
+
+    return (
+      <div mix={inputGroupStyles}>
+        <label
+          htmlFor={id}
+          mix={labelStyles}
+        >
+          {label}
+        </label>
+        <input
+          id={id}
+          mix={formFieldStyles}
+          type={type}
+          list={undefined}
+          name={name}
+          placeholder={placeholder}
+          value={defaultValue}
+          required
+        />
+      </div>
+    )
+  }
 }

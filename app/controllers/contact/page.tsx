@@ -1,4 +1,4 @@
-import { css } from 'remix/ui'
+import { css, type Handle } from 'remix/ui'
 import { contactPageContent } from '../../data/site.ts'
 import { routes } from '../../routes.ts'
 import { sectionWrap } from '../../theme/styles.ts'
@@ -23,46 +23,50 @@ export interface ContactPageProps {
   values?: ContactFormValues
 }
 
-export const ContactPage = () => {
-  return ({ loadedAt, submission, values = emptyFormValues }: ContactPageProps) => (
-    <Layout
-      currentPath='/contact'
-      title={contactPageContent.title}
-    >
-      <section
-        mix={[
-          sectionWrap,
-          css({
-            display: 'grid',
-            gap: '28px',
-            padding: '64px 0 88px',
-            '@media (max-width: 720px)': {
-              gap: '20px',
-              padding: '48px 0 64px',
-            },
-          }),
-        ]}
+export const ContactPage = (handle: Handle<ContactPageProps>) => {
+  return () => {
+    const { loadedAt, submission, values = emptyFormValues } = handle.props
+
+    return (
+      <Layout
+        currentPath='/contact'
+        title={contactPageContent.title}
       >
-        <div
-          mix={css({
-            width: '100%',
-            maxWidth: '840px',
-            margin: '0 auto',
-            display: 'grid',
-            gap: '18px',
-          })}
+        <section
+          mix={[
+            sectionWrap,
+            css({
+              display: 'grid',
+              gap: '28px',
+              padding: '64px 0 88px',
+              '@media (max-width: 720px)': {
+                gap: '20px',
+                padding: '48px 0 64px',
+              },
+            }),
+          ]}
         >
-          <SectionLabel>{contactPageContent.eyebrow}</SectionLabel>
-          <ContactOverviewCard />
-          <ContactFormSection
-            action={formAction}
-            loadedAt={loadedAt}
-            submission={submission}
-            values={values}
-          />
-          <SocialLinksCard />
-        </div>
-      </section>
-    </Layout>
-  )
+          <div
+            mix={css({
+              width: '100%',
+              maxWidth: '840px',
+              margin: '0 auto',
+              display: 'grid',
+              gap: '18px',
+            })}
+          >
+            <SectionLabel>{contactPageContent.eyebrow}</SectionLabel>
+            <ContactOverviewCard />
+            <ContactFormSection
+              action={formAction}
+              loadedAt={loadedAt}
+              submission={submission}
+              values={values}
+            />
+            <SocialLinksCard />
+          </div>
+        </section>
+      </Layout>
+    )
+  }
 }

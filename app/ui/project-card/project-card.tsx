@@ -1,4 +1,4 @@
-import { css } from 'remix/ui'
+import { css, type Handle } from 'remix/ui'
 import { Glyph } from 'remix/ui/glyph'
 
 import { mediaPath } from '../../data/media.ts'
@@ -10,8 +10,9 @@ interface ProjectCardProps {
   project: ProjectItem
 }
 
-export const ProjectCard = () => {
-  return ({ project }: ProjectCardProps) => {
+export const ProjectCard = (handle: Handle<ProjectCardProps>) => {
+  return () => {
+    const { project } = handle.props
     let imageStyle: { objectPosition: string } | undefined
 
     if (project.objectPosition) {

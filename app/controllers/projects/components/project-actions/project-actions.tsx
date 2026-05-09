@@ -1,4 +1,4 @@
-import { css } from 'remix/ui'
+import { css, type Handle } from 'remix/ui'
 import { Glyph } from 'remix/ui/glyph'
 
 import { projectsContent } from '../../../../data/projects.ts'
@@ -52,62 +52,66 @@ const actionIcon = css({
   flex: '0 0 auto',
 })
 
-export const ProjectActions = () => {
-  return ({ project }: ProjectActionsProps) => (
-    <div
-      mix={css({
-        display: 'flex',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: theme.space.md,
-      })}
-    >
-      {project.prodLink ? (
-        <a
-          href={project.prodLink}
-          target='_blank'
-          rel='noreferrer'
-          mix={[appLink, actionLink, primaryAction]}
-        >
-          <span>{projectsContent.detail.liveActionLabel}</span>
-          <Glyph
-            name='open'
-            aria-hidden='true'
-            mix={actionIcon}
-          />
-        </a>
-      ) : null}
-      {project.repoLink ? (
-        <a
-          href={project.repoLink}
-          target='_blank'
-          rel='noreferrer'
-          mix={[appLink, actionLink, secondaryAction]}
-        >
-          <GithubIcon />
-          <span>{projectsContent.detail.repositoryActionLabel}</span>
-          <Glyph
-            name='open'
-            aria-hidden='true'
-            mix={actionIcon}
-          />
-        </a>
-      ) : null}
-      {project.videoLink ? (
-        <a
-          href={project.videoLink}
-          target='_blank'
-          rel='noreferrer'
-          mix={[appLink, actionLink, secondaryAction]}
-        >
-          <span>{projectsContent.detail.videoActionLabel}</span>
-          <Glyph
-            name='open'
-            aria-hidden='true'
-            mix={actionIcon}
-          />
-        </a>
-      ) : null}
-    </div>
-  )
+export const ProjectActions = (handle: Handle<ProjectActionsProps>) => {
+  return () => {
+    const { project } = handle.props
+
+    return (
+      <div
+        mix={css({
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: theme.space.md,
+        })}
+      >
+        {project.prodLink ? (
+          <a
+            href={project.prodLink}
+            target='_blank'
+            rel='noreferrer'
+            mix={[appLink, actionLink, primaryAction]}
+          >
+            <span>{projectsContent.detail.liveActionLabel}</span>
+            <Glyph
+              name='open'
+              aria-hidden='true'
+              mix={actionIcon}
+            />
+          </a>
+        ) : null}
+        {project.repoLink ? (
+          <a
+            href={project.repoLink}
+            target='_blank'
+            rel='noreferrer'
+            mix={[appLink, actionLink, secondaryAction]}
+          >
+            <GithubIcon />
+            <span>{projectsContent.detail.repositoryActionLabel}</span>
+            <Glyph
+              name='open'
+              aria-hidden='true'
+              mix={actionIcon}
+            />
+          </a>
+        ) : null}
+        {project.videoLink ? (
+          <a
+            href={project.videoLink}
+            target='_blank'
+            rel='noreferrer'
+            mix={[appLink, actionLink, secondaryAction]}
+          >
+            <span>{projectsContent.detail.videoActionLabel}</span>
+            <Glyph
+              name='open'
+              aria-hidden='true'
+              mix={actionIcon}
+            />
+          </a>
+        ) : null}
+      </div>
+    )
+  }
 }

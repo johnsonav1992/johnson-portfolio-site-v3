@@ -1,4 +1,4 @@
-import { css } from 'remix/ui'
+import { css, type Handle } from 'remix/ui'
 import { Glyph } from 'remix/ui/glyph'
 
 import { mediaPath } from '../../../data/media.ts'
@@ -13,8 +13,9 @@ interface ProjectDetailPageProps {
   project: ProjectItem
 }
 
-export const ProjectDetailPage = () => {
-  return ({ project }: ProjectDetailPageProps) => {
+export const ProjectDetailPage = (handle: Handle<ProjectDetailPageProps>) => {
+  return () => {
+    const { project } = handle.props
     let imageStyle: { objectPosition: string } | undefined
 
     if (project.objectPosition) {
