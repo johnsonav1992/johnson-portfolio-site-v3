@@ -80,6 +80,10 @@ describe('site e2e', () => {
     await reactLink.waitFor()
 
     assert.equal(await reactLink.getAttribute('href'), 'https://react.dev/')
+    assert.equal(
+      await page.getByRole('link', { name: 'Remix framework website' }).getAttribute('href'),
+      'https://remix.run/',
+    )
     assert.deepEqual(failedRequests, [])
     await page.waitForLoadState('networkidle')
   })

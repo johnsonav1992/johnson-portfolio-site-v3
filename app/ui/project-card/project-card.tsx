@@ -5,14 +5,19 @@ import { mediaPath } from '../../data/media.ts'
 import { routes } from '../../routes.ts'
 import { appLink, focusRing, portfolio, theme } from '../../theme/styles.ts'
 import type { ProjectItem } from '../../types/types.ts'
+import { TechnologyPill } from '../technology-pill/technology-pill.tsx'
 
 interface ProjectCardProps {
   project: ProjectItem
 }
 
+const visibleTechnologyCount = 4
+
 export const ProjectCard = (handle: Handle<ProjectCardProps>) => {
   return () => {
     const { project } = handle.props
+    const visibleTechnologies = project.technologies.slice(0, visibleTechnologyCount)
+    const hiddenTechnologyCount = project.technologies.length - visibleTechnologies.length
     let imageStyle: { objectPosition: string } | undefined
 
     if (project.objectPosition) {
@@ -132,24 +137,28 @@ export const ProjectCard = (handle: Handle<ProjectCardProps>) => {
               marginTop: theme.space.xs,
             })}
           >
-            {project.technologies.slice(0, 4).map((technology) => (
-              <span
+            {visibleTechnologies.map((technology) => (
+              <TechnologyPill
                 key={technology}
+                label={technology}
+                size='compact'
+              />
+            ))}
+            {hiddenTechnologyCount > 0 ? (
+              <span
                 mix={css({
                   minHeight: '28px',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  padding: `0 ${theme.space.md}`,
-                  borderRadius: theme.radius.full,
-                  border: `1px solid ${theme.colors.border.subtle}`,
-                  color: theme.colors.text.secondary,
-                  background: 'rgb(255 255 255 / 0.035)',
+                  padding: `0 ${theme.space.xs}`,
+                  color: theme.colors.text.muted,
                   fontSize: theme.fontSize.sm,
+                  fontStyle: 'italic',
                 })}
               >
-                {technology}
+                and {hiddenTechnologyCount} more
               </span>
-            ))}
+            ) : null}
           </span>
         </span>
       </a>

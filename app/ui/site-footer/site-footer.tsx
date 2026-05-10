@@ -1,8 +1,10 @@
 import { css } from 'remix/ui'
 import { mediaPath } from '../../data/media.ts'
 import { site, socials } from '../../data/site.ts'
-import { sectionWrap, theme } from '../../theme/styles.ts'
+import { appLink, focusRing, sectionWrap, theme } from '../../theme/styles.ts'
 import { FooterLink } from './footer-link/footer-link.tsx'
+
+const remixHref = 'https://remix.run/'
 
 export const SiteFooter = () => {
   return () => (
@@ -22,34 +24,51 @@ export const SiteFooter = () => {
           borderTop: `1px solid ${theme.colors.border.subtle}`,
           '@media (max-width: 620px)': {
             flexDirection: 'column',
-            alignItems: 'flex-start',
+            alignItems: 'center',
             justifyContent: 'center',
             padding: '18px 0',
+            textAlign: 'center',
           },
         }),
       ]}
     >
       <span>{`© ${new Date().getFullYear()} ${site.businessName}`}</span>
-      <div
-        mix={css({
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-        })}
+      <a
+        href={remixHref}
+        target='_blank'
+        rel='noreferrer'
+        aria-label='Remix framework website'
+        mix={[
+          appLink,
+          css({
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            color: 'inherit',
+            transition: 'color 160ms ease',
+            '&:hover': {
+              color: theme.colors.text.link,
+            },
+            '&:focus-visible': focusRing,
+          }),
+        ]}
       >
         <span>Made with ❤️ with</span>
         <img
           src={mediaPath('tools/remix.svg')}
-          alt=''
+          alt='Remix'
           mix={css({
             width: '30px',
           })}
         />
-      </div>
+      </a>
       <div
         mix={css({
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
           gap: '16px',
         })}
       >

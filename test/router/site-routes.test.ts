@@ -27,9 +27,11 @@ const contactBody = (overrides: Partial<Record<string, string>> = {}) => {
 describe('project routes', () => {
   it('serves the projects index and project detail pages from the route contract', async () => {
     const indexResponse = await fetchPath(routes.projects.index.href())
+    const indexHtml = await indexResponse.text()
 
     assert.equal(indexResponse.status, 200)
-    assert.match(await indexResponse.text(), /Projects - Alex Johnson/)
+    assert.match(indexHtml, /Projects - Alex Johnson/)
+    assert.match(indexHtml, /and 1 more/)
 
     const firstProject = projects[0]
     const detailResponse = await fetchPath(

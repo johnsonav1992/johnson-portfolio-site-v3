@@ -7,6 +7,7 @@ import { routes } from '../../../routes.ts'
 import { appLink, focusRing, sectionWrap, theme } from '../../../theme/styles.ts'
 import type { ProjectItem } from '../../../types/types.ts'
 import { Layout } from '../../../ui/layout.tsx'
+import { TechnologyPill } from '../../../ui/technology-pill/technology-pill.tsx'
 import { ProjectActions } from '../components/project-actions/project-actions.tsx'
 
 interface ProjectDetailPageProps {
@@ -155,19 +156,10 @@ export const ProjectDetailPage = (handle: Handle<ProjectDetailPageProps>) => {
                     <li
                       key={technology}
                       mix={css({
-                        minHeight: '34px',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        padding: `0 ${theme.space.md}`,
-                        borderRadius: theme.radius.full,
-                        border: `1px solid ${theme.colors.border.subtle}`,
-                        color: theme.colors.text.secondary,
-                        background: 'rgb(255 255 255 / 0.04)',
-                        fontSize: theme.fontSize.sm,
-                        fontWeight: theme.fontWeight.medium,
+                        display: 'contents',
                       })}
                     >
-                      {technology}
+                      <TechnologyPill label={technology} />
                     </li>
                   ))}
                 </ul>
