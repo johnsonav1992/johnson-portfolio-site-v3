@@ -6,6 +6,7 @@ import { renderToStream } from 'remix/ui/server'
 
 import { assets } from '../assets.ts'
 import { router } from '../router.ts'
+import { browserPageCache, noStoreCache } from './cache.ts'
 
 export const render = (node: RemixNode, request: Request, init?: ResponseInit) => {
   const stream = renderToStream(node, {
@@ -49,6 +50,13 @@ export const render = (node: RemixNode, request: Request, init?: ResponseInit) =
 
   if (!headers.has('Content-Type')) {
     headers.set('Content-Type', 'text/html; charset=utf-8')
+  }
+
+  if (!headers.has('Cache-Control')) {
+    headers.set(
+      'Cache-Control',
+      request.method === 'GET' && (init?.status ?? 200) < 400 ? browserPageCache : noStoreCache,
+    )
   }
 
   return new Response(stream, {

@@ -2,6 +2,7 @@ import type { Controller } from 'remix/fetch-router'
 import { redirect } from 'remix/response/redirect'
 
 import type { routes } from '../../routes.ts'
+import { noStoreHeaders } from '../../utils/cache.ts'
 import { render } from '../../utils/render.tsx'
 import {
   type ContactResult,
@@ -38,7 +39,10 @@ const renderContactPage = (
       values={values}
     />,
     request,
-    status ? { status } : undefined,
+    {
+      ...(status ? { status } : {}),
+      ...(submission || values ? { headers: noStoreHeaders } : {}),
+    },
   )
 
 const getSuccessSubmission = (request: Request): ContactResult | undefined => {
@@ -100,7 +104,10 @@ export const contact = {
 
         const successUrl = new URL(request.url)
         successUrl.searchParams.set('sent', '1')
-        return redirect(successUrl.toString(), 303)
+        return redirect(successUrl.toString(), {
+          status: 303,
+          headers: noStoreHeaders,
+        })
       } catch (error) {
         console.error('Contact form error:', error)
 

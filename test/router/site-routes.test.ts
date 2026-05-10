@@ -5,6 +5,7 @@ import { MIN_SUBMIT_TIME_MS } from '../../app/controllers/contact/form.ts'
 import { projects } from '../../app/data/projects.ts'
 import { router } from '../../app/router.ts'
 import { routes } from '../../app/routes.ts'
+import { browserPageCache, noStoreCache, publicStaticCache } from '../../app/utils/cache.ts'
 
 const requestUrl = (path: string) => `http://localhost${path}`
 
@@ -30,6 +31,7 @@ describe('project routes', () => {
     const indexHtml = await indexResponse.text()
 
     assert.equal(indexResponse.status, 200)
+    assert.equal(indexResponse.headers.get('cache-control'), browserPageCache)
     assert.match(indexHtml, /Projects - Alex Johnson/)
     assert.match(indexHtml, /and 1 more/)
 
@@ -39,6 +41,7 @@ describe('project routes', () => {
     )
 
     assert.equal(detailResponse.status, 200)
+    assert.equal(detailResponse.headers.get('cache-control'), browserPageCache)
     assert.match(await detailResponse.text(), new RegExp(firstProject.name))
   })
 
@@ -51,9 +54,11 @@ describe('project routes', () => {
     const retiredWorkHtml = await retiredWorkResponse.text()
 
     assert.equal(missingProjectResponse.status, 404)
+    assert.equal(missingProjectResponse.headers.get('cache-control'), noStoreCache)
     assert.match(missingProjectHtml, /Looks like this page slipped away/)
     assert.doesNotMatch(missingProjectHtml, /Requested path/)
     assert.equal(retiredWorkResponse.status, 404)
+    assert.equal(retiredWorkResponse.headers.get('cache-control'), noStoreCache)
     assert.match(retiredWorkHtml, /Looks like this page slipped away/)
     assert.doesNotMatch(retiredWorkHtml, /Requested path/)
   })
@@ -75,6 +80,7 @@ describe('contact route', () => {
       })
 
       assert.equal(response.status, 303)
+      assert.equal(response.headers.get('cache-control'), noStoreCache)
       assert.match(response.headers.get('location') ?? '', /\/contact\?sent=1/)
     } finally {
       if (originalDemoMode === undefined) {
@@ -89,6 +95,7 @@ describe('contact route', () => {
     const successResponse = await fetchPath(`${routes.contact.index.href()}?sent=1`)
 
     assert.equal(successResponse.status, 200)
+    assert.equal(successResponse.headers.get('cache-control'), noStoreCache)
     assert.match(await successResponse.text(), /Email sent successfully/)
 
     const invalidResponse = await fetchPath(routes.contact.index.href(), {
@@ -103,6 +110,7 @@ describe('contact route', () => {
     const invalidHtml = await invalidResponse.text()
 
     assert.equal(invalidResponse.status, 400)
+    assert.equal(invalidResponse.headers.get('cache-control'), noStoreCache)
     assert.match(invalidHtml, /Please enter a more detailed message/)
     assert.match(invalidHtml, /value="Alex Johnson"/)
     assert.match(invalidHtml, /value="alex@example.com"/)
@@ -119,9 +127,19 @@ describe('asset route', () => {
     )
 
     assert.equal(clientEntryResponse.status, 200)
+    assert.equal(clientEntryResponse.headers.get('cache-control'), 'no-cache')
     assert.match(clientEntryResponse.headers.get('content-type') ?? '', /javascript/)
     assert.equal(remixUiResponse.status, 200)
+    assert.equal(remixUiResponse.headers.get('cache-control'), 'no-cache')
     assert.match(remixUiResponse.headers.get('content-type') ?? '', /javascript/)
     assert.equal(serverOnlyResponse.status, 404)
+  })
+
+  it('serves public media with static cache headers', async () => {
+    const mediaResponse = await fetchPath('/media/metronome.png')
+
+    assert.equal(mediaResponse.status, 200)
+    assert.equal(mediaResponse.headers.get('cache-control'), publicStaticCache)
+    assert.match(mediaResponse.headers.get('etag') ?? '', /.+/)
   })
 })

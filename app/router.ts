@@ -10,6 +10,7 @@ import { projects } from './controllers/projects/controller.tsx'
 import { tools } from './controllers/tools/controller.tsx'
 import { requestLogger } from './middleware/request-logger.ts'
 import { routes } from './routes.ts'
+import { publicStaticCache } from './utils/cache.ts'
 
 export const router = createRouter({
   defaultHandler({ request }) {
@@ -17,7 +18,7 @@ export const router = createRouter({
   },
   middleware: [
     staticFiles('./public', {
-      cacheControl: 'public, max-age=3600',
+      cacheControl: publicStaticCache,
       filter(filePath) {
         return !filePath.split('/').some((segment) => segment.startsWith('.'))
       },

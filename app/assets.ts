@@ -1,5 +1,11 @@
 import { createAssetServer } from 'remix/assets'
 
+const productionAssetBuildId =
+  process.env.ASSET_BUILD_ID ??
+  process.env.VERCEL_GIT_COMMIT_SHA ??
+  process.env.RENDER_GIT_COMMIT ??
+  process.env.COMMIT_SHA
+
 export const assets = createAssetServer({
   basePath: '/assets',
   rootDir: process.cwd(),
@@ -15,6 +21,13 @@ export const assets = createAssetServer({
     'node_modules/**',
   ],
   deny: ['app/**/*.server.*'],
+  ...(process.env.NODE_ENV === 'production' && productionAssetBuildId
+    ? {
+        fingerprint: { buildId: productionAssetBuildId },
+        minify: true,
+        watch: false,
+      }
+    : {}),
   sourceMaps: process.env.NODE_ENV === 'development' ? 'external' : undefined,
   scripts: {
     define: {
