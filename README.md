@@ -27,3 +27,12 @@ npm run start
 npm test
 npm run typecheck
 ```
+
+## Netlify
+
+This repo includes a Netlify Function at `netlify/functions/remix.mts` that serves the Remix
+router for all app routes. Netlify uses `netlify.toml` to publish static files from `public/` and
+route dynamic requests through the function.
+
+Configure `GMAIL_EMAIL` and `GMAIL_PASS` in Netlify for the contact form, or set
+`CONTACT_DEMO_MODE=true` for a deploy that skips sending email.
