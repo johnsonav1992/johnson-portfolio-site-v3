@@ -1,5 +1,4 @@
 import { css } from 'remix/ui'
-import { animateEntrance, spring } from 'remix/ui/animation'
 
 import { toolsContent } from '../../../data/tools.ts'
 import { portfolio, sectionWrap, theme } from '../../../theme/styles.ts'
@@ -22,18 +21,11 @@ export const ToolsHero = () => {
       ]}
     >
       <div
-        mix={[
-          css({
-            maxWidth: '820px',
-            display: 'grid',
-            gap: theme.space.lg,
-          }),
-          animateEntrance({
-            opacity: 0,
-            transform: 'translateY(18px)',
-            ...spring('smooth'),
-          }),
-        ]}
+        mix={css({
+          maxWidth: '820px',
+          display: 'grid',
+          gap: theme.space.lg,
+        })}
       >
         <p
           mix={css({

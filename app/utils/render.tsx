@@ -28,13 +28,6 @@ export const render = (node: RemixNode, request: Request, init?: ResponseInit) =
         }
       }
 
-      if (href.startsWith('app/')) {
-        return {
-          href: await assets.getHref(href),
-          exportName,
-        }
-      }
-
       return {
         href,
         exportName,
