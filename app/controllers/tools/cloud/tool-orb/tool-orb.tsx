@@ -18,7 +18,7 @@ interface ToolOrbProps {
 }
 
 export const ToolOrb = clientEntry<ToolOrbProps>(
-  `${import.meta.url}#ToolOrb`,
+  'app/controllers/tools/cloud/tool-orb/tool-orb.tsx#ToolOrb',
   (handle: Handle<ToolOrbProps>) => {
     return () => {
       const { glow, href, image, monogram, name, size, tilt, x, y } = handle.props
