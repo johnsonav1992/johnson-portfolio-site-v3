@@ -4,8 +4,21 @@
 
 [functions]
   node_bundler = "esbuild"
+  external_node_modules = [
+    "lightningcss",
+    "oxc-minify",
+    "oxc-parser",
+    "oxc-resolver",
+    "oxc-transform",
+  ]
   included_files = [
     "app/**",
     "public/**",
+    "node_modules/@oxc-minify/**",
+    "node_modules/@oxc-parser/**",
+    "node_modules/@oxc-resolver/**",
+    "node_modules/@oxc-transform/**",
+    "node_modules/lightningcss/**",
+    "node_modules/lightningcss-*/**",
     "node_modules/remix/dist/**",
   ]
