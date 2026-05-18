@@ -5,6 +5,7 @@
 [functions]
   node_bundler = "esbuild"
   external_node_modules = [
+    "@oxc-project/runtime",
     "lightningcss",
     "oxc-minify",
     "oxc-parser",
@@ -14,6 +15,7 @@
   included_files = [
     "app/**",
     "public/**",
+    "node_modules/@oxc-project/**",
     "node_modules/@oxc-minify/**",
     "node_modules/@oxc-parser/**",
     "node_modules/@oxc-resolver/**",
