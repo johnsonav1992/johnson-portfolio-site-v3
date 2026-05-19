@@ -39,3 +39,27 @@ export const labelStyles = css({
   fontSize: theme.fontSize.sm,
   fontWeight: theme.fontWeight.semibold,
 })
+
+export const submitButtonStyles = css<HTMLButtonElement>({
+  width: '100%',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: theme.control.height.lg,
+  padding: `0 ${theme.space.xl}`,
+  border: 'none',
+  borderRadius: theme.radius.lg,
+  background: theme.colors.action.primary.background,
+  color: theme.colors.action.primary.foreground,
+  font: 'inherit',
+  fontWeight: theme.fontWeight.bold,
+  boxShadow: '0 16px 34px rgba(78, 167, 255, 0.24)',
+  cursor: 'pointer',
+  '&:hover': {
+    background: theme.colors.action.primary.backgroundHover,
+  },
+  '&:disabled': {
+    opacity: 0.72,
+    cursor: 'progress',
+  },
+})

@@ -1,31 +1,19 @@
-import { css, type Handle } from 'remix/ui'
-import { contactPageContent } from '../../data/site.ts'
-import { routes } from '../../routes.ts'
+import { css, Frame, type Handle } from 'remix/ui'
 import { sectionWrap } from '../../theme/styles.ts'
 import { Layout } from '../../ui/layout.tsx'
 import { SectionLabel } from '../../ui/section-label/section-label.tsx'
-import { ContactFormSection } from './contact-form-section/contact-form-section.tsx'
+import { contactFormFrameName } from './constants.ts'
 import { ContactOverviewCard } from './contact-overview-card/contact-overview-card.tsx'
-import type { ContactFormValues, ContactResult } from './form.ts'
+import { contactPageContent } from './content.ts'
 import { SocialLinksCard } from './social-links-card/social-links-card.tsx'
 
-const formAction = routes.contact.action.href()
-
-const emptyFormValues: ContactFormValues = {
-  name: '',
-  email: '',
-  message: '',
-}
-
 export interface ContactPageProps {
-  loadedAt: number
-  submission?: ContactResult
-  values?: ContactFormValues
+  formSrc: string
 }
 
 export const ContactPage = (handle: Handle<ContactPageProps>) => {
   return () => {
-    const { loadedAt, submission, values = emptyFormValues } = handle.props
+    const { formSrc } = handle.props
 
     return (
       <Layout
@@ -57,11 +45,9 @@ export const ContactPage = (handle: Handle<ContactPageProps>) => {
           >
             <SectionLabel>{contactPageContent.eyebrow}</SectionLabel>
             <ContactOverviewCard />
-            <ContactFormSection
-              action={formAction}
-              loadedAt={loadedAt}
-              submission={submission}
-              values={values}
+            <Frame
+              name={contactFormFrameName}
+              src={formSrc}
             />
             <SocialLinksCard />
           </div>

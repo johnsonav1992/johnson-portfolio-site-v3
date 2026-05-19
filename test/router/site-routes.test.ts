@@ -1,7 +1,7 @@
 import * as assert from 'remix/assert'
 import { describe, it } from 'remix/test'
 
-import { MIN_SUBMIT_TIME_MS } from '../../app/controllers/contact/form.ts'
+import { MIN_SUBMIT_TIME_MS } from '../../app/controllers/contact/submission.server.ts'
 import { projects } from '../../app/data/projects.ts'
 import { router } from '../../app/router.ts'
 import { routes } from '../../app/routes.ts'
@@ -65,7 +65,7 @@ describe('project routes', () => {
 })
 
 describe('contact route', () => {
-  it('redirects successful form submissions in demo mode', async () => {
+  it('returns a contact form fragment for successful form submissions in demo mode', async () => {
     const originalDemoMode = process.env.CONTACT_DEMO_MODE
     process.env.CONTACT_DEMO_MODE = 'true'
 
@@ -78,10 +78,13 @@ describe('contact route', () => {
           'x-real-ip': `test-success-${Date.now()}`,
         },
       })
+      const html = await response.text()
 
-      assert.equal(response.status, 303)
+      assert.equal(response.status, 200)
       assert.equal(response.headers.get('cache-control'), noStoreCache)
-      assert.match(response.headers.get('location') ?? '', /\/contact\?sent=1/)
+      assert.equal(response.headers.get('x-contact-form-url'), '/contact?sent=1#contact-form')
+      assert.match(html, /Email sent successfully/)
+      assert.doesNotMatch(html, /<html/)
     } finally {
       if (originalDemoMode === undefined) {
         delete process.env.CONTACT_DEMO_MODE
@@ -116,19 +119,55 @@ describe('contact route', () => {
     assert.match(invalidHtml, /value="alex@example.com"/)
     assert.match(invalidHtml, /Too short/)
   })
+
+  it('renders enhanced contact frame submissions without a document redirect', async () => {
+    const originalDemoMode = process.env.CONTACT_DEMO_MODE
+    process.env.CONTACT_DEMO_MODE = 'true'
+
+    try {
+      const response = await fetchPath(routes.contact.index.href(), {
+        method: 'POST',
+        body: contactBody(),
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'x-real-ip': `test-frame-success-${Date.now()}`,
+          'x-remix-target': 'contact-form',
+        },
+      })
+      const html = await response.text()
+
+      assert.equal(response.status, 200)
+      assert.equal(response.headers.get('cache-control'), noStoreCache)
+      assert.equal(response.headers.get('x-contact-form-url'), '/contact?sent=1#contact-form')
+      assert.match(html, /Email sent successfully/)
+      assert.doesNotMatch(html, /<html/)
+    } finally {
+      if (originalDemoMode === undefined) {
+        delete process.env.CONTACT_DEMO_MODE
+      } else {
+        process.env.CONTACT_DEMO_MODE = originalDemoMode
+      }
+    }
+  })
 })
 
 describe('asset route', () => {
   it('serves only allowed app and Remix browser modules', async () => {
     const clientEntryResponse = await fetchPath('/assets/app/assets/entry.ts')
+    const contactFormSectionResponse = await fetchPath(
+      '/assets/app/controllers/contact/contact-form-section/contact-form-section.tsx',
+    )
     const remixUiResponse = await fetchPath('/assets/node_modules/remix/dist/ui.js')
     const serverOnlyResponse = await fetchPath(
-      '/assets/app/controllers/contact/send-contact-email.ts',
+      '/assets/app/controllers/contact/send-contact-email.server.ts',
     )
 
     assert.equal(clientEntryResponse.status, 200)
     assert.equal(clientEntryResponse.headers.get('cache-control'), 'no-cache')
     assert.match(clientEntryResponse.headers.get('content-type') ?? '', /javascript/)
+    assert.equal(contactFormSectionResponse.status, 200)
+    assert.equal(contactFormSectionResponse.headers.get('cache-control'), 'no-cache')
+    assert.match(contactFormSectionResponse.headers.get('content-type') ?? '', /javascript/)
     assert.equal(remixUiResponse.status, 200)
     assert.equal(remixUiResponse.headers.get('cache-control'), 'no-cache')
     assert.match(remixUiResponse.headers.get('content-type') ?? '', /javascript/)

@@ -1,8 +1,14 @@
-import { type ContactData, escapeHtml } from './form.ts'
-
-type ContactEmailTemplateData = Pick<ContactData, 'email' | 'message' | 'name'>
+import type { ContactEmailPayload } from './types.ts'
 
 const brandName = 'AJ Web Development'
+
+const escapeHtml = (value: string) =>
+  value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;')
 
 const getInitials = (name: string) =>
   name
@@ -19,10 +25,10 @@ const formatMessageHtml = (message: string) =>
     .map((paragraph) => `<p>${paragraph}</p>`)
     .join('')
 
-export const getContactEmailSubject = ({ email, name }: ContactEmailTemplateData) =>
+export const getContactEmailSubject = ({ email, name }: ContactEmailPayload) =>
   `New project inquiry from ${name} - ${email}`
 
-export const renderContactEmailHtml = ({ email, message, name }: ContactEmailTemplateData) => {
+export const renderContactEmailHtml = ({ email, message, name }: ContactEmailPayload) => {
   const safeName = escapeHtml(name)
   const safeEmail = escapeHtml(email)
   const initials = escapeHtml(getInitials(name) || 'AJ')

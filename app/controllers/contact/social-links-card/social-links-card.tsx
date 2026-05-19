@@ -1,8 +1,9 @@
 import { css } from 'remix/ui'
 
-import { contactPageContent, socials } from '../../../data/site.ts'
+import { socials } from '../../../data/site.ts'
 import { theme } from '../../../theme/styles.ts'
 import { FooterLink } from '../../../ui/site-footer/footer-link/footer-link.tsx'
+import { contactPageContent } from '../content.ts'
 
 export const SocialLinksCard = () => {
   return () => (

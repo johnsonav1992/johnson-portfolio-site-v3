@@ -5,7 +5,7 @@ import {
   extractContactData,
   MIN_SUBMIT_TIME_MS,
   validateContactData,
-} from '../../../app/controllers/contact/form.ts'
+} from '../../../app/controllers/contact/submission.server.ts'
 
 it('extractContactData trims fields and strips newlines from name and email', () => {
   const formData = new FormData()

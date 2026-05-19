@@ -19,8 +19,10 @@ export const assets = createAssetServer({
   },
   allow: [
     'app/assets/**',
+    'app/controllers/contact/**',
     'app/controllers/tools/cloud/tool-orb/**',
     'app/data/media.ts',
+    'app/routes.ts',
     'app/theme/**',
     'node_modules/**',
   ],

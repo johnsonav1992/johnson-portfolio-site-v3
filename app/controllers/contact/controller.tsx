@@ -1,18 +1,24 @@
 import type { Controller } from 'remix/fetch-router'
-import { redirect } from 'remix/response/redirect'
 
-import type { routes } from '../../routes.ts'
+import { routes } from '../../routes.ts'
 import { noStoreHeaders } from '../../utils/cache.ts'
 import { render } from '../../utils/render.tsx'
 import {
-  type ContactResult,
-  contactMessages,
+  contactFormAction,
+  contactFormFrameName,
+  contactFormHash,
+  contactFormUrlHeader,
+} from './constants.ts'
+import { ContactFormSection } from './contact-form-section/contact-form-section.tsx'
+import { contactMessages } from './content.ts'
+import { ContactPage } from './page.tsx'
+import { sendContactEmail } from './send-contact-email.server.ts'
+import {
   extractContactData,
   parseContactFormData,
   toContactFormValues,
-} from './form.ts'
-import { ContactPage } from './page.tsx'
-import { sendContactEmail } from './send-contact-email.ts'
+} from './submission.server.ts'
+import type { ContactFormValues, ContactResult } from './types.ts'
 
 const RATE_LIMIT_WINDOW_MS = 60 * 1000
 const rateLimitMap = new Map<string, number>()
@@ -22,21 +28,39 @@ const getContactIp = (request: Request) =>
   request.headers.get('x-real-ip') ??
   'unknown'
 
+const emptyFormValues = toContactFormValues({})
+
 interface RenderContactPageOptions {
+  noStore?: boolean
   status?: number
   submission?: ContactResult
-  values?: ReturnType<typeof toContactFormValues>
+  values?: ContactFormValues
 }
 
-const renderContactPage = (
+const isContactFormFrameRequest = (request: Request) =>
+  request.headers.get('x-remix-target') === contactFormFrameName
+
+const getContactFormFrameSrc = (request: Request) => {
+  const url = new URL(request.url)
+  return `${routes.contact.index.href()}${url.search}`
+}
+
+const renderContactPage = (request: Request, { noStore, status }: RenderContactPageOptions = {}) =>
+  render(<ContactPage formSrc={getContactFormFrameSrc(request)} />, request, {
+    ...(noStore ? { headers: noStoreHeaders } : {}),
+    ...(status ? { status } : {}),
+  })
+
+const renderContactFormFrame = (
   request: Request,
   { status, submission, values }: RenderContactPageOptions = {},
 ) =>
   render(
-    <ContactPage
+    <ContactFormSection
+      action={contactFormAction}
       loadedAt={Date.now()}
       submission={submission}
-      values={values}
+      values={values ?? emptyFormValues}
     />,
     request,
     {
@@ -44,6 +68,11 @@ const renderContactPage = (
       ...(submission || values ? { headers: noStoreHeaders } : {}),
     },
   )
+
+const withContactFormUrl = (response: Response, url: string) => {
+  response.headers.set(contactFormUrlHeader, url)
+  return response
+}
 
 const getSuccessSubmission = (request: Request): ContactResult | undefined => {
   const url = new URL(request.url)
@@ -61,8 +90,16 @@ const getSuccessSubmission = (request: Request): ContactResult | undefined => {
 export const contact = {
   actions: {
     index({ request }) {
+      const successSubmission = getSuccessSubmission(request)
+
+      if (isContactFormFrameRequest(request)) {
+        return renderContactFormFrame(request, {
+          submission: successSubmission,
+        })
+      }
+
       return renderContactPage(request, {
-        submission: getSuccessSubmission(request),
+        noStore: !!successSubmission,
       })
     },
     async action({ get, request }) {
@@ -70,13 +107,16 @@ export const contact = {
       const lastSubmit = rateLimitMap.get(ip)
 
       if (lastSubmit && Date.now() - lastSubmit < RATE_LIMIT_WINDOW_MS) {
-        return renderContactPage(request, {
-          status: 429,
-          submission: {
-            type: 'error',
-            message: contactMessages.rateLimited,
-          },
-        })
+        return withContactFormUrl(
+          renderContactFormFrame(request, {
+            status: 429,
+            submission: {
+              type: 'error',
+              message: contactMessages.rateLimited,
+            },
+          }),
+          `${routes.contact.index.href()}${contactFormHash}`,
+        )
       }
 
       const formData = get(FormData)
@@ -85,14 +125,17 @@ export const contact = {
       if (!parsed.success) {
         const values = toContactFormValues(extractContactData(formData))
 
-        return renderContactPage(request, {
-          status: 400,
-          submission: {
-            type: 'error',
-            message: parsed.issues[0]?.message ?? contactMessages.genericError,
-          },
-          values,
-        })
+        return withContactFormUrl(
+          renderContactFormFrame(request, {
+            status: 400,
+            submission: {
+              type: 'error',
+              message: parsed.issues[0]?.message ?? contactMessages.genericError,
+            },
+            values,
+          }),
+          `${routes.contact.index.href()}${contactFormHash}`,
+        )
       }
 
       const contactData = parsed.value
@@ -102,23 +145,29 @@ export const contact = {
         await sendContactEmail(contactData)
         rateLimitMap.set(ip, Date.now())
 
-        const successUrl = new URL(request.url)
-        successUrl.searchParams.set('sent', '1')
-        return redirect(successUrl.toString(), {
-          status: 303,
-          headers: noStoreHeaders,
-        })
+        return withContactFormUrl(
+          renderContactFormFrame(request, {
+            submission: {
+              type: 'success',
+              message: contactMessages.success,
+            },
+          }),
+          `${routes.contact.index.href()}?sent=1${contactFormHash}`,
+        )
       } catch (error) {
         console.error('Contact form error:', error)
 
-        return renderContactPage(request, {
-          status: 500,
-          submission: {
-            type: 'error',
-            message: contactMessages.genericError,
-          },
-          values,
-        })
+        return withContactFormUrl(
+          renderContactFormFrame(request, {
+            status: 500,
+            submission: {
+              type: 'error',
+              message: contactMessages.genericError,
+            },
+            values,
+          }),
+          `${routes.contact.index.href()}${contactFormHash}`,
+        )
       }
     },
   },

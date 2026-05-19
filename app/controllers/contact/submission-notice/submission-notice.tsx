@@ -1,13 +1,13 @@
 import { css, type Handle } from 'remix/ui'
 import { theme } from '../../../theme/styles.ts'
-import type { ContactResult } from '../form.ts'
+import type { ContactResult } from '../types.ts'
 
 export const SubmissionNotice = (handle: Handle<{ submission?: ContactResult }>) => {
   return () => {
     const { submission } = handle.props
 
     if (!submission) {
-      return null
+      return <div hidden />
     }
 
     return (

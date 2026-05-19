@@ -30,7 +30,7 @@ export const ContactField = (handle: Handle<ContactFieldProps>) => {
           list={undefined}
           name={name}
           placeholder={placeholder}
-          value={defaultValue}
+          defaultValue={defaultValue}
           required
         />
       </div>

@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer'
 
-import { getContactEmailSubject, renderContactEmailHtml } from './contact-email-template.ts'
-import type { ContactData } from './form.ts'
+import { getContactEmailSubject, renderContactEmailHtml } from './contact-email-template.server.ts'
+import type { ContactEmailPayload } from './types.ts'
 
 const DEFAULT_EMAIL_TIMEOUT_MS = 8000
 
@@ -50,7 +50,7 @@ export const sendContactEmail = async ({
   name,
   email,
   message,
-}: Pick<ContactData, 'name' | 'email' | 'message'>): Promise<void> => {
+}: ContactEmailPayload): Promise<void> => {
   if (process.env.CONTACT_DEMO_MODE === 'true') {
     return
   }

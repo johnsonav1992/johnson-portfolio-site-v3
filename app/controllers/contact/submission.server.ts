@@ -2,35 +2,13 @@ import * as s from 'remix/data-schema'
 import * as c from 'remix/data-schema/coerce'
 import * as f from 'remix/data-schema/form-data'
 
-export interface ContactData {
-  name: string
-  email: string
-  message: string
-  honeypot?: string
-  loadedAt?: number
-}
-
-export interface ContactFormValues {
-  name: string
-  email: string
-  message: string
-}
-
-export interface ContactResult {
-  type: 'success' | 'error'
-  message: string
-}
-
-export const contactMessages = {
-  success: 'Email sent successfully! I will get back to you soon!',
-  genericError: 'There was an error sending your message - Please try again.',
-  rateLimited: 'Please wait a moment before sending another message.',
-} as const
+import type { ContactData, ContactFormValues } from './types.ts'
 
 const MAX_NAME_LENGTH = 100
 const MIN_NAME_LENGTH = 2
 const MAX_MESSAGE_LENGTH = 5000
 const MIN_MESSAGE_LENGTH = 20
+
 export const MIN_SUBMIT_TIME_MS = 3000
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -124,14 +102,6 @@ const contactFormSchema = s.createSchema<FormData, ContactData>((value, context)
 
   return parsed
 })
-
-export const escapeHtml = (value: string) =>
-  value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;')
 
 export const extractContactData = (formData: FormData): ContactData => ({
   name: stripNewlines(formData.get('name')?.toString() ?? null),

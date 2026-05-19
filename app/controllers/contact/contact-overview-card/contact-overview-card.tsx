@@ -1,7 +1,7 @@
 import { css } from 'remix/ui'
 
-import { contactPageContent } from '../../../data/site.ts'
 import { theme } from '../../../theme/styles.ts'
+import { contactPageContent } from '../content.ts'
 import { cardStyles } from '../styles.ts'
 
 export const ContactOverviewCard = () => {

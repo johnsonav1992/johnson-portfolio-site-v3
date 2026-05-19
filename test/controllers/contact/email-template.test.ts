@@ -4,7 +4,7 @@ import { it } from 'remix/test'
 import {
   getContactEmailSubject,
   renderContactEmailHtml,
-} from '../../../app/controllers/contact/contact-email-template.ts'
+} from '../../../app/controllers/contact/contact-email-template.server.ts'
 
 it('renders escaped contact email markup and subject text', () => {
   const html = renderContactEmailHtml({
