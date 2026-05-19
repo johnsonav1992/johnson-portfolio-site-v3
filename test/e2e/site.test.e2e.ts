@@ -125,6 +125,9 @@ describe('site e2e', () => {
       assert.equal(url.search, '?sent=1')
       assert.equal(url.hash, '#contact-form')
       assert.match((await page.getByRole('status').textContent()) ?? '', /Email sent successfully/)
+      assert.equal(await page.locator('input[name="name"]').inputValue(), '')
+      assert.equal(await page.locator('input[name="email"]').inputValue(), '')
+      assert.equal(await page.locator('textarea[name="message"]').inputValue(), '')
       assert.deepEqual(navigationRequests, [])
     } finally {
       if (originalDemoMode === undefined) {

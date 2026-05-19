@@ -37,6 +37,9 @@ export const ContactFormSection = clientEntry(
     let isSubmitting = false
     let transportError: ContactResult | undefined
 
+    const isSuccessSubmissionUrl = (url: string) =>
+      new URL(url, window.location.origin).searchParams.get('sent') === '1'
+
     async function handleSubmit(
       event: SubmitEvent & { currentTarget: HTMLFormElement },
       signal: AbortSignal,
@@ -70,6 +73,10 @@ export const ContactFormSection = clientEntry(
         const nextUrl = response.headers.get(contactFormUrlHeader)
         if (nextUrl) {
           window.history.replaceState(window.history.state, '', nextUrl)
+        }
+
+        if (nextUrl && isSuccessSubmissionUrl(nextUrl)) {
+          form.reset()
         }
 
         await handle.frame.replace(response.body ?? (await response.text()))
