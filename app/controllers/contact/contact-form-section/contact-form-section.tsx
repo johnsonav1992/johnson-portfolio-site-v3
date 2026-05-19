@@ -33,17 +33,17 @@ const formLayoutStyles = css<HTMLFormElement>({
 
 export const ContactFormSection = clientEntry(
   contactFormSectionClientEntry,
-  function ContactFormSection(handle: Handle<ContactFormSectionProps>) {
+  (handle: Handle<ContactFormSectionProps>)=> {
     let isSubmitting = false
     let transportError: ContactResult | undefined
 
     const isSuccessSubmissionUrl = (url: string) =>
       new URL(url, window.location.origin).searchParams.get('sent') === '1'
 
-    async function handleSubmit(
+    const handleSubmit = async (
       event: SubmitEvent & { currentTarget: HTMLFormElement },
       signal: AbortSignal,
-    ) {
+    ) => {
       if (isSubmitting) {
         return
       }
