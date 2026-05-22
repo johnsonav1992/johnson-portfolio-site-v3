@@ -1,4 +1,4 @@
-import type { AnyParams, ContextWithParams, Router } from 'remix/fetch-router'
+import type { AnyParams, ContextWithParams, MiddlewareContext } from 'remix/fetch-router'
 import { createRouter } from 'remix/fetch-router'
 import { formData } from 'remix/form-data-middleware'
 import { staticFiles } from 'remix/static-middleware'
@@ -29,12 +29,18 @@ export const router = createRouter({
   ],
 })
 
-type RouterContext = typeof router extends Router<infer ctx> ? ctx : never
+type RootMiddleware = [ReturnType<typeof formData>]
 
 export type AppContext<params extends AnyParams = AnyParams> = ContextWithParams<
-  RouterContext,
+  MiddlewareContext<RootMiddleware>,
   params
 >
+
+declare module '@remix-run/fetch-router' {
+  interface RouterTypes {
+    context: AppContext
+  }
+}
 
 router.get(routes.assets, async ({ request }) => {
   const response = await assets.fetch(request)

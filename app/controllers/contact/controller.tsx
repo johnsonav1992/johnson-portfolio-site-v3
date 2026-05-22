@@ -1,7 +1,5 @@
 import type { Controller } from 'remix/fetch-router'
 
-import type { AppContext } from '../../router.ts'
-
 import { routes } from '../../routes.ts'
 import { noStoreHeaders } from '../../utils/cache.ts'
 import { render } from '../../utils/render.tsx'
@@ -104,7 +102,7 @@ export const contact = {
         noStore: !!successSubmission,
       })
     },
-    async action({ get, request }) {
+    async action({ request, formData }) {
       const ip = getContactIp(request)
       const lastSubmit = rateLimitMap.get(ip)
 
@@ -121,7 +119,6 @@ export const contact = {
         )
       }
 
-      const formData = get(FormData)
       const parsed = parseContactFormData(formData)
 
       if (!parsed.success) {
@@ -173,4 +170,4 @@ export const contact = {
       }
     },
   },
-} satisfies Controller<typeof routes.contact, AppContext>
+} satisfies Controller<typeof routes.contact>
