@@ -1,5 +1,7 @@
 import type { Controller } from 'remix/fetch-router'
 
+import type { AppContext } from '../../router.ts'
+
 import { routes } from '../../routes.ts'
 import { noStoreHeaders } from '../../utils/cache.ts'
 import { render } from '../../utils/render.tsx'
@@ -171,4 +173,4 @@ export const contact = {
       }
     },
   },
-} satisfies Controller<typeof routes.contact>
+} satisfies Controller<typeof routes.contact, AppContext>

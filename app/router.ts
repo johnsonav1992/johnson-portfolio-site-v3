@@ -1,3 +1,4 @@
+import type { AnyParams, ContextWithParams, Router } from 'remix/fetch-router'
 import { createRouter } from 'remix/fetch-router'
 import { formData } from 'remix/form-data-middleware'
 import { staticFiles } from 'remix/static-middleware'
@@ -11,6 +12,13 @@ import { tools } from './controllers/tools/controller.tsx'
 import { requestLogger } from './middleware/request-logger.ts'
 import { routes } from './routes.ts'
 import { publicStaticCache } from './utils/cache.ts'
+
+type RouterContext = typeof router extends Router<infer ctx> ? ctx : never
+
+export type AppContext<params extends AnyParams = AnyParams> = ContextWithParams<
+  RouterContext,
+  params
+>
 
 export const router = createRouter({
   defaultHandler({ request }) {
