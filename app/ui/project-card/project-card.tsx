@@ -156,7 +156,7 @@ export const ProjectCard = (handle: Handle<ProjectCardProps>) => {
                   fontStyle: 'italic',
                 })}
               >
-                and {hiddenTechnologyCount} more
+                +{hiddenTechnologyCount} more
               </span>
             ) : null}
           </span>
