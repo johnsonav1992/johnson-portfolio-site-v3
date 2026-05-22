@@ -13,13 +13,6 @@ import { requestLogger } from './middleware/request-logger.ts'
 import { routes } from './routes.ts'
 import { publicStaticCache } from './utils/cache.ts'
 
-type RouterContext = typeof router extends Router<infer ctx> ? ctx : never
-
-export type AppContext<params extends AnyParams = AnyParams> = ContextWithParams<
-  RouterContext,
-  params
->
-
 export const router = createRouter({
   defaultHandler({ request }) {
     return renderNotFound(request)
@@ -35,6 +28,13 @@ export const router = createRouter({
     formData(),
   ],
 })
+
+type RouterContext = typeof router extends Router<infer ctx> ? ctx : never
+
+export type AppContext<params extends AnyParams = AnyParams> = ContextWithParams<
+  RouterContext,
+  params
+>
 
 router.get(routes.assets, async ({ request }) => {
   const response = await assets.fetch(request)
