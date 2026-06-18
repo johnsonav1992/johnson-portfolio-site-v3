@@ -1,6 +1,7 @@
-import type { ContextWithEntry, Controller, RequestContext } from 'remix/fetch-router'
+import type { Controller } from 'remix/fetch-router'
 
 import { routes } from '../../routes.ts'
+import type { AppRequestContext } from '../../types/router.ts'
 import { noStoreHeaders } from '../../utils/cache.ts'
 import { render } from '../../utils/render.tsx'
 import {
@@ -29,11 +30,6 @@ const getContactIp = (request: Request) =>
   'unknown'
 
 const emptyFormValues = toContactFormValues({})
-
-type FormDataContext = ContextWithEntry<
-  RequestContext,
-  { key: typeof FormData; value: FormData; property: 'formData' }
->
 
 interface RenderContactPageOptions {
   noStore?: boolean
@@ -176,4 +172,4 @@ export const contact = {
       }
     },
   },
-} satisfies Controller<typeof routes.contact, FormDataContext>
+} satisfies Controller<typeof routes.contact, AppRequestContext>
