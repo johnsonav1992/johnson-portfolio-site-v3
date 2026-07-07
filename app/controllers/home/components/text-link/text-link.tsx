@@ -1,7 +1,7 @@
 import { css, type Handle } from 'remix/ui'
-import { Glyph } from 'remix/ui/glyph'
 
 import { appLink, focusRing, theme } from '../../../../theme/styles.ts'
+import { ExternalLinkIcon } from '../../../../ui/icons/external-link-icon.tsx'
 
 interface LinkProps {
   href: string
@@ -31,8 +31,7 @@ export const TextLink = (handle: Handle<LinkProps>) => {
         ]}
       >
         <span>{label}</span>
-        <Glyph
-          name='open'
+        <ExternalLinkIcon
           aria-hidden='true'
           mix={css({
             width: '0.86em',

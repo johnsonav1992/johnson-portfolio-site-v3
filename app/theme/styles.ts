@@ -1,6 +1,6 @@
 import { css } from 'remix/ui'
 
-import { portfolio, theme } from './theme.ts'
+import { portfolio, theme } from './theme.tsx'
 
 export const pageShell = css({
   minHeight: '100vh',

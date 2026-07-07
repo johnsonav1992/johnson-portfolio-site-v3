@@ -1,8 +1,8 @@
 import { css, type Handle } from 'remix/ui'
-import { Glyph } from 'remix/ui/glyph'
 
 import { appLink, focusRing, theme } from '../../../theme/styles.ts'
 import type { SocialIconName } from '../../../types/types.ts'
+import { ExternalLinkIcon } from '../../icons/external-link-icon.tsx'
 import { SocialIcon } from '../../social-icon/social-icon.tsx'
 
 interface FooterLinkProps {
@@ -35,8 +35,7 @@ export const FooterLink = (handle: Handle<FooterLinkProps>) => {
       >
         <SocialIcon name={icon} />
         <span>{label}</span>
-        <Glyph
-          name='open'
+        <ExternalLinkIcon
           aria-hidden='true'
           mix={css({
             width: '0.82em',

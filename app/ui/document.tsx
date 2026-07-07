@@ -1,11 +1,10 @@
 import type { Handle, RemixNode } from 'remix/ui'
-import { RMX_01_GLYPHS } from 'remix/ui/theme'
 
 import { assets } from '../assets.ts'
 import { mediaPath } from '../data/media.ts'
 import { site } from '../data/site.ts'
 import { pageShell } from '../theme/styles.ts'
-import { Theme } from '../theme/theme.ts'
+import { Theme } from '../theme/theme.tsx'
 
 export interface DocumentProps {
   children?: RemixNode
@@ -44,7 +43,6 @@ export const Document = (handle: Handle<DocumentProps>) => {
           <Theme />
         </head>
         <body mix={pageShell}>
-          <RMX_01_GLYPHS />
           {children}
           <script
             type='module'

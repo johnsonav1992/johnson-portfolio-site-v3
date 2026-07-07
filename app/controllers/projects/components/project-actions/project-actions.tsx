@@ -1,9 +1,9 @@
 import { css, type Handle } from 'remix/ui'
-import { Glyph } from 'remix/ui/glyph'
 
 import { projectsContent } from '../../../../data/projects.ts'
 import { appLink, focusRing, theme } from '../../../../theme/styles.ts'
 import type { ProjectItem } from '../../../../types/types.ts'
+import { ExternalLinkIcon } from '../../../../ui/icons/external-link-icon.tsx'
 import { GithubIcon } from '../../../../ui/social-icon/github-icon/github-icon.tsx'
 
 interface ProjectActionsProps {
@@ -73,8 +73,7 @@ export const ProjectActions = (handle: Handle<ProjectActionsProps>) => {
             mix={[appLink, actionLink, primaryAction]}
           >
             <span>{projectsContent.detail.liveActionLabel}</span>
-            <Glyph
-              name='open'
+            <ExternalLinkIcon
               aria-hidden='true'
               mix={actionIcon}
             />
@@ -89,8 +88,7 @@ export const ProjectActions = (handle: Handle<ProjectActionsProps>) => {
           >
             <GithubIcon />
             <span>{projectsContent.detail.repositoryActionLabel}</span>
-            <Glyph
-              name='open'
+            <ExternalLinkIcon
               aria-hidden='true'
               mix={actionIcon}
             />
@@ -104,8 +102,7 @@ export const ProjectActions = (handle: Handle<ProjectActionsProps>) => {
             mix={[appLink, actionLink, secondaryAction]}
           >
             <span>{projectsContent.detail.videoActionLabel}</span>
-            <Glyph
-              name='open'
+            <ExternalLinkIcon
               aria-hidden='true'
               mix={actionIcon}
             />

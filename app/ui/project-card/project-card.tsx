@@ -1,10 +1,10 @@
 import { css, type Handle } from 'remix/ui'
-import { Glyph } from 'remix/ui/glyph'
 
 import { mediaPath } from '../../data/media.ts'
 import { routes } from '../../routes.ts'
 import { appLink, focusRing, portfolio, theme } from '../../theme/styles.ts'
 import type { ProjectItem } from '../../types/types.ts'
+import { ChevronRightIcon } from '../icons/chevron-right-icon.tsx'
 import { TechnologyPill } from '../technology-pill/technology-pill.tsx'
 
 interface ProjectCardProps {
@@ -108,8 +108,7 @@ export const ProjectCard = (handle: Handle<ProjectCardProps>) => {
             >
               {project.name}
             </span>
-            <Glyph
-              name='chevronRight'
+            <ChevronRightIcon
               aria-hidden='true'
               mix={css({
                 width: '18px',

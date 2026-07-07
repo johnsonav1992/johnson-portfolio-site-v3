@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "nodemailer": "^8.0.7",
-    "remix": "^3.0.0-beta.4",
+    "remix": "^3.0.0-beta.5",
     "tsx": "latest"
   },
   "devDependencies": {

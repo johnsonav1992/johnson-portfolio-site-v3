@@ -1,11 +1,11 @@
 import { css, type Handle } from 'remix/ui'
-import { Glyph } from 'remix/ui/glyph'
 
 import { mediaPath } from '../../../data/media.ts'
 import { projectsContent } from '../../../data/projects.ts'
 import { routes } from '../../../routes.ts'
 import { appLink, focusRing, sectionWrap, theme } from '../../../theme/styles.ts'
 import type { ProjectItem } from '../../../types/types.ts'
+import { ChevronRightIcon } from '../../../ui/icons/chevron-right-icon.tsx'
 import { Layout } from '../../../ui/layout.tsx'
 import { TechnologyPill } from '../../../ui/technology-pill/technology-pill.tsx'
 import { ProjectActions } from '../components/project-actions/project-actions.tsx'
@@ -58,8 +58,7 @@ export const ProjectDetailPage = (handle: Handle<ProjectDetailPageProps>) => {
               }),
             ]}
           >
-            <Glyph
-              name='chevronRight'
+            <ChevronRightIcon
               aria-hidden='true'
               mix={css({
                 width: '16px',
