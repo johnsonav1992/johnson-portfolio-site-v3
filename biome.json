@@ -2,7 +2,14 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!app/assets", "!package-lock.json"]
+    "includes": [
+      "**",
+      "!.netlify",
+      "!node_modules",
+      "!app/assets",
+      "!public/**/*.svg",
+      "!package-lock.json"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -23,7 +30,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "complexity": {
         "useArrowFunction": "error"
       },

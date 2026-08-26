@@ -33,7 +33,7 @@ const formLayoutStyles = css<HTMLFormElement>({
 
 export const ContactFormSection = clientEntry(
   contactFormSectionClientEntry,
-  (handle: Handle<ContactFormSectionProps>)=> {
+  (handle: Handle<ContactFormSectionProps>) => {
     let isSubmitting = false
     let transportError: ContactResult | undefined
 
