@@ -24,6 +24,17 @@ export const projectsContent = {
 
 const largeProjects: ProjectItem[] = [
   {
+    id: 'american-civil-war-experience',
+    name: 'The American Civil War Experience',
+    route: 'american-civil-war-experience',
+    image: 'american-civil-war-experience.png',
+    featured: true,
+    prodLink: 'https://americancivilwarexperience.org',
+    technologies: ['Sanity CMS', 'Netlify'],
+    description:
+      'A nonprofit website that brings Civil War living history to life through events, visitor information, and volunteer engagement.',
+  },
+  {
     id: 'dupre-music-designs',
     name: 'Dupre Music Designs',
     route: 'dupre-music-designs',
