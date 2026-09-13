@@ -30,9 +30,18 @@ const largeProjects: ProjectItem[] = [
     image: 'american-civil-war-experience.png',
     featured: true,
     prodLink: 'https://americancivilwarexperience.org',
-    technologies: ['Sanity CMS', 'Netlify'],
+    technologies: [
+      'React',
+      'TypeScript',
+      'TanStack Start',
+      'TanStack Router',
+      'Panda CSS',
+      'Better Auth',
+      'Sanity CMS',
+      'Netlify',
+    ],
     description:
-      'A nonprofit website that brings Civil War living history to life through events, visitor information, and volunteer engagement.',
+      'A nonprofit organization that brings Civil War living history to life through events, visitor information, and volunteer engagement.',
   },
   {
     id: 'dupre-music-designs',
