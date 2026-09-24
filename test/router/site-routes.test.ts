@@ -76,6 +76,7 @@ describe('contact route', () => {
         headers: {
           'content-type': 'application/x-www-form-urlencoded',
           'x-real-ip': `test-success-${Date.now()}`,
+          'x-remix-target': 'contact-form',
         },
       })
       const html = await response.text()

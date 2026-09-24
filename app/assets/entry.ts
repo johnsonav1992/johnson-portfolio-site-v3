@@ -5,7 +5,7 @@ run({
     let mod = await import(moduleUrl)
     return mod[exportName]
   },
-  async resolveFrame(src, signal, target) {
+  async resolveFrame(src, { signal, target, method, formData } = {}) {
     let headers = new Headers({ accept: 'text/html' })
     if (target) headers.set('x-remix-target', target)
 
@@ -13,7 +13,9 @@ run({
       credentials: 'same-origin',
       headers,
       signal,
+      method,
+      body: method && method !== 'GET' ? formData : undefined,
     })
-    return response.body ?? response.text()
+    return response
   },
 })

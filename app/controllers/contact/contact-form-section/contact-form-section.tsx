@@ -36,60 +36,38 @@ export const ContactFormSection = clientEntry(
   (handle: Handle<ContactFormSectionProps>) => {
     let isSubmitting = false
     let transportError: ContactResult | undefined
-
     const isSuccessSubmissionUrl = (url: string) =>
       new URL(url, window.location.origin).searchParams.get('sent') === '1'
 
-    const handleSubmit = async (
-      event: SubmitEvent & { currentTarget: HTMLFormElement },
-      signal: AbortSignal,
-    ) => {
-      if (isSubmitting) {
-        return
-      }
+    const submitForm = async (form: HTMLFormElement, signal: AbortSignal) => {
+      if (isSubmitting) return
 
-      event.preventDefault()
       isSubmitting = true
       transportError = undefined
       void handle.update()
 
       try {
-        const form = event.currentTarget
         const response = await fetch(form.action, {
           body: new FormData(form),
           credentials: 'same-origin',
-          headers: {
-            accept: 'text/html',
-            'x-remix-target': contactFormFrameName,
-          },
+          headers: { accept: 'text/html', 'x-remix-target': contactFormFrameName },
           method: form.method,
           signal,
         })
 
-        if (signal.aborted) {
-          return
-        }
+        if (signal.aborted) return
 
-        const nextUrl = response.headers.get(contactFormUrlHeader)
-        if (nextUrl) {
-          window.history.replaceState(window.history.state, '', nextUrl)
-        }
-
-        if (nextUrl && isSuccessSubmissionUrl(nextUrl)) {
-          form.reset()
-        }
+        const nextUrl =
+          response.headers.get(contactFormUrlHeader) ??
+          (response.ok ? `${window.location.pathname}?sent=1#${contactFormAnchorId}` : null)
+        if (nextUrl) window.history.replaceState(window.history.state, '', nextUrl)
+        if (nextUrl && isSuccessSubmissionUrl(nextUrl)) form.reset()
 
         await handle.frame.replace(response.body ?? (await response.text()))
       } catch (error) {
-        if (signal.aborted) {
-          return
-        }
-
+        if (signal.aborted) return
         console.error('Contact form submission failed:', error)
-        transportError = {
-          type: 'error',
-          message: contactMessages.genericError,
-        }
+        transportError = { type: 'error', message: contactMessages.genericError }
       } finally {
         if (!signal.aborted) {
           isSubmitting = false
@@ -152,7 +130,13 @@ export const ContactFormSection = clientEntry(
             action={action}
             data-contact-form
             method='POST'
-            mix={[formLayoutStyles, on('submit', handleSubmit)]}
+            mix={[
+              formLayoutStyles,
+              on('submit', (event, signal) => {
+                event.preventDefault()
+                void submitForm(event.currentTarget, signal)
+              }),
+            ]}
           >
             <SubmissionNotice submission={transportError ?? submission} />
             <ContactField
@@ -212,7 +196,14 @@ export const ContactFormSection = clientEntry(
             />
             <button
               type='submit'
-              mix={submitButtonStyles}
+              mix={[
+                submitButtonStyles,
+                on('click', (event, signal) => {
+                  event.preventDefault()
+                  const form = event.currentTarget.form
+                  if (form) void submitForm(form, signal)
+                }),
+              ]}
               disabled={isSubmitting}
             >
               {isSubmitting ? 'Sending...' : contactPageContent.submitLabel}

@@ -13,11 +13,11 @@ const isProduction = process.env.NODE_ENV === 'production'
 export const assets = createAssetServer({
   basePath: '/assets',
   rootDir: process.cwd(),
-  fileMap: {
-    'app/*path': 'app/*path',
-    'node_modules/*path': 'node_modules/*path',
+  mounts: {
+    app: 'app',
+    node_modules: 'node_modules',
   },
-  allow: [
+  allowFiles: [
     'app/assets/**',
     'app/controllers/contact/**',
     'app/controllers/tools/cloud/tool-orb/**',
@@ -26,10 +26,10 @@ export const assets = createAssetServer({
     'app/theme/**',
     'node_modules/**',
   ],
-  deny: ['app/**/*.server.*'],
+  denyFiles: ['app/**/*.server.*'],
   ...(isProduction
     ? {
-        ...(productionAssetBuildId ? { fingerprint: { buildId: productionAssetBuildId } } : {}),
+        ...(productionAssetBuildId ? { fingerprint: true } : {}),
         minify: true,
         watch: false,
       }

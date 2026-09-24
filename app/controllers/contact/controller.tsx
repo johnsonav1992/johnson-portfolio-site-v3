@@ -1,4 +1,5 @@
-import type { Controller } from 'remix/fetch-router'
+import { redirect } from 'remix/response/redirect'
+import type { Controller } from 'remix/router'
 
 import { routes } from '../../routes.ts'
 import type { AppRequestContext } from '../../types/router.ts'
@@ -145,6 +146,10 @@ export const contact = {
       try {
         await sendContactEmail(contactData)
         rateLimitMap.set(ip, Date.now())
+
+        if (!isContactFormFrameRequest(request)) {
+          return redirect(`${routes.contact.index.href()}?sent=1${contactFormHash}`)
+        }
 
         return withContactFormUrl(
           renderContactFormFrame(request, {

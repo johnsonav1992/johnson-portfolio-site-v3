@@ -1,4 +1,4 @@
-import type { ContextWithEntry, RequestContext } from 'remix/fetch-router'
+import type { ContextWithEntry, RequestContext } from 'remix/router'
 
 export type AppRequestContext = ContextWithEntry<
   RequestContext,

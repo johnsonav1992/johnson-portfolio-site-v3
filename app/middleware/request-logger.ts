@@ -1,5 +1,5 @@
-import type { Middleware } from 'remix/fetch-router'
-import { logger } from 'remix/logger-middleware'
+import { logger } from 'remix/middleware/logger'
+import type { Middleware } from 'remix/router'
 
 const LOGGER_DELIMITER = '\t'
 const LOGGER_FORMAT = [

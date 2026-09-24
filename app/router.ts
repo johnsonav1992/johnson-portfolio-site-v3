@@ -1,6 +1,6 @@
-import { createRouter } from 'remix/fetch-router'
-import { formData } from 'remix/form-data-middleware'
-import { staticFiles } from 'remix/static-middleware'
+import { formData } from 'remix/middleware/form-data'
+import { staticFiles } from 'remix/middleware/static'
+import { createRouter } from 'remix/router'
 
 import { assets } from './assets.ts'
 import { contact } from './controllers/contact/controller.tsx'

@@ -1,4 +1,4 @@
-import type { Controller } from 'remix/fetch-router'
+import type { Controller } from 'remix/router'
 
 import { projects as projectItems } from '../../data/projects.ts'
 import type { routes } from '../../routes.ts'
