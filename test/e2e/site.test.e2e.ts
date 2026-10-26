@@ -12,7 +12,9 @@ describe('site e2e', () => {
   it('navigates from home to projects without failed browser requests', async (t) => {
     const page = await serveApp(t)
     const failedRequests: string[] = []
+    const requestedUrls: string[] = []
 
+    page.on('request', (request) => requestedUrls.push(request.url()))
     page.on('requestfailed', (request) => failedRequests.push(request.url()))
 
     await page.goto(routes.home.href())
@@ -24,6 +26,10 @@ describe('site e2e', () => {
 
     assert.equal(new URL(page.url()).pathname, routes.projects.index.href())
     assert.deepEqual(failedRequests, [])
+    assert.equal(
+      requestedUrls.some((url) => url.includes('lr-in-prod.com')),
+      false,
+    )
   })
 
   it('opens a project detail page and returns to the projects index', async (t) => {

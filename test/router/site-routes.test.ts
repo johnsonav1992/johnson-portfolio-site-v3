@@ -155,6 +155,7 @@ describe('contact route', () => {
 describe('asset route', () => {
   it('serves only allowed app and Remix browser modules', async () => {
     const clientEntryResponse = await fetchPath('/assets/app/assets/entry.ts')
+    const analyticsModuleResponse = await fetchPath('/assets/app/analytics/index.ts')
     const contactFormSectionResponse = await fetchPath(
       '/assets/app/controllers/contact/contact-form-section/contact-form-section.tsx',
     )
@@ -166,6 +167,9 @@ describe('asset route', () => {
     assert.equal(clientEntryResponse.status, 200)
     assert.equal(clientEntryResponse.headers.get('cache-control'), 'no-cache')
     assert.match(clientEntryResponse.headers.get('content-type') ?? '', /javascript/)
+    assert.equal(analyticsModuleResponse.status, 200)
+    assert.equal(analyticsModuleResponse.headers.get('cache-control'), 'no-cache')
+    assert.match(analyticsModuleResponse.headers.get('content-type') ?? '', /javascript/)
     assert.equal(contactFormSectionResponse.status, 200)
     assert.equal(contactFormSectionResponse.headers.get('cache-control'), 'no-cache')
     assert.match(contactFormSectionResponse.headers.get('content-type') ?? '', /javascript/)
