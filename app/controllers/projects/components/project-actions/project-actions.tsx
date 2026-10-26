@@ -1,4 +1,4 @@
-import { css, type Handle } from 'remix/ui'
+import { css, type Handle } from 'remix/component'
 
 import { projectsContent } from '../../../../data/projects.ts'
 import { appLink, focusRing, theme } from '../../../../theme/styles.ts'

@@ -1,4 +1,5 @@
-import { css, type Handle } from 'remix/ui'
+import { css, type Handle } from 'remix/component'
+
 import { theme } from '../../../theme/styles.ts'
 import type { ContactResult } from '../types.ts'
 

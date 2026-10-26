@@ -70,7 +70,7 @@ describe('site e2e', () => {
     assert.equal(await page.locator('input[name="email"]').inputValue(), 'alex@example.com')
   })
 
-  it('submits contact success with the standard Remix navigation flow', async (t) => {
+  it('submits contact success inside the contact frame without a full document reload', async (t) => {
     const originalDemoMode = process.env.CONTACT_DEMO_MODE
     process.env.CONTACT_DEMO_MODE = 'true'
 
@@ -126,10 +126,7 @@ describe('site e2e', () => {
       assert.equal(await page.locator('input[name="name"]').inputValue(), '')
       assert.equal(await page.locator('input[name="email"]').inputValue(), '')
       assert.equal(await page.locator('textarea[name="message"]').inputValue(), '')
-      assert.equal(
-        navigationRequests.some((request) => request.startsWith('POST ')),
-        true,
-      )
+      assert.deepEqual(navigationRequests, [])
     } finally {
       if (originalDemoMode === undefined) {
         delete process.env.CONTACT_DEMO_MODE

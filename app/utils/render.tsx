@@ -1,8 +1,8 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import type { RemixNode } from 'remix/ui'
-import { renderToStream } from 'remix/ui/server'
+import type { RemixNode } from 'remix/component'
+import { renderToStream } from 'remix/component/server'
 
 import { assets } from '../assets.ts'
 import { router } from '../router.ts'

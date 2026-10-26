@@ -1,4 +1,4 @@
-import type { Handle, RemixNode } from 'remix/ui'
+import type { Handle, RemixNode } from 'remix/component'
 
 import { assets } from '../assets.ts'
 import { mediaPath } from '../data/media.ts'

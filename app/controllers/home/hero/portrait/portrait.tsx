@@ -1,4 +1,4 @@
-import { css } from 'remix/ui'
+import { css } from 'remix/component'
 
 import { mediaPath } from '../../../../data/media.ts'
 import { site } from '../../../../data/site.ts'

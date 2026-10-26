@@ -1,4 +1,4 @@
-import type { Handle } from 'remix/ui'
+import type { Handle } from 'remix/component'
 
 import { formFieldStyles, inputGroupStyles, labelStyles } from '../styles.ts'
 

@@ -1,4 +1,5 @@
-import { css } from 'remix/ui'
+import { css } from 'remix/component'
+
 import { mediaPath } from '../../data/media.ts'
 import { site, socials } from '../../data/site.ts'
 import { appLink, focusRing, sectionWrap, theme } from '../../theme/styles.ts'

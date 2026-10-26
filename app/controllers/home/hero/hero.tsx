@@ -1,4 +1,4 @@
-import { css } from 'remix/ui'
+import { css } from 'remix/component'
 
 import { homeContent } from '../../../data/site.ts'
 import { sectionWrap, theme } from '../../../theme/styles.ts'

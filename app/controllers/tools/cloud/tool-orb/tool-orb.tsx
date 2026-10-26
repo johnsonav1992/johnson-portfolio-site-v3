@@ -1,5 +1,5 @@
-import { css, type Handle } from 'remix/ui'
-import { spring } from 'remix/ui/animation'
+import { spring } from '@remix-run/ui/animation'
+import { css, type Handle } from 'remix/component'
 
 import { mediaPath } from '../../../../data/media.ts'
 import { focusRing, theme } from '../../../../theme/styles.ts'

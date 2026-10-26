@@ -1,4 +1,4 @@
-import type { Handle } from 'remix/ui'
+import type { Handle } from 'remix/component'
 
 import type { SocialIconName } from '../../types/types.ts'
 import { GithubIcon } from './github-icon/github-icon.tsx'

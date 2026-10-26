@@ -158,7 +158,7 @@ describe('asset route', () => {
     const contactFormSectionResponse = await fetchPath(
       '/assets/app/controllers/contact/contact-form-section/contact-form-section.tsx',
     )
-    const remixUiResponse = await fetchPath('/assets/node_modules/remix/dist/ui.js')
+    const remixComponentResponse = await fetchPath('/assets/node_modules/remix/dist/component.js')
     const serverOnlyResponse = await fetchPath(
       '/assets/app/controllers/contact/send-contact-email.server.ts',
     )
@@ -169,9 +169,9 @@ describe('asset route', () => {
     assert.equal(contactFormSectionResponse.status, 200)
     assert.equal(contactFormSectionResponse.headers.get('cache-control'), 'no-cache')
     assert.match(contactFormSectionResponse.headers.get('content-type') ?? '', /javascript/)
-    assert.equal(remixUiResponse.status, 200)
-    assert.equal(remixUiResponse.headers.get('cache-control'), 'no-cache')
-    assert.match(remixUiResponse.headers.get('content-type') ?? '', /javascript/)
+    assert.equal(remixComponentResponse.status, 200)
+    assert.equal(remixComponentResponse.headers.get('cache-control'), 'no-cache')
+    assert.match(remixComponentResponse.headers.get('content-type') ?? '', /javascript/)
     assert.equal(serverOnlyResponse.status, 404)
   })
 

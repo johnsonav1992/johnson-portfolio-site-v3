@@ -1,4 +1,4 @@
-import { css } from 'remix/ui'
+import { css } from 'remix/component'
 
 export const socialIconStyle = css({
   width: '18px',
