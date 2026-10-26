@@ -2,14 +2,7 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
     "ignoreUnknown": true,
-    "includes": [
-      "**",
-      "!.netlify",
-      "!node_modules",
-      "!app/assets",
-      "!public/**/*.svg",
-      "!package-lock.json"
-    ]
+    "includes": ["**", "!.netlify", "!node_modules", "!public/**/*.svg", "!package-lock.json"]
   },
   "formatter": {
     "enabled": true,

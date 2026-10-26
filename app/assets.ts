@@ -18,6 +18,7 @@ export const assets = createAssetServer({
     node_modules: 'node_modules',
   },
   allowFiles: [
+    'app/analytics/**',
     'app/assets/**',
     'app/controllers/contact/**',
     'app/controllers/tools/cloud/tool-orb/**',

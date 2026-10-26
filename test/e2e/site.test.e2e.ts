@@ -12,10 +12,28 @@ describe('site e2e', () => {
   it('navigates from home to projects without failed browser requests', async (t) => {
     const page = await serveApp(t)
     const failedRequests: string[] = []
+    const requestedUrls: string[] = []
+    const analyticsStatuses = new Map<string, number>()
+    const pageErrors: string[] = []
+    const consoleErrors: string[] = []
 
+    page.on('request', (request) => requestedUrls.push(request.url()))
     page.on('requestfailed', (request) => failedRequests.push(request.url()))
+    page.on('response', (response) => {
+      const pathname = new URL(response.url()).pathname
+      if (pathname.startsWith('/assets/app/analytics/')) {
+        analyticsStatuses.set(pathname, response.status())
+      }
+    })
+    page.on('pageerror', (error) => pageErrors.push(error.message))
+    page.on('console', (msg) => {
+      if (msg.type() === 'error') {
+        consoleErrors.push(msg.text())
+      }
+    })
 
     await page.goto(routes.home.href())
+    await page.waitForLoadState('networkidle')
     await page.getByRole('heading', { name: 'Alex Johnson' }).waitFor()
     await page.getByRole('link', { exact: true, name: 'Projects' }).click()
     await page
@@ -24,6 +42,18 @@ describe('site e2e', () => {
 
     assert.equal(new URL(page.url()).pathname, routes.projects.index.href())
     assert.deepEqual(failedRequests, [])
+    assert.deepEqual(pageErrors, [])
+    assert.deepEqual(consoleErrors, [])
+    assert.equal(analyticsStatuses.get('/assets/app/analytics/index.ts'), 200)
+    assert.equal(analyticsStatuses.get('/assets/app/analytics/client.ts'), 200)
+    assert.equal(analyticsStatuses.get('/assets/app/analytics/config.ts'), 200)
+    assert.equal(analyticsStatuses.get('/assets/app/analytics/logrocket-provider.ts'), 200)
+    assert.equal(analyticsStatuses.get('/assets/app/analytics/noop-provider.ts'), 200)
+    assert.equal(analyticsStatuses.get('/assets/app/analytics/safe-execution.ts'), 200)
+    assert.equal(
+      requestedUrls.some((url) => url.includes('lr-in-prod.com')),
+      false,
+    )
   })
 
   it('opens a project detail page and returns to the projects index', async (t) => {
