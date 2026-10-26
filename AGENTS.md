@@ -18,6 +18,8 @@ Refer to ./agents/skills/remix/SKILL.md
 
 ## Current Layout
 
+- `app/analytics/` owns the provider-agnostic client analytics abstraction and LogRocket adapter
+- `app/assets/` holds browser-compiled client entry modules served under `/assets/*`
 - `app/controllers/home/controller.tsx` owns the home route
 - `app/controllers/home/` holds route-owned home page sections and UI helpers
 - `app/data/` owns CMS-style site copy, navigation, social links, and project metadata
