@@ -1,8 +1,8 @@
 export {
-  type CreateAnalyticsClientOptions,
+  AnalyticsService,
+  type AnalyticsServiceOptions,
   captureError,
-  createAnalyticsClient,
-  getAnalyticsClient,
+  getAnalyticsService,
   identifyUser,
   initAnalytics,
   resolveAnalyticsProvider,
@@ -16,13 +16,10 @@ export {
   LOGROCKET_SCRIPT_SRC,
 } from './config.ts'
 export {
-  createLogRocketProvider,
+  LogRocketProvider,
   type LogRocketProviderOptions,
 } from './logrocket-provider.ts'
-export {
-  createNoopAnalyticsProvider,
-  noopAnalyticsProvider,
-} from './noop-provider.ts'
+export { NoopAnalyticsProvider } from './noop-provider.ts'
 export type {
   AnalyticsClient,
   AnalyticsMetadata,

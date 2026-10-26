@@ -1,6 +1,6 @@
 import { getBrowserWindow, isProductionBrowser } from './config.ts'
-import { createLogRocketProvider } from './logrocket-provider.ts'
-import { createNoopAnalyticsProvider } from './noop-provider.ts'
+import { LogRocketProvider } from './logrocket-provider.ts'
+import { NoopAnalyticsProvider } from './noop-provider.ts'
 import type {
   AnalyticsClient,
   AnalyticsMetadata,
@@ -8,7 +8,7 @@ import type {
   BrowserWindowLike,
 } from './types.ts'
 
-export interface CreateAnalyticsClientOptions {
+export interface AnalyticsServiceOptions {
   readonly enabled?: boolean
   readonly provider?: AnalyticsProvider
   readonly getWindow?: () => BrowserWindowLike | undefined
@@ -23,75 +23,80 @@ const runSafely = (operation: () => void): void => {
 }
 
 export const resolveAnalyticsProvider = (
-  options: CreateAnalyticsClientOptions = {},
+  options: AnalyticsServiceOptions = {},
 ): AnalyticsProvider => {
   const getWindow = options.getWindow ?? getBrowserWindow
   const enabled = options.enabled ?? isProductionBrowser(getWindow())
 
   if (!enabled) {
-    return createNoopAnalyticsProvider()
+    return new NoopAnalyticsProvider()
   }
 
-  return options.provider ?? createLogRocketProvider({ getWindow })
+  return options.provider ?? new LogRocketProvider({ getWindow })
 }
 
-export const createAnalyticsClient = (
-  options: CreateAnalyticsClientOptions = {},
-): AnalyticsClient => {
-  const provider = resolveAnalyticsProvider(options)
+export class AnalyticsService implements AnalyticsClient {
+  readonly providerName: string
 
-  return {
-    providerName: provider.name,
-    init: async () => {
-      try {
-        await provider.init()
-      } catch {
-        return
-      }
-    },
-    identify: (userId: string, traits?: AnalyticsMetadata) => {
-      if (!userId.trim()) {
-        return
-      }
+  private readonly provider: AnalyticsProvider
 
-      runSafely(() => {
-        provider.identify?.(userId, traits)
-      })
-    },
-    track: (event: string, properties?: AnalyticsMetadata) => {
-      if (!event.trim()) {
-        return
-      }
+  constructor(options: AnalyticsServiceOptions = {}) {
+    this.provider = resolveAnalyticsProvider(options)
+    this.providerName = this.provider.name
+  }
 
-      runSafely(() => {
-        provider.track?.(event, properties)
-      })
-    },
-    captureException: (error: unknown, context?: AnalyticsMetadata) => {
-      runSafely(() => {
-        provider.captureException?.(error, context)
-      })
-    },
+  init = async (): Promise<void> => {
+    try {
+      await this.provider.init()
+    } catch {
+      return
+    }
+  }
+
+  identify = (userId: string, traits?: AnalyticsMetadata): void => {
+    if (!userId.trim()) {
+      return
+    }
+
+    runSafely(() => {
+      this.provider.identify?.(userId, traits)
+    })
+  }
+
+  track = (event: string, properties?: AnalyticsMetadata): void => {
+    if (!event.trim()) {
+      return
+    }
+
+    runSafely(() => {
+      this.provider.track?.(event, properties)
+    })
+  }
+
+  captureException = (error: unknown, context?: AnalyticsMetadata): void => {
+    runSafely(() => {
+      this.provider.captureException?.(error, context)
+    })
   }
 }
 
-let defaultClient: AnalyticsClient | undefined
+let defaultService: AnalyticsService | undefined
 
-export const getAnalyticsClient = (): AnalyticsClient => {
-  defaultClient ??= createAnalyticsClient()
-  return defaultClient
+export const getAnalyticsService = (): AnalyticsService => {
+  defaultService ??= new AnalyticsService()
+  return defaultService
 }
 
-export const initAnalytics = (): Promise<void> => getAnalyticsClient().init()
+export const initAnalytics = (): Promise<void> => getAnalyticsService().init()
 
 export const identifyUser = (userId: string, traits?: AnalyticsMetadata): void => {
-  getAnalyticsClient().identify(userId, traits)
+  getAnalyticsService().identify(userId, traits)
 }
 
 export const trackEvent = (event: string, properties?: AnalyticsMetadata): void => {
-  getAnalyticsClient().track(event, properties)
+  getAnalyticsService().track(event, properties)
 }
 
 export const captureError = (error: unknown, context?: AnalyticsMetadata): void => {
-  getAnalyticsClient().captureException(error, context)
+  getAnalyticsService().captureException(error, context)
 }

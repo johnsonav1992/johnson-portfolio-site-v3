@@ -1,11 +1,13 @@
 import type { AnalyticsProvider } from './types.ts'
 
-export const noopAnalyticsProvider: AnalyticsProvider = {
-  name: 'noop',
-  init: () => {},
-  identify: () => {},
-  track: () => {},
-  captureException: () => {},
-}
+export class NoopAnalyticsProvider implements AnalyticsProvider {
+  readonly name = 'noop'
 
-export const createNoopAnalyticsProvider = (): AnalyticsProvider => noopAnalyticsProvider
+  init = (): void => {}
+
+  identify = (): void => {}
+
+  track = (): void => {}
+
+  captureException = (): void => {}
+}

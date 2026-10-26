@@ -4,13 +4,14 @@ import { describe, it } from 'remix/test'
 import {
   type AnalyticsMetadata,
   type AnalyticsProvider,
+  AnalyticsService,
   type BrowserWindowLike,
-  createAnalyticsClient,
-  createLogRocketProvider,
   isLocalHostname,
   isProductionBrowser,
   LOGROCKET_APP_ID,
   LOGROCKET_SCRIPT_SRC,
+  LogRocketProvider,
+  NoopAnalyticsProvider,
   resolveAnalyticsProvider,
   type ScriptElementLike,
 } from '../../app/analytics/index.ts'
@@ -123,63 +124,69 @@ describe('analytics environment gating', () => {
   })
 })
 
-describe('analytics client', () => {
-  it('falls back to the noop provider when disabled or on localhost', async () => {
+describe('AnalyticsService', () => {
+  it('falls back to NoopAnalyticsProvider when disabled or on localhost', async () => {
     const localHarness = createFakeDomHarness({ hostname: 'localhost' })
     const provider = resolveAnalyticsProvider({ getWindow: () => localHarness.win })
-    const client = createAnalyticsClient({ getWindow: () => localHarness.win })
+    const service = new AnalyticsService({ getWindow: () => localHarness.win })
 
-    await client.init()
-    client.identify('user-1')
-    client.track('page_view')
-    client.captureException(new Error('test'))
+    await service.init()
+    service.identify('user-1')
+    service.track('page_view')
+    service.captureException(new Error('test'))
 
+    assert.equal(provider instanceof NoopAnalyticsProvider, true)
     assert.equal(provider.name, 'noop')
-    assert.equal(client.providerName, 'noop')
+    assert.equal(service.providerName, 'noop')
     assert.equal(localHarness.scripts.length, 0)
   })
 
-  it('delegates calls to a custom provider and isolates provider errors', async () => {
+  it('delegates calls to a custom AnalyticsProvider and isolates provider errors', async () => {
     const events: string[] = []
-    const customProvider: AnalyticsProvider = {
-      name: 'custom-telemetry',
-      init: () => {
+
+    class CustomTelemetryProvider implements AnalyticsProvider {
+      readonly name = 'custom-telemetry'
+
+      init = (): void => {
         events.push('init')
-      },
-      identify: (userId) => {
+      }
+
+      identify = (userId: string): void => {
         events.push(`identify:${userId}`)
-      },
-      track: (event) => {
+      }
+
+      track = (event: string): void => {
         events.push(`track:${event}`)
-      },
-      captureException: () => {
+      }
+
+      captureException = (): void => {
         throw new Error('provider failure')
-      },
+      }
     }
 
-    const client = createAnalyticsClient({
+    const service = new AnalyticsService({
       enabled: true,
-      provider: customProvider,
+      provider: new CustomTelemetryProvider(),
     })
 
-    await client.init()
-    client.identify('  ')
-    client.identify('alex')
-    client.track('  ')
-    client.track('project_opened')
-    client.captureException(new Error('boom'))
+    await service.init()
+    service.identify('  ')
+    service.identify('alex')
+    service.track('  ')
+    service.track('project_opened')
+    service.captureException(new Error('boom'))
 
-    assert.equal(client.providerName, 'custom-telemetry')
+    assert.equal(service.providerName, 'custom-telemetry')
     assert.deepEqual(events, ['init', 'identify:alex', 'track:project_opened'])
   })
 })
 
-describe('LogRocket provider', () => {
+describe('LogRocketProvider', () => {
   it('loads the LogRocket script once and initializes with the portfolio app ID', async () => {
     const harness = createFakeDomHarness()
-    const provider = createLogRocketProvider({ getWindow: () => harness.win })
+    const provider = new LogRocketProvider({ getWindow: () => harness.win })
 
-    const initPromise = Promise.resolve(provider.init())
+    const initPromise = provider.init()
 
     assert.equal(harness.scripts.length, 1)
     assert.equal(harness.scripts[0]?.src, LOGROCKET_SCRIPT_SRC)
@@ -205,10 +212,10 @@ describe('LogRocket provider', () => {
     await initPromise
     await provider.init()
 
-    provider.identify?.('alex', { role: 'owner' })
-    provider.track?.('contact_submitted', { method: 'frame' })
+    provider.identify('alex', { role: 'owner' })
+    provider.track('contact_submitted', { method: 'frame' })
     const sampleError = new Error('network timeout')
-    provider.captureException?.(sampleError, { route: '/contact' })
+    provider.captureException(sampleError, { route: '/contact' })
 
     assert.equal(harness.scripts.length, 1)
     assert.deepEqual(harness.initCalls, [LOGROCKET_APP_ID])
@@ -223,9 +230,9 @@ describe('LogRocket provider', () => {
 
   it('resolves cleanly when the CDN script fails to load', async () => {
     const harness = createFakeDomHarness()
-    const provider = createLogRocketProvider({ getWindow: () => harness.win })
+    const provider = new LogRocketProvider({ getWindow: () => harness.win })
 
-    const initPromise = Promise.resolve(provider.init())
+    const initPromise = provider.init()
     harness.scripts[0]?.onerror?.()
     await initPromise
 
