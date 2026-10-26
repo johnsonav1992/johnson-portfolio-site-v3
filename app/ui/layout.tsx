@@ -1,5 +1,4 @@
-import type { Handle, RemixNode } from 'remix/component'
-import { css } from 'remix/component'
+import { css, type Handle, type RemixNode } from 'remix/component'
 
 import { portfolio } from '../theme/styles.ts'
 import { Document } from './document.tsx'
