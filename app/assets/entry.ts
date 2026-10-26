@@ -1,5 +1,9 @@
 import { run } from 'remix/component'
 
+import { initAnalytics } from '../analytics/index.ts'
+
+void initAnalytics()
+
 run({
   async loadModule(moduleUrl, exportName) {
     let mod = await import(moduleUrl)
