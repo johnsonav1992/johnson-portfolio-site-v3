@@ -228,6 +228,38 @@ describe('LogRocketProvider', () => {
     ])
   })
 
+  it('initializes when a pre-existing in-flight script finishes loading', async () => {
+    const harness = createFakeDomHarness()
+    const existingScript = harness.win.document?.createElement('script')
+    assert.ok(existingScript)
+
+    let previousOnLoadCalled = false
+    existingScript.src = LOGROCKET_SCRIPT_SRC
+    existingScript.onload = () => {
+      previousOnLoadCalled = true
+    }
+    harness.win.document?.head?.appendChild(existingScript)
+
+    const provider = new LogRocketProvider({ getWindow: () => harness.win })
+    const firstInitPromise = provider.init()
+    const secondInitPromise = provider.init()
+
+    assert.equal(harness.scripts.length, 1)
+    assert.equal(harness.initCalls.length, 0)
+
+    harness.win.LogRocket = {
+      init: (appId: string) => {
+        harness.initCalls.push(appId)
+      },
+    }
+
+    existingScript.onload?.()
+    await Promise.all([firstInitPromise, secondInitPromise])
+
+    assert.equal(previousOnLoadCalled, true)
+    assert.deepEqual(harness.initCalls, [LOGROCKET_APP_ID])
+  })
+
   it('resolves cleanly when the CDN script fails to load', async () => {
     const harness = createFakeDomHarness()
     const provider = new LogRocketProvider({ getWindow: () => harness.win })

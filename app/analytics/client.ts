@@ -1,6 +1,7 @@
 import { getBrowserWindow, isProductionBrowser } from './config.ts'
 import { LogRocketProvider } from './logrocket-provider.ts'
 import { NoopAnalyticsProvider } from './noop-provider.ts'
+import { runSafely } from './safe-execution.ts'
 import type {
   AnalyticsClient,
   AnalyticsMetadata,
@@ -12,14 +13,6 @@ export interface AnalyticsServiceOptions {
   readonly enabled?: boolean
   readonly provider?: AnalyticsProvider
   readonly getWindow?: () => BrowserWindowLike | undefined
-}
-
-const runSafely = (operation: () => void): void => {
-  try {
-    operation()
-  } catch {
-    return
-  }
 }
 
 export const resolveAnalyticsProvider = (

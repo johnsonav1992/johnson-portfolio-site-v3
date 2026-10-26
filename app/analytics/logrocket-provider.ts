@@ -1,18 +1,16 @@
 import { getBrowserWindow, LOGROCKET_APP_ID, LOGROCKET_SCRIPT_SRC } from './config.ts'
-import type { AnalyticsMetadata, AnalyticsProvider, BrowserWindowLike } from './types.ts'
+import { runSafely } from './safe-execution.ts'
+import type {
+  AnalyticsMetadata,
+  AnalyticsProvider,
+  BrowserWindowLike,
+  ScriptElementLike,
+} from './types.ts'
 
 export interface LogRocketProviderOptions {
   readonly appId?: string
   readonly scriptSrc?: string
   readonly getWindow?: () => BrowserWindowLike | undefined
-}
-
-const runSafely = (operation: () => void): void => {
-  try {
-    operation()
-  } catch {
-    return
-  }
 }
 
 export class LogRocketProvider implements AnalyticsProvider {
@@ -68,10 +66,40 @@ export class LogRocketProvider implements AnalyticsProvider {
     })
   }
 
+  private bindScriptEvents = (
+    script: ScriptElementLike,
+    win: BrowserWindowLike,
+    resolve: () => void,
+  ): void => {
+    const previousOnLoad = script.onload
+    const previousOnError = script.onerror
+
+    script.onload = () => {
+      runSafely(() => {
+        previousOnLoad?.()
+      })
+      this.loadingPromise = undefined
+      this.initializeSdk(win)
+      resolve()
+    }
+
+    script.onerror = () => {
+      runSafely(() => {
+        previousOnError?.()
+      })
+      this.loadingPromise = undefined
+      resolve()
+    }
+  }
+
   private loadSdkScript = (win: BrowserWindowLike): Promise<void> => {
     if (win.LogRocket) {
       this.initializeSdk(win)
       return Promise.resolve()
+    }
+
+    if (this.loadingPromise) {
+      return this.loadingPromise
     }
 
     const doc = win.document
@@ -81,11 +109,12 @@ export class LogRocketProvider implements AnalyticsProvider {
 
     const existingScript = doc.querySelector(`script[src="${this.scriptSrc}"]`)
     if (existingScript) {
-      this.initializeSdk(win)
-      return Promise.resolve()
-    }
+      this.loadingPromise = new Promise<void>((resolve) => {
+        runSafely(() => {
+          this.bindScriptEvents(existingScript, win, resolve)
+        })
+      })
 
-    if (this.loadingPromise) {
       return this.loadingPromise
     }
 
@@ -95,17 +124,7 @@ export class LogRocketProvider implements AnalyticsProvider {
         script.async = true
         script.src = this.scriptSrc
         script.setAttribute?.('data-analytics-provider', 'logrocket')
-
-        script.onload = () => {
-          this.initializeSdk(win)
-          resolve()
-        }
-
-        script.onerror = () => {
-          this.loadingPromise = undefined
-          resolve()
-        }
-
+        this.bindScriptEvents(script, win, resolve)
         doc.head?.appendChild(script)
       })
     })

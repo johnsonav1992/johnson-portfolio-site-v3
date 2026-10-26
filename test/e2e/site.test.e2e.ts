@@ -49,6 +49,7 @@ describe('site e2e', () => {
     assert.equal(analyticsStatuses.get('/assets/app/analytics/config.ts'), 200)
     assert.equal(analyticsStatuses.get('/assets/app/analytics/logrocket-provider.ts'), 200)
     assert.equal(analyticsStatuses.get('/assets/app/analytics/noop-provider.ts'), 200)
+    assert.equal(analyticsStatuses.get('/assets/app/analytics/safe-execution.ts'), 200)
     assert.equal(
       requestedUrls.some((url) => url.includes('lr-in-prod.com')),
       false,

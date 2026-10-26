@@ -20,6 +20,7 @@ export {
   type LogRocketProviderOptions,
 } from './logrocket-provider.ts'
 export { NoopAnalyticsProvider } from './noop-provider.ts'
+export { runSafely } from './safe-execution.ts'
 export type {
   AnalyticsClient,
   AnalyticsMetadata,
