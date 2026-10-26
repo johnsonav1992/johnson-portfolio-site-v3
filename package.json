@@ -15,8 +15,9 @@
     "node": ">=24.3.0"
   },
   "dependencies": {
+    "@remix-run/ui": "^0.13.0",
     "nodemailer": "^9.0.5",
-    "remix": "^3.0.0-rc.3",
+    "remix": "^3.1.0",
     "tsx": "^4.23.12"
   },
   "devDependencies": {
@@ -28,7 +29,6 @@
     "typescript": "^7.0.2"
   },
   "overrides": {
-    "@remix-run/fetch-router": "0.20.1",
     "esbuild": "0.28.1"
   }
 }

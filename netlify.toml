@@ -21,7 +21,8 @@
     "node_modules/@oxc-parser/**",
     "node_modules/@oxc-resolver/**",
     "node_modules/@oxc-transform/**",
+    "node_modules/@remix-run/**",
     "node_modules/lightningcss/**",
     "node_modules/lightningcss-*/**",
-    "node_modules/remix/dist/**",
+    "node_modules/remix/**",
   ]
