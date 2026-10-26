@@ -1,4 +1,4 @@
-import { css, Frame, type Handle } from 'remix/ui'
+import { css, Frame, type Handle } from 'remix/component'
 import { sectionWrap } from '../../theme/styles.ts'
 import { Layout } from '../../ui/layout.tsx'
 import { SectionLabel } from '../../ui/section-label/section-label.tsx'

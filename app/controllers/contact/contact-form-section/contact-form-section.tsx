@@ -1,4 +1,4 @@
-import { clientEntry, css, type Handle, on, type SerializableProps } from 'remix/ui'
+import { clientEntry, css, type Handle, on, type SerializableProps } from 'remix/component'
 
 import { theme } from '../../../theme/styles.ts'
 import {

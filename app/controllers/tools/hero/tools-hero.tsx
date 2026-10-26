@@ -1,4 +1,4 @@
-import { css } from 'remix/ui'
+import { css } from 'remix/component'
 
 import { toolsContent } from '../../../data/tools.ts'
 import { portfolio, sectionWrap, theme } from '../../../theme/styles.ts'

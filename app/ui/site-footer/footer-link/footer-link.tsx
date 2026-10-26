@@ -1,4 +1,4 @@
-import { css, type Handle } from 'remix/ui'
+import { css, type Handle } from 'remix/component'
 
 import { appLink, focusRing, theme } from '../../../theme/styles.ts'
 import type { SocialIconName } from '../../../types/types.ts'

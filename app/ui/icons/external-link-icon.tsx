@@ -1,4 +1,4 @@
-import type { Handle, MixInput } from 'remix/ui'
+import type { Handle, MixInput } from 'remix/component'
 
 interface ExternalLinkIconProps {
   'aria-hidden'?: boolean | 'false' | 'true'

@@ -1,4 +1,4 @@
-import { css } from 'remix/ui'
+import { css } from 'remix/component'
 
 import { socials } from '../../../data/site.ts'
 import { theme } from '../../../theme/styles.ts'

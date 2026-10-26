@@ -1,4 +1,4 @@
-import type { SerializableProps } from 'remix/ui'
+import type { SerializableProps } from 'remix/component'
 
 export interface ContactData {
   name: string

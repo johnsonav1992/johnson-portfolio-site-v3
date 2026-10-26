@@ -1,4 +1,4 @@
-import { css } from 'remix/ui'
+import { css } from 'remix/component'
 
 import { notFoundContent } from '../../data/site.ts'
 import { appLink, focusRing, sectionWrap, theme } from '../../theme/styles.ts'
